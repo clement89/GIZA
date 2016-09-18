@@ -24,6 +24,8 @@
     UIPickerView *pickrView;
     UIDatePicker  *datePicker;
     
+    UIDatePicker  *dateDelivery;
+    
     UITextField *activeTextField;
     
     
@@ -146,10 +148,15 @@
     datePicker = [[UIDatePicker alloc] initWithFrame:CGRectZero];
     [datePicker setDatePickerMode:UIDatePickerModeDate];
     [datePicker addTarget:self action:@selector(onDatePickerValueChanged) forControlEvents:UIControlEventValueChanged];
+    NSDate* currentTime = [NSDate date];
+    [datePicker setMinimumDate:[currentTime dateByAddingTimeInterval:43200]];//min time +12:00 for the current date
+    [datePicker setMaximumDate:[currentTime dateByAddingTimeInterval:2592000]]; // max day (+ 30 )
     
-    
-    
-    
+    dateDelivery = [[UIDatePicker alloc] initWithFrame:CGRectZero];
+    [dateDelivery setDatePickerMode:UIDatePickerModeDate];
+    [dateDelivery addTarget:self action:@selector(onDatePickerValueChanged) forControlEvents:UIControlEventValueChanged];
+    [dateDelivery setMinimumDate:[currentTime dateByAddingTimeInterval:43200*4]];//min time +12:00 for the current date
+    [dateDelivery setMaximumDate:[currentTime dateByAddingTimeInterval:2592000*2]]; // max day (+ 30 )
     
     
     NSArray *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -173,8 +180,8 @@
     
     if(savedData.count == 0){
         
-        [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeGradient];
-        [SVProgressHUD showWithStatus:@"Loading Addresses"];
+//        [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeGradient];
+//        [SVProgressHUD showWithStatus:@"Loading Addresses"];
         
         [handler getAddresses];
      
@@ -296,7 +303,7 @@
     if(section == 0){
     
     
-        return 2;
+        return 3;
         
         
     }else{
@@ -481,7 +488,7 @@
                 
                 UITextField *dateField = [[UITextField alloc]initWithFrame:CGRectMake(self.view.frame.size.width/3-10, 0, self.view.frame.size.width/3+5, 30)];
                 dateField.placeholder = @"date";
-                dateField.inputView = datePicker;
+                dateField.inputView = dateDelivery;
                 dateField.delegate = self;
                 dateField.textAlignment = NSTextAlignmentCenter; // Pre-iOS6 SDK: UITextAlignmentCenter
                 
@@ -1034,26 +1041,44 @@
 }
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
-    return 5;
+    return 11;
 }
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
     NSString * title = nil;
     switch(row) {
         case 0:
-            title = @"9am - 11am";
+            title = @"8am - 9am";
             break;
         case 1:
-            title = @"11am - 1pm";
+            title = @"9am - 10am";
             break;
         case 2:
-            title = @"1pm - 3pm";
+            title = @"10am - 11am";
             break;
         case 3:
-            title = @"3pm - 5pm";
+            title = @"11am - 12pm";
             break;
         case 4:
-            title = @"5pm - 7pm";
+            title = @"3pm - 4pm";
+            break;
+        case 5:
+            title = @"4pm - 5pm";
+            break;
+        case 6:
+            title = @"5pm - 6pm";
+            break;
+        case 7:
+            title = @"6pm - 7pm";
+            break;
+        case 8:
+            title = @"7pm - 8pm";
+            break;
+        case 9:
+            title = @"8pm - 9pm";
+            break;
+        case 10:
+            title = @"9pm - 10pm";
             break;
     }
     activeTextField.text = title;

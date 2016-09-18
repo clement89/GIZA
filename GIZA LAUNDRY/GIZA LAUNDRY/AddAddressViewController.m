@@ -380,7 +380,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    NSString *CellIdentifier = [NSString stringWithFormat:@"MyCell%d", indexPath.section];
+    NSString *CellIdentifier = [NSString stringWithFormat:@"MyCell%ld", (long)indexPath.section];
     
     UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier ];
     
@@ -533,7 +533,7 @@
             }else if(indexPath.section == 1){
                 
                 addresFieldText.placeholder = @"Phone Number";
-                
+               // [addresFieldText setKeyboardType:UIKeyboardTypeNumbersAndPunctuation];
                 
                 
                 
