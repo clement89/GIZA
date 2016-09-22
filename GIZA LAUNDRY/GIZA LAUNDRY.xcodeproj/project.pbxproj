@@ -65,6 +65,7 @@
 		2073E5311D06EAEC00B82CCA /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2073E5301D06EAEC00B82CCA /* RegisterViewController.m */; };
 		2073E5341D06EB0200B82CCA /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2073E5331D06EB0200B82CCA /* LoginViewController.m */; };
 		2073E5371D06F19100B82CCA /* ForgotPassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2073E5361D06F19100B82CCA /* ForgotPassViewController.m */; };
+		209D1ACB1D8FB5B5005D3DB5 /* MyOrdersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 209D1ACA1D8FB5B5005D3DB5 /* MyOrdersViewController.m */; };
 		20ED337E1D09948900451607 /* dash_board_itrm_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 20ED337B1D09948900451607 /* dash_board_itrm_1.png */; };
 		20ED337F1D09948900451607 /* dashboard_item_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 20ED337C1D09948900451607 /* dashboard_item_2.png */; };
 		20ED33801D09948900451607 /* dashboard_item_3.png in Resources */ = {isa = PBXBuildFile; fileRef = 20ED337D1D09948900451607 /* dashboard_item_3.png */; };
@@ -180,6 +181,8 @@
 		2073E5331D06EB0200B82CCA /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		2073E5351D06F19100B82CCA /* ForgotPassViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgotPassViewController.h; sourceTree = "<group>"; };
 		2073E5361D06F19100B82CCA /* ForgotPassViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForgotPassViewController.m; sourceTree = "<group>"; };
+		209D1AC91D8FB5B5005D3DB5 /* MyOrdersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyOrdersViewController.h; sourceTree = "<group>"; };
+		209D1ACA1D8FB5B5005D3DB5 /* MyOrdersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyOrdersViewController.m; sourceTree = "<group>"; };
 		20ED337B1D09948900451607 /* dash_board_itrm_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dash_board_itrm_1.png; sourceTree = "<group>"; };
 		20ED337C1D09948900451607 /* dashboard_item_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dashboard_item_2.png; sourceTree = "<group>"; };
 		20ED337D1D09948900451607 /* dashboard_item_3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dashboard_item_3.png; sourceTree = "<group>"; };
@@ -379,6 +382,7 @@
 				206BD1D51D0EB5AF0096E41E /* My Profile */,
 				EBDA356E1D2D764300F2BC59 /* Notifications */,
 				EBDA35721D2D775800F2BC59 /* About Us */,
+				209D1ACC1D8FB5F3005D3DB5 /* My Ordeers */,
 				EB43CC071D87D27100689786 /* Contact Us */,
 				EBCD1D4C1D85C5B7000C502E /* FAQ */,
 				2073E4FF1D05A85D00B82CCA /* AppDelegate.h */,
@@ -464,6 +468,15 @@
 				2073E5361D06F19100B82CCA /* ForgotPassViewController.m */,
 			);
 			name = "Login Pages";
+			sourceTree = "<group>";
+		};
+		209D1ACC1D8FB5F3005D3DB5 /* My Ordeers */ = {
+			isa = PBXGroup;
+			children = (
+				209D1AC91D8FB5B5005D3DB5 /* MyOrdersViewController.h */,
+				209D1ACA1D8FB5B5005D3DB5 /* MyOrdersViewController.m */,
+			);
+			name = "My Ordeers";
 			sourceTree = "<group>";
 		};
 		20ED337A1D09948900451607 /* dashboardItems */ = {
@@ -653,6 +666,7 @@
 				204CCA0D1D0A746C00840FAF /* RequestPickUpController.m in Sources */,
 				EBDA35711D2D774B00F2BC59 /* AboutUsViewController.m in Sources */,
 				EBCD1D4B1D85C5A1000C502E /* FAQviewController.m in Sources */,
+				209D1ACB1D8FB5B5005D3DB5 /* MyOrdersViewController.m in Sources */,
 				206BD1DE1D13FCE30096E41E /* ChangePasswordViewController.m in Sources */,
 				204CCA531D0AD20200840FAF /* SVIndefiniteAnimatedView.m in Sources */,
 				2073E5161D05A8E300B82CCA /* SWRevealViewController.m in Sources */,

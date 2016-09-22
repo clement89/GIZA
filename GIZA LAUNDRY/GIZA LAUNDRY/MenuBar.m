@@ -32,7 +32,7 @@
     MYLog(@"Menu bar");
     
     
-    menuItems = [[NSMutableArray alloc]initWithArray:@[@"home_cell" , @"request_cell",@"rate_card_cell", @"order_history_cell", @"my_profile_cell",@"logout_cell",@"notifications_cell",@"about_cell",@"faq_cell",@"contact_us_cell"]];
+    menuItems = [[NSMutableArray alloc]initWithArray:@[@"home_cell" , @"request_cell",@"rate_card_cell", @"order_history_cell", @"my_profile_cell",@"notifications_cell",@"about_cell",@"my_orders_cell",@"contact_us_cell",@"faq_cell",@"logout_cell"]];
     
     
     
@@ -135,6 +135,11 @@
     }else if([cellIdentifier isEqualToString:@"contact_us_cell"]){
         
         cell.textLabel.text = @"Contact Us";
+        cellImage = [UIImage imageNamed:@"FAQ_icon.png"];
+        
+    }else if([cellIdentifier isEqualToString:@"my_orders_cell"]){
+        
+        cell.textLabel.text = @"My orders";
         cellImage = [UIImage imageNamed:@"FAQ_icon.png"];
         
     }
