@@ -94,13 +94,13 @@
         
     }else if([_eMailText.text length] == 0){
         
-        UIAlertView *errorAlert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Please Enter Email!"  delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        UIAlertView *errorAlert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Please Enter Email Address!"  delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [errorAlert show];
         return;
         
     }else if([_phoneNumberText.text length] == 0){
         
-        UIAlertView *errorAlert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Please Enter Phone Number!"  delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        UIAlertView *errorAlert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Please Enter Mobile Number!"  delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [errorAlert show];
         return;
         
@@ -122,12 +122,39 @@
     
     MYLog(@"registerInfoDict - %@",registerInfoDict);
     
-    [handler registeUser:registerInfoDict];
     
-
-    [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeGradient];
-    [SVProgressHUD showWithStatus:@"Loading"];
     
+    
+    //[handler registeUser:registerInfoDict];
+    //[SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeGradient];
+    //[SVProgressHUD showWithStatus:@"Loading"];
+    
+    
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"My Alert"
+                                                                   message:@"This is an alert."
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction * action) {
+                                                              //use alert.textFields[0].text
+                                                          }];
+    UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault
+                                                         handler:^(UIAlertAction * action) {
+                                                             //cancel action
+                                                         }];
+    [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        // A block for configuring the text field prior to displaying the alert
+        textField.placeholder = @"OTP";
+        textField.textColor = [UIColor blueColor];
+        textField.clearButtonMode = UITextFieldViewModeWhileEditing;
+//        textField.borderStyle = UITextBorderStyleRoundedRect;
+//        textField.secureTextEntry = YES;
+        
+        
+    }];
+    [alert addAction:defaultAction];
+    [alert addAction:cancelAction];
+    [self presentViewController:alert animated:YES completion:nil];
     
     
     
