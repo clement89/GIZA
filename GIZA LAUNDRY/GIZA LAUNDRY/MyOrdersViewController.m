@@ -80,13 +80,153 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    
+    
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"my_orders_cell" forIndexPath:indexPath];
     
     // Configure the cell...
     
+    
+    CGFloat width = (cell.contentView.frame.size.width/2)-30;
+    
+    UITextField *timeField = [[UITextField alloc]initWithFrame:CGRectMake(20, 10, width, 40)];
+    timeField.text = @"8AM-9AM";
+    timeField.textAlignment = NSTextAlignmentCenter; // Pre-iOS6 SDK: UITextAlignmentCenter
+    
+    
+    timeField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+    timeField.borderStyle = UITextBorderStyleLine;
+
+    timeField.layer.cornerRadius = 1.0f;
+    timeField.layer.masksToBounds = YES;
+    timeField.layer.borderColor = [[UIColor lightGrayColor] CGColor];
+    timeField.layer.borderWidth = 1.0f;
+    
+    
+    
+    UIImageView *paddingView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"time.png"]];
+    
+    paddingView.frame = CGRectMake(0, 0, 30, 30);
+    paddingView.contentMode = UIViewContentModeScaleAspectFit;
+    
+    timeField.leftView = paddingView;
+    timeField.leftViewMode = UITextFieldViewModeAlways;
+
+    
+    
+    [cell.contentView addSubview: timeField];
+    
+    ///////////////////////
+    
+    UITextField *dateField = [[UITextField alloc]initWithFrame:CGRectMake(width+40, 10, width, 40)];
+    dateField.text = @"2016-09-06";
+    dateField.textAlignment = NSTextAlignmentCenter; // Pre-iOS6 SDK: UITextAlignmentCenter
+    
+    
+    dateField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+    dateField.borderStyle = UITextBorderStyleLine;
+    
+    dateField.layer.cornerRadius = 1.0f;
+    dateField.layer.masksToBounds = YES;
+    dateField.layer.borderColor = [[UIColor lightGrayColor] CGColor];
+    dateField.layer.borderWidth = 1.0f;
+    
+    
+
+    
+    
+    UIImageView *paddingView1 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"date.png"]];
+    
+    paddingView1.frame = CGRectMake(0, 0, 30, 30);
+    paddingView1.contentMode = UIViewContentModeScaleAspectFit;
+    
+    dateField.leftView = paddingView1;
+    dateField.leftViewMode = UITextFieldViewModeAlways;
+
+    [cell.contentView addSubview: dateField];
+    
+    
+    ///////////////
+    
+    UILabel *idLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 60, cell.contentView.frame.size.width-40, 20)];
+    
+    idLabel.text = @"ORDER ID";
+    idLabel.font = [UIFont systemFontOfSize:16];
+    
+    idLabel.backgroundColor = [UIColor clearColor];
+    idLabel.textColor = [UIColor blackColor];
+    idLabel.textAlignment = NSTextAlignmentCenter;
+    
+    
+    [cell.contentView addSubview: idLabel];
+    
+    ///////////////
+    
+    UILabel *numberLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 80, cell.contentView.frame.size.width-40, 20)];
+    
+    numberLabel.text = @"2529";
+    numberLabel.font = [UIFont boldSystemFontOfSize:17];
+    
+    numberLabel.backgroundColor = [UIColor clearColor];
+    numberLabel.textColor = [UIColor blackColor];
+    numberLabel.textAlignment = NSTextAlignmentCenter;
+    
+    
+    [cell.contentView addSubview: numberLabel];
+    
+    
+    ///////////////
+    
+    UILabel *statusLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 100, cell.contentView.frame.size.width-40, 20)];
+    
+    statusLabel.text = @"Ready to Deliver";
+    statusLabel.font = [UIFont systemFontOfSize:15];
+    
+    statusLabel.backgroundColor = [UIColor clearColor];
+    statusLabel.textColor = [UIColor blackColor];
+    statusLabel.textAlignment = NSTextAlignmentCenter;
+    
+    
+    [cell.contentView addSubview:statusLabel];
+    
+    
+    ///////////////
+    
+    
+    UIButton *updateButton =  [UIButton buttonWithType:UIButtonTypeCustom];
+    [updateButton setFrame:CGRectMake(10.0, 130.0, width, 40)];
+    [updateButton setBackgroundColor:[UIColor orangeColor]];
+    [updateButton setTitle:@"UPDATE" forState:UIControlStateNormal];
+    [updateButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [updateButton addTarget:self action:@selector(updateAction:) forControlEvents:UIControlEventTouchUpInside];
+
+    [cell.contentView addSubview:updateButton];
+    
+    
+    ///////////////
+    
+    
+    UIButton *cancelButton =  [UIButton buttonWithType:UIButtonTypeCustom];
+    [cancelButton setFrame:CGRectMake(width+40, 130.0, width, 40)];
+    [cancelButton setBackgroundColor:[UIColor orangeColor]];
+    [cancelButton setTitle:@"CANCEL" forState:UIControlStateNormal];
+    [cancelButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [cancelButton addTarget:self action:@selector(updateAction:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [cell.contentView addSubview:cancelButton];
+    
+
+    
+    
     return cell;
 }
 
+
+-(void)updateAction:(id) sender
+{
+
+}
 
 /*
 // Override to support conditional editing of the table view.

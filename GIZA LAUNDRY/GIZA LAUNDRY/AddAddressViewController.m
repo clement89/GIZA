@@ -533,7 +533,7 @@
             }else if(indexPath.section == 1){
                 
                 addresFieldText.placeholder = @"Phone Number";
-               // [addresFieldText setKeyboardType:UIKeyboardTypeNumbersAndPunctuation];
+                [addresFieldText setKeyboardType:UIKeyboardTypeNumbersAndPunctuation];
                 
                 
                 

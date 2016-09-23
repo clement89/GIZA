@@ -79,6 +79,8 @@
 		EBDA356A1D2D747A00F2BC59 /* notification_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = EBDA35681D2D747A00F2BC59 /* notification_icon.png */; };
 		EBDA356D1D2D762700F2BC59 /* NotificationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBDA356C1D2D762700F2BC59 /* NotificationsViewController.m */; };
 		EBDA35711D2D774B00F2BC59 /* AboutUsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBDA35701D2D774B00F2BC59 /* AboutUsViewController.m */; };
+		EBFAF83C1D95124C00FA69D9 /* date.png in Resources */ = {isa = PBXBuildFile; fileRef = EBFAF83A1D95124C00FA69D9 /* date.png */; };
+		EBFAF83D1D95124C00FA69D9 /* time.png in Resources */ = {isa = PBXBuildFile; fileRef = EBFAF83B1D95124C00FA69D9 /* time.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -201,6 +203,8 @@
 		EBDA356C1D2D762700F2BC59 /* NotificationsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationsViewController.m; sourceTree = "<group>"; };
 		EBDA356F1D2D774B00F2BC59 /* AboutUsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutUsViewController.h; sourceTree = "<group>"; };
 		EBDA35701D2D774B00F2BC59 /* AboutUsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutUsViewController.m; sourceTree = "<group>"; };
+		EBFAF83A1D95124C00FA69D9 /* date.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = date.png; path = images/date.png; sourceTree = "<group>"; };
+		EBFAF83B1D95124C00FA69D9 /* time.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = time.png; path = images/time.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -436,6 +440,8 @@
 		2073E51F1D05B2BE00B82CCA /* images */ = {
 			isa = PBXGroup;
 			children = (
+				EBFAF83A1D95124C00FA69D9 /* date.png */,
+				EBFAF83B1D95124C00FA69D9 /* time.png */,
 				EB7674281D1E4CFE001C0920 /* delete_icon.png */,
 				200392721D1BAF39003CC32F /* logo.png */,
 				2003926C1D192C7D003CC32F /* arrowWhite_2X.png */,
@@ -609,6 +615,7 @@
 				2073E5211D05B2D100B82CCA /* sidebar_icon.png in Resources */,
 				2003926B1D17FC5E003CC32F /* EditAddress.png in Resources */,
 				2003926E1D192C7D003CC32F /* arrowWhite_2X.png in Resources */,
+				EBFAF83C1D95124C00FA69D9 /* date.png in Resources */,
 				EBB5C0891D268D840006628B /* profile-placeholder.png in Resources */,
 				2073E5281D06E5BC00B82CCA /* logo_Splash.png in Resources */,
 				205DE2AB1D096AE10020CAEB /* slideMenu_RequestPickup_Icon_3X.png in Resources */,
@@ -626,6 +633,7 @@
 				200392731D1BAF39003CC32F /* logo.png in Resources */,
 				20ED337F1D09948900451607 /* dashboard_item_2.png in Resources */,
 				2073E52A1D06E5BC00B82CCA /* login-InnerPages_BackgroundImage.jpg in Resources */,
+				EBFAF83D1D95124C00FA69D9 /* time.png in Resources */,
 				2072DCF01D129DB7009FE62A /* icongiza.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
