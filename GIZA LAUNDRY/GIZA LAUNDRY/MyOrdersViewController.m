@@ -8,7 +8,7 @@
 
 #import "MyOrdersViewController.h"
 #import "SWRevealViewController.h"
-
+#import "RequestPickUpController.h"
 @interface MyOrdersViewController ()
 
 @end
@@ -212,11 +212,17 @@
     [cancelButton setBackgroundColor:[UIColor orangeColor]];
     [cancelButton setTitle:@"CANCEL" forState:UIControlStateNormal];
     [cancelButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [cancelButton addTarget:self action:@selector(updateAction:) forControlEvents:UIControlEventTouchUpInside];
+    [cancelButton addTarget:self action:@selector(cancelAction:) forControlEvents:UIControlEventTouchUpInside];
     
     [cell.contentView addSubview:cancelButton];
     
-
+    
+    
+    
+    
+    
+    
+    
     
     
     return cell;
@@ -226,8 +232,22 @@
 -(void)updateAction:(id) sender
 {
 
+    
+    
+    MYLog(@"updateAction");
+    
+    RequestPickUpController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"RequestPickUpController"];
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
+
+
+-(void)cancelAction:(id) sender
+{
+
+
+
+}
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
