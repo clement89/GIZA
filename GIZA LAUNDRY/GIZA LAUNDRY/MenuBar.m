@@ -130,17 +130,17 @@
     }else if([cellIdentifier isEqualToString:@"faq_cell"]){
         
         cell.textLabel.text = @"FAQ";
-        cellImage = [UIImage imageNamed:@"FAQ_icon.png"];
+        cellImage = [UIImage imageNamed:@"faq.png"];
         
     }else if([cellIdentifier isEqualToString:@"contact_us_cell"]){
         
         cell.textLabel.text = @"Contact Us";
-        cellImage = [UIImage imageNamed:@"FAQ_icon.png"];
+        cellImage = [UIImage imageNamed:@"contact_us.png"];
         
     }else if([cellIdentifier isEqualToString:@"my_orders_cell"]){
         
         cell.textLabel.text = @"My orders";
-        cellImage = [UIImage imageNamed:@"FAQ_icon.png"];
+        cellImage = [UIImage imageNamed:@"my_orders.png"];
         
     }
     

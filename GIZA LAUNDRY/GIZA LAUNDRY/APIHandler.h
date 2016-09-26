@@ -15,6 +15,9 @@
 
 //http://algiza.codeaweb.net/api/
 
+#define TEMP_REGISTER_API @"http://algiza.codeaweb.net/api/v1/user/temp-register"
+
+
 #define REGISTER_API @"http://algiza.codeaweb.net/api/v1/user/register"
 
 
@@ -89,6 +92,8 @@
 
 @property (nonatomic,strong) id delegate;
 
+
+-(void)tempRegisteUser :(NSDictionary *)parametersDict;
 -(void)registeUser :(NSDictionary *)parametersDict;
 -(void)loginUser :(NSDictionary *)parametersDict;
 -(void)registerMobile :(NSDictionary *)parametersDict;

@@ -78,10 +78,10 @@
     
     
     
-    UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc]
-                                          initWithTarget:self action:@selector(handleLongPress:)];
-    lpgr.minimumPressDuration = 1.0; //user needs to press for 2 seconds
-    [myMapView addGestureRecognizer:lpgr];
+//    UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc]
+//                                          initWithTarget:self action:@selector(handleLongPress:)];
+//    lpgr.minimumPressDuration = 1.0; //user needs to press for 2 seconds
+//    [myMapView addGestureRecognizer:lpgr];
     
     /////////////////////////
 
@@ -151,44 +151,40 @@
 
 
 
-- (void)handleLongPress:(UIGestureRecognizer *)gestureRecognizer
-{
-    if (gestureRecognizer.state != UIGestureRecognizerStateBegan)
-        return;
-    
-    CGPoint touchPoint = [gestureRecognizer locationInView:myMapView];
-    CLLocationCoordinate2D touchMapCoordinate = [myMapView convertPoint:touchPoint toCoordinateFromView:myMapView];
-    
-    CLLocation *theLocation = [[CLLocation alloc]initWithLatitude:touchMapCoordinate.latitude longitude:touchMapCoordinate.longitude];
-    [self getAddressFromLatLon:theLocation];
-    
-    MKPointAnnotation *point = [[MKPointAnnotation alloc] init];
-    [point setCoordinate:(touchMapCoordinate)];
-    
-    
-    
-    
-    [myMapView addAnnotation:point];
-    
-    
-    
-    
-    if(previousPoint){
-    
-        [myMapView removeAnnotation:previousPoint];
-    }
-    
-    
-    previousPoint = point;
-    
-    
-    
-    
-    
-
-    
-    
-}
+//- (void)handleLongPress:(UIGestureRecognizer *)gestureRecognizer
+//{
+//    if (gestureRecognizer.state != UIGestureRecognizerStateBegan)
+//        return;
+//    
+//    CGPoint touchPoint = [gestureRecognizer locationInView:myMapView];
+//    CLLocationCoordinate2D touchMapCoordinate = [myMapView convertPoint:touchPoint toCoordinateFromView:myMapView];
+//    
+//    CLLocation *theLocation = [[CLLocation alloc]initWithLatitude:touchMapCoordinate.latitude longitude:touchMapCoordinate.longitude];
+//    [self getAddressFromLatLon:theLocation];
+//    
+//    MKPointAnnotation *point = [[MKPointAnnotation alloc] init];
+//    [point setCoordinate:(touchMapCoordinate)];
+//    
+//    
+//    
+//    
+//    [myMapView addAnnotation:point];
+//    
+//    
+//    
+//    
+//    if(previousPoint){
+//    
+//        [myMapView removeAnnotation:previousPoint];
+//    }
+//    
+//    
+//    previousPoint = point;
+//    
+//   
+//    
+//    
+//}
 
 -(void)saveAction:(UIButton*)sender
 {
@@ -198,44 +194,23 @@
     
     if(activeTextField.tag == 1){
         
-        [addressDict setValue:activeTextField.text forKey:@"full_name"];
-        
+        [addressDict setValue:activeTextField.text forKey:@"building_no"];
         
     }else if(activeTextField.tag == 2){
         
-        [addressDict setValue:activeTextField.text forKey:@"phone_no"];
+        [addressDict setValue:activeTextField.text forKey:@"street"];
         
         
     }else if(activeTextField.tag == 3){
         
         
-        [addressDict setValue:activeTextField.text forKey:@"building_no"];
+        [addressDict setValue:activeTextField.text forKey:@"zone_id"];
         
     }else if(activeTextField.tag == 4){
         
-        //
-        
-        
-    }else if(activeTextField.tag == 5){
-        
-        [addressDict setValue:activeTextField.text forKey:@"street"];
-        
-        
-    }else if(activeTextField.tag == 6){
-        
-        
-        [addressDict setValue:activeTextField.text forKey:@"country"];
-        
-        
-    }else if(activeTextField.tag == 7){
-        
-        
-        [addressDict setValue:activeTextField.text forKey:@"address1"];
-        
-    }else if(activeTextField.tag == 8){
-    
-    
         [addressDict setValue:activeTextField.text forKey:@"notes"];
+        
+        
     }
     
     
@@ -276,38 +251,31 @@
     
     
     
-    if(![addressDict valueForKey:@"full_name"]){
+    if(![addressDict valueForKey:@"building_no"]){
         
-        UIAlertView *errorAlert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Please Enter Name."  delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        UIAlertView *errorAlert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Please Building Number."  delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [errorAlert show];
         
         return;
         
         
-    }else if(![addressDict valueForKey:@"phone_no"]){
+    }else if(![addressDict valueForKey:@"street"]){
         
-        UIAlertView *errorAlert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Please Enter Phone Number."  delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [errorAlert show];
-        
-        return;
-        
-    }else if(![addressDict valueForKey:@"building_no"]){
-        
-        UIAlertView *errorAlert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Please Enter Building Number."  delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        UIAlertView *errorAlert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Please Enter Street."  delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [errorAlert show];
         
         return;
         
     }else if(![addressDict valueForKey:@"zone_id"]){
         
-        UIAlertView *errorAlert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Please select zone."  delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        UIAlertView *errorAlert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Please Enter Zone Number."  delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [errorAlert show];
         
         return;
         
-    }else if(![addressDict valueForKey:@"street"]){
+    }else if(![addressDict valueForKey:@"notes"]){
         
-        UIAlertView *errorAlert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Please Enter street."  delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        UIAlertView *errorAlert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Please enter note."  delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [errorAlert show];
         
         return;
@@ -351,7 +319,7 @@
 
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 9;
+    return 6;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -364,7 +332,7 @@
     
     
     
-    if(indexPath.section == 8){
+    if(indexPath.section == 5){
         
         return 250;
         
@@ -433,7 +401,7 @@
         
         
         
-        if(indexPath.section == 3){
+        if(indexPath.section == 2){
             
             
             
@@ -454,15 +422,13 @@
                 
                 
                 
-                addresFieldText.text = [oldAddressDict valueForKey:@"full_name"];
-                
+                addresFieldText.text = [oldAddressDict valueForKey:@"building_no"];
                 
                 
             }else if(indexPath.section == 1){
                 
                 
-                 addresFieldText.text = [oldAddressDict valueForKey:@"phone_no"];
-                
+                addresFieldText.text = [oldAddressDict valueForKey:@"street"];
                 
                 
                 
@@ -471,7 +437,7 @@
                 
                 
                 
-                addresFieldText.text = [oldAddressDict valueForKey:@"building_no"];
+               //picker view
                 
                 
                 
@@ -479,14 +445,14 @@
                 
                 
                 
-                //
+                addresFieldText.text = [oldAddressDict valueForKey:@"notes"];
                 
                 
                 
             }else if(indexPath.section == 4){
                 
                 
-                addresFieldText.text = [oldAddressDict valueForKey:@"street"];
+                //Button
                 
                 
                 
@@ -494,21 +460,8 @@
                 
                 
                 
-                addresFieldText.text = [oldAddressDict valueForKey:@"country"];
+                //Map
                 
-                
-                
-            }else if(indexPath.section == 6){
-                
-                
-                addresFieldText.text = [oldAddressDict valueForKey:@"notes"];
-                
-                
-                
-            }else if(indexPath.section == 7){
-            
-                
-                addresFieldText.text = [oldAddressDict valueForKey:@"address1"];
                 
                 
             }
@@ -526,54 +479,31 @@
                 
                 
                 
-                addresFieldText.placeholder = @"Name";
-                
+                addresFieldText.placeholder = @"Building number";
+                [addresFieldText setKeyboardType:UIKeyboardTypePhonePad];
                 
                 
             }else if(indexPath.section == 1){
                 
-                addresFieldText.placeholder = @"Phone Number";
-                [addresFieldText setKeyboardType:UIKeyboardTypeNumbersAndPunctuation];
+                addresFieldText.placeholder = @"Street";
+                [addresFieldText setKeyboardType:UIKeyboardTypePhonePad];
                 
                 
                 
             }else if(indexPath.section == 2){
                 
                 
-                addresFieldText.placeholder = @"Building number";
-                
+                addresFieldText.placeholder = @"Zone Number";
+                [addresFieldText setKeyboardType:UIKeyboardTypePhonePad];
                 
             }else if(indexPath.section == 3){
                 
                 
                 
-                addresFieldText.placeholder = @"Zone";
-                
-                
-            }else if(indexPath.section == 4){
-                
-                addresFieldText.placeholder = @"Street";
-                
-                
-                
-            }else if(indexPath.section == 5){
-                
-                
-                addresFieldText.text = @"Qatar";
-                
-            }else if(indexPath.section == 6){
-                
-                
-                
-                addresFieldText.placeholder = @"Address";
-                
-                
-            }else if(indexPath.section == 7){
-                
-                addresFieldText.placeholder = @"Notes";
+                addresFieldText.placeholder = @"Note";
+                [addresFieldText setKeyboardType:UIKeyboardTypeASCIICapable];
                 
             }
-
         
         
         }
@@ -582,48 +512,49 @@
         MYLog(@"11");
         
         
-        if(isAddresFromMap){
+//        if(isAddresFromMap){
+//            
+//            MYLog(@"locationDict - %@",locationDict);
+//            
+//            
+//            if(indexPath.section == 0){
+//                
+//                
+//                addresFieldText.text = [locationDict valueForKey:@"full_name"];
+//                [addressDict setValue:[locationDict valueForKey:@"full_name"] forKey:@"full_name"];
+//                
+//                
+//                
+//            }else if(indexPath.section == 4){
+//                
+//                
+//                
+//                addresFieldText.text = [locationDict valueForKey:@"street"];
+//                [addressDict setValue:[locationDict valueForKey:@"street"] forKey:@"street"];
+//
+//                
+//                
+//                
+//            }else if(indexPath.section == 6){
+//                
+//                
+//                
+//                addresFieldText.text = [locationDict valueForKey:@"address"];
+//                [addressDict setValue:[locationDict valueForKey:@"address"] forKey:@"address1"];
+//
+//                
+//                
+//            }
+//            
+//            
+//        }
+        if(indexPath.section == 4){
             
-            MYLog(@"locationDict - %@",locationDict);
             
-            
-            if(indexPath.section == 0){
-                
-                MYLog(@"11");
-                
-                addresFieldText.text = [locationDict valueForKey:@"full_name"];
-                [addressDict setValue:[locationDict valueForKey:@"full_name"] forKey:@"full_name"];
-                
-                
-                
-            }else if(indexPath.section == 4){
-                
-                
-                MYLog(@"11");
-                
-                addresFieldText.text = [locationDict valueForKey:@"street"];
-                [addressDict setValue:[locationDict valueForKey:@"street"] forKey:@"street"];
-
-                
-                
-                
-            }else if(indexPath.section == 6){
-                
-                
-                MYLog(@"11");
-                
-                addresFieldText.text = [locationDict valueForKey:@"address"];
-                [addressDict setValue:[locationDict valueForKey:@"address"] forKey:@"address1"];
-
-                
-                
-            }
-            
+            //Add button here....
             
         }
-        
-        
-        if(indexPath.section == 8){
+        else if(indexPath.section == 5){
 
             
             [cell addSubview:myMapView];
@@ -645,49 +576,49 @@
         
         MYLog(@"old");
         
-        UITextField *addresFieldText = [cell viewWithTag:indexPath.section+1];
-        
-        if(isAddresFromMap){
-            
-            MYLog(@"locationDict - %@",locationDict);
-            
-            
-            if(indexPath.section == 0){
-                
-                MYLog(@"11");
-                addresFieldText.placeholder = @"";
-                addresFieldText.text = [locationDict valueForKey:@"full_name"];
-                [addressDict setValue:[locationDict valueForKey:@"full_name"] forKey:@"full_name"];
-
-                
-                
-                
-            }else if(indexPath.section == 4){
-                
-                
-                MYLog(@"11");
-                addresFieldText.placeholder = @"";
-                addresFieldText.text = [locationDict valueForKey:@"street"];
-                [addressDict setValue:[locationDict valueForKey:@"street"] forKey:@"street"];
-
-                
-                
-                
-            }else if(indexPath.section == 6){
-                
-                
-                MYLog(@"11");
-                addresFieldText.placeholder = @"";
-                addresFieldText.text = [locationDict valueForKey:@"address"];
-                [addressDict setValue:[locationDict valueForKey:@"address"] forKey:@"address1"];
-
-                
-                
-            }
-            
-            
-        }
-
+//        UITextField *addresFieldText = [cell viewWithTag:indexPath.section+1];
+//        
+//        if(isAddresFromMap){
+//            
+//            MYLog(@"locationDict - %@",locationDict);
+//            
+//            
+//            if(indexPath.section == 0){
+//                
+//                MYLog(@"11");
+//                addresFieldText.placeholder = @"";
+//                addresFieldText.text = [locationDict valueForKey:@"full_name"];
+//                [addressDict setValue:[locationDict valueForKey:@"full_name"] forKey:@"full_name"];
+//
+//                
+//                
+//                
+//            }else if(indexPath.section == 4){
+//                
+//                
+//                MYLog(@"11");
+//                addresFieldText.placeholder = @"";
+//                addresFieldText.text = [locationDict valueForKey:@"street"];
+//                [addressDict setValue:[locationDict valueForKey:@"street"] forKey:@"street"];
+//
+//                
+//                
+//                
+//            }else if(indexPath.section == 6){
+//                
+//                
+//                MYLog(@"11");
+//                addresFieldText.placeholder = @"";
+//                addresFieldText.text = [locationDict valueForKey:@"address"];
+//                [addressDict setValue:[locationDict valueForKey:@"address"] forKey:@"address1"];
+//
+//                
+//                
+//            }
+//            
+//            
+//        }
+//
         
         
         
@@ -712,51 +643,27 @@
     
     if(textField.tag == 1){
         
-        [addressDict setValue:textField.text forKey:@"full_name"];
+        [addressDict setValue:textField.text forKey:@"building_no"];
     
     
     }else if(textField.tag == 2){
         
-        [addressDict setValue:textField.text forKey:@"phone_no"];
+        [addressDict setValue:textField.text forKey:@"street"];
         
         
     }else if(textField.tag == 3){
         
         
-        [addressDict setValue:textField.text forKey:@"building_no"];
+
         
         
         
     }else if(textField.tag == 4){
         
-        
-        
-        
-    }else if(textField.tag == 5){
-        
-        [addressDict setValue:textField.text forKey:@"street"];
-        
-        
-    }else if(textField.tag == 6){
-        
-        
-        [addressDict setValue:textField.text forKey:@"country"];
-        
-        
-        
-    }else if(textField.tag == 7){
-        
-        [addressDict setValue:textField.text forKey:@"address1"];
-        
-        
-        
-    }else if(textField.tag == 8){
-    
         [addressDict setValue:textField.text forKey:@"notes"];
-    
-    
+        
+        
     }
-    
     
 
 
@@ -774,7 +681,7 @@
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
-    NSLog(@"didFailWithError: %@", error);
+    MYLog(@"didFailWithError: %@", error);
     UIAlertView *errorAlert = [[UIAlertView alloc]
                                initWithTitle:@"Error" message:@"Failed to Get Your Location" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
     [errorAlert show];
@@ -785,8 +692,11 @@
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
 {
-    NSLog(@"didUpdateToLocation: %@", newLocation);
+    MYLog(@"didUpdateToLocation: %@", newLocation);
     CLLocation *currentLocation = newLocation;
+    
+    
+    
     
     if (currentLocation != nil) {
         //longitudeLabel.text = [NSString stringWithFormat:@"%.8f", currentLocation.coordinate.longitude];
@@ -812,67 +722,67 @@
 }
 
 
-- (void) getAddressFromLatLon:(CLLocation *)bestLocation
-{
-
-    
-    NSMutableDictionary *returnDict = [[NSMutableDictionary alloc]initWithCapacity:5];
-    
-    CLGeocoder *geocoder = [[CLGeocoder alloc] init] ;
-    [geocoder reverseGeocodeLocation:bestLocation
-                   completionHandler:^(NSArray *placemarks, NSError *error)
-     {
-         if (error){
-             MYLog(@"Geocode failed with error: %@", error);
-             return;
-         }
-         CLPlacemark *placemark = [placemarks objectAtIndex:0];
-         
-         MYLog(@"Name %@",placemark.name);
-         MYLog(@"Street %@",placemark.thoroughfare);
-         MYLog(@"locality %@",placemark.locality);
-         MYLog(@"postalCode %@",placemark.postalCode);
-         MYLog(@"subLocality %@",placemark.subLocality);
-         
-         MYLog(@"subThoroughfare %@",placemark.subThoroughfare);
-         
-         isAddresFromMap = YES;
-         
-         [returnDict setValue:placemark.name forKey:@"full_name"];
-         [returnDict setValue:placemark.thoroughfare forKey:@"street"];
-         [returnDict setValue:[NSString stringWithFormat:@"%@ , %@",placemark.locality,placemark.subLocality] forKey:@"address"];
-
-         
-         
-         
-         
-         locationDict = returnDict;
-         
-         
-         
-         [addressDict setValue:[NSString stringWithFormat: @"%f", bestLocation.coordinate.latitude] forKey:@"latitude"];
-         [addressDict setValue:[NSString stringWithFormat: @"%f", bestLocation.coordinate.longitude] forKey:@"longitude"];
-         
-         
-         
-         NSIndexPath* rowToReload = [NSIndexPath indexPathForRow:0 inSection:0];
-         NSIndexPath* rowToReload1 = [NSIndexPath indexPathForRow:0 inSection:4];
-         
-         NSIndexPath* rowToReload2 = [NSIndexPath indexPathForRow:0 inSection:6];
-         
-         
-         NSArray* rowsToReload = [NSArray arrayWithObjects:rowToReload,rowToReload1,rowToReload2, nil];
-         
-         [self.tableView reloadRowsAtIndexPaths:rowsToReload withRowAnimation:UITableViewRowAnimationNone];
-         
-         
-         
-     }];
-    
-    
-
-    
-}
+//- (void) getAddressFromLatLon:(CLLocation *)bestLocation
+//{
+//
+//    
+//    NSMutableDictionary *returnDict = [[NSMutableDictionary alloc]initWithCapacity:5];
+//    
+//    CLGeocoder *geocoder = [[CLGeocoder alloc] init] ;
+//    [geocoder reverseGeocodeLocation:bestLocation
+//                   completionHandler:^(NSArray *placemarks, NSError *error)
+//     {
+//         if (error){
+//             MYLog(@"Geocode failed with error: %@", error);
+//             return;
+//         }
+//         CLPlacemark *placemark = [placemarks objectAtIndex:0];
+//         
+//         MYLog(@"Name %@",placemark.name);
+//         MYLog(@"Street %@",placemark.thoroughfare);
+//         MYLog(@"locality %@",placemark.locality);
+//         MYLog(@"postalCode %@",placemark.postalCode);
+//         MYLog(@"subLocality %@",placemark.subLocality);
+//         
+//         MYLog(@"subThoroughfare %@",placemark.subThoroughfare);
+//         
+//         isAddresFromMap = YES;
+//         
+//         [returnDict setValue:placemark.name forKey:@"full_name"];
+//         [returnDict setValue:placemark.thoroughfare forKey:@"street"];
+//         [returnDict setValue:[NSString stringWithFormat:@"%@ , %@",placemark.locality,placemark.subLocality] forKey:@"address"];
+//
+//         
+//         
+//         
+//         
+//         locationDict = returnDict;
+//         
+//         
+//         
+//         [addressDict setValue:[NSString stringWithFormat: @"%f", bestLocation.coordinate.latitude] forKey:@"latitude"];
+//         [addressDict setValue:[NSString stringWithFormat: @"%f", bestLocation.coordinate.longitude] forKey:@"longitude"];
+//         
+//         
+//         
+//         NSIndexPath* rowToReload = [NSIndexPath indexPathForRow:0 inSection:0];
+//         NSIndexPath* rowToReload1 = [NSIndexPath indexPathForRow:0 inSection:4];
+//         
+//         NSIndexPath* rowToReload2 = [NSIndexPath indexPathForRow:0 inSection:6];
+//         
+//         
+//         NSArray* rowsToReload = [NSArray arrayWithObjects:rowToReload,rowToReload1,rowToReload2, nil];
+//         
+//         [self.tableView reloadRowsAtIndexPaths:rowsToReload withRowAnimation:UITableViewRowAnimationNone];
+//         
+//         
+//         
+//     }];
+//    
+//    
+//
+//    
+//}
 
 #pragma mark pickerView deligats
 

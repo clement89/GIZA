@@ -125,36 +125,10 @@
     
     
     
-    //[handler registeUser:registerInfoDict];
-    //[SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeGradient];
-    //[SVProgressHUD showWithStatus:@"Loading"];
+    [handler tempRegisteUser:registerInfoDict];
+    [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeGradient];
+    [SVProgressHUD showWithStatus:@"Loading"];
     
-    
-    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"My Alert"
-                                                                   message:@"This is an alert."
-                                                            preferredStyle:UIAlertControllerStyleAlert];
-    
-    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
-                                                          handler:^(UIAlertAction * action) {
-                                                              //use alert.textFields[0].text
-                                                          }];
-    UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault
-                                                         handler:^(UIAlertAction * action) {
-                                                             //cancel action
-                                                         }];
-    [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-        // A block for configuring the text field prior to displaying the alert
-        textField.placeholder = @"OTP";
-        textField.textColor = [UIColor blueColor];
-        textField.clearButtonMode = UITextFieldViewModeWhileEditing;
-//        textField.borderStyle = UITextBorderStyleRoundedRect;
-//        textField.secureTextEntry = YES;
-        
-        
-    }];
-    [alert addAction:defaultAction];
-    [alert addAction:cancelAction];
-    [self presentViewController:alert animated:YES completion:nil];
     
     
     
@@ -170,8 +144,44 @@
     
     if([response count]>0){
         
-        
-        if([APIname isEqualToString:@"REGISTRATION"]){
+        if([APIname isEqualToString:@"TEMP_REGISTRATION"]){
+            
+            
+            UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"OTP Send to this number"
+                                                                           message:_phoneNumberText.text
+                                                                    preferredStyle:UIAlertControllerStyleAlert];
+            
+            UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"Confirm OTP" style:UIAlertActionStyleDefault
+                                                                  handler:^(UIAlertAction * action) {
+                                                                      //use alert.textFields[0].text
+                                                                  }];
+            UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault
+                                                                 handler:^(UIAlertAction * action) {
+                                                                     //cancel action
+                                                                 }];
+            [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+                // A block for configuring the text field prior to displaying the alert
+                textField.placeholder = @"Enter OTP";
+                textField.textColor = [UIColor blueColor];
+                textField.clearButtonMode = UITextFieldViewModeWhileEditing;
+                //        textField.borderStyle = UITextBorderStyleRoundedRect;
+                //        textField.secureTextEntry = YES;
+                
+                
+            }];
+            [alert addAction:defaultAction];
+            [alert addAction:cancelAction];
+            [self presentViewController:alert animated:YES completion:nil];
+            
+            
+            
+            
+
+            
+            
+            
+        }
+        else if([APIname isEqualToString:@"REGISTRATION"]){
             
             
             NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
@@ -230,6 +240,33 @@
     
     [SVProgressHUD dismiss];
 }
+
+
+-(void)APIReponseWithErrorArray:(NSArray *)error{
+    
+    MYLog(@" Error - %@",error);
+    
+    [SVProgressHUD dismiss];
+    
+    if([error count] > 0){
+    
+        NSDictionary *respomseDict = [error objectAtIndex:0];
+        
+        if([respomseDict valueForKey:@"message"]){
+            
+            
+            [[[UIAlertView alloc] initWithTitle:[respomseDict valueForKey:@"field"] message:[respomseDict valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+            
+            
+        }
+    
+    }
+    
+   
+    
+    
+}
+
 
 
 

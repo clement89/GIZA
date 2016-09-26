@@ -154,7 +154,7 @@
     
     dateDelivery = [[UIDatePicker alloc] initWithFrame:CGRectZero];
     [dateDelivery setDatePickerMode:UIDatePickerModeDate];
-    [dateDelivery addTarget:self action:@selector(onDatePickerValueChanged) forControlEvents:UIControlEventValueChanged];
+    [dateDelivery addTarget:self action:@selector(onDateDelivaryValueChanged) forControlEvents:UIControlEventValueChanged];
     [dateDelivery setMinimumDate:[currentTime dateByAddingTimeInterval:43200*4]];//min time +12:00 for the current date
     [dateDelivery setMaximumDate:[currentTime dateByAddingTimeInterval:2592000*2]]; // max day (+ 30 )
     
@@ -887,13 +887,15 @@
         
         }else{
         
+            AddAddressViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"AddAddressViewController"];
+            [self.navigationController pushViewController:controller animated:YES];
             
-            SignUpViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"SignUpViewController"];
-            
-            
-            UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:controller];
-            
-            [self presentViewController:navigationController animated:YES completion:^{}];
+//            SignUpViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"SignUpViewController"];
+//            
+//            
+//            UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:controller];
+//            
+//            [self presentViewController:navigationController animated:YES completion:^{}];
         
         }
 
@@ -946,16 +948,7 @@
         
         MYLog(@"formattedDate1 - %@",formattedDate1);
         
-        if(activeTextField.tag == 1){
-            
-            [paramsDict setValue:formattedDate1 forKey:@"pickup_date"];
-            
-        }else if(activeTextField.tag == 2){
-            
-            [paramsDict setValue:formattedDate1 forKey:@"delivery_date"];
-            
-            
-        }
+        [paramsDict setValue:formattedDate1 forKey:@"pickup_date"];
         
         
         MYLog(@"paramsDict - %@",paramsDict);
@@ -977,8 +970,42 @@
         
         
         
+    }else if(activeTextField.tag == 2){
+        
+        
+        
+        NSDate *chosenDate = [dateDelivery date];
+        
+        
+        NSDateFormatter *df1 = [[NSDateFormatter alloc] init];
+        [df1 setDateFormat:@"YYYY-MM-dd"];
+        
+        NSString *formattedDate1 = [df1 stringFromDate:chosenDate];
+        
+        MYLog(@"formattedDate1 - %@",formattedDate1);
+        
+        [paramsDict setValue:formattedDate1 forKey:@"delivery_date"];
+        
+        
+        MYLog(@"paramsDict - %@",paramsDict);
+        
+        
+        NSDateFormatter *df = [[NSDateFormatter alloc] init];
+        [df setDateFormat:@"dd LLLL"];
+        
+        
+        
+        NSString *formattedDate = [df stringFromDate:chosenDate];
+        
+        
+        
+        
+        
+        
+        activeTextField.text = formattedDate;
+        
+        
     }
-
 
 
 }
@@ -1002,16 +1029,7 @@
     
     MYLog(@"formattedDate1 - %@",formattedDate1);
     
-    if(activeTextField.tag == 1){
-    
-        [paramsDict setValue:formattedDate1 forKey:@"pickup_date"];
-    
-    }else if(activeTextField.tag == 2){
-    
-        [paramsDict setValue:formattedDate1 forKey:@"delivery_date"];
-    
-    
-    }
+    [paramsDict setValue:formattedDate1 forKey:@"pickup_date"];
     
     
     MYLog(@"paramsDict - %@",paramsDict);
@@ -1024,14 +1042,49 @@
     
     NSString *formattedDate = [df stringFromDate:chosenDate];
     
-
+ 
     
+    activeTextField.text = formattedDate;
+    
+}
+
+
+-(void)onDateDelivaryValueChanged
+{
+    
+    NSDate *chosenDate = [dateDelivery date];
+    
+    
+    NSDateFormatter *df1 = [[NSDateFormatter alloc] init];
+    [df1 setDateFormat:@"YYYY-MM-dd"];
+    
+    NSString *formattedDate1 = [df1 stringFromDate:chosenDate];
+    
+    MYLog(@"formattedDate1 - %@",formattedDate1);
+    
+    [paramsDict setValue:formattedDate1 forKey:@"delivery_date"];
+    
+    
+    MYLog(@"paramsDict - %@",paramsDict);
+    
+    
+    NSDateFormatter *df = [[NSDateFormatter alloc] init];
+    [df setDateFormat:@"dd LLLL"];
+    
+    
+    
+    NSString *formattedDate = [df stringFromDate:chosenDate];
     
     
     
     activeTextField.text = formattedDate;
     
 }
+
+
+
+
+
 
 #pragma mark pickerView deligats
 

@@ -12,6 +12,38 @@
 
 @synthesize delegate;
 
+-(void)tempRegisteUser :(NSDictionary *)parametersDict{
+    
+    
+    
+    
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
+    
+    
+    NSURLRequest *request = [[AFJSONRequestSerializer serializer] requestWithMethod:@"POST" URLString:TEMP_REGISTER_API parameters:parametersDict error:nil];
+    
+    
+    
+    NSURLSessionDataTask *dataTask = [manager dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+        
+        if (error) {
+            
+            [delegate APIReponseWithErrorArray:responseObject];
+            
+        } else {//Success
+            
+            [delegate ProcessAPIData:responseObject APIName:@"TEMP_REGISTRATION"];
+        }
+        
+        
+        
+    }];
+    [dataTask resume];
+    
+    
+    
+}
 
 
 -(void)registeUser :(NSDictionary *)parametersDict{
