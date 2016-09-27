@@ -795,6 +795,10 @@
 {
     
     
+    
+    
+    
+    
     if(activeTextField.tag == 1){
 
         NSDate *chosenDate = [datePicker date];
@@ -807,17 +811,7 @@
         
         MYLog(@"formattedDate1 - %@",formattedDate1);
         
-        if(activeTextField.tag == 1){
-            
-            [paramsDict setValue:formattedDate1 forKey:@"pickup_date"];
-            
-        }else if(activeTextField.tag == 2){
-            
-            [paramsDict setValue:formattedDate1 forKey:@"delivery_date"];
-            
-            
-        }
-        
+        [paramsDict setValue:formattedDate1 forKey:@"pickup_date"];
         
         MYLog(@"paramsDict - %@",paramsDict);
         
@@ -831,15 +825,43 @@
         
         
         
-        
-        
-        
         activeTextField.text = formattedDate;
         
 
         
+    }else if(activeTextField.tag == 2){
+        
+        
+        NSDate *chosenDate = [dateDelivery date];
+        
+        
+        NSDateFormatter *df1 = [[NSDateFormatter alloc] init];
+        [df1 setDateFormat:@"YYYY-MM-dd"];
+        
+        NSString *formattedDate1 = [df1 stringFromDate:chosenDate];
+        
+        MYLog(@"formattedDate1 - %@",formattedDate1);
+        
+        [paramsDict setValue:formattedDate1 forKey:@"delivery_date"];
+        
+        MYLog(@"paramsDict - %@",paramsDict);
+        
+        
+        NSDateFormatter *df = [[NSDateFormatter alloc] init];
+        [df setDateFormat:@"dd LLLL"];
+        
+        
+        
+        NSString *formattedDate = [df stringFromDate:chosenDate];
+        
+        
+        
+        activeTextField.text = formattedDate;
+
+
+
     }
-    
+
     
     [activeTextField resignFirstResponder];
     
@@ -1046,6 +1068,16 @@
     
     activeTextField.text = formattedDate;
     
+    //
+
+    
+    NSDateFormatter *df2 = [[NSDateFormatter alloc] init];
+    [df setDateFormat:@"EEEE"];
+    NSString *dayStr =  [df2 stringFromDate:chosenDate];
+    
+    MYLog(@"dayStr - %@",dayStr);
+    
+    
 }
 
 
@@ -1078,6 +1110,13 @@
     
     
     activeTextField.text = formattedDate;
+    
+    
+    NSDateFormatter *df2 = [[NSDateFormatter alloc] init];
+    [df setDateFormat:@"EEEE"];
+    NSString *dayStr =  [df2 stringFromDate:chosenDate];
+    
+    MYLog(@"dayStr - %@",dayStr);
     
 }
 
