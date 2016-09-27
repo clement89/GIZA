@@ -24,6 +24,7 @@
     NSDictionary *locationDict;
     
     MKPointAnnotation *previousPoint;
+    NSUInteger numberOFSections;
     
 }
 
@@ -90,7 +91,7 @@
     
     
     
-    
+    numberOFSections = 5;
     
     
     
@@ -185,6 +186,35 @@
 //    
 //    
 //}
+
+
+
+-(void)addNewRow:(UIButton*)sender
+{
+    
+    if(numberOFSections == 5){
+        
+        numberOFSections = 6;
+        
+        [self.tableView beginUpdates];
+        
+        [self.tableView insertSections:[NSIndexSet indexSetWithIndex:5] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self.tableView endUpdates];
+    
+    }else{
+        
+        numberOFSections = 5;
+        
+        [self.tableView beginUpdates];
+        
+        [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:5] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self.tableView endUpdates];
+    
+    
+    }
+    
+    
+}
 
 -(void)saveAction:(UIButton*)sender
 {
@@ -319,7 +349,8 @@
 
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 6;
+    
+    return numberOFSections;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -414,6 +445,33 @@
         
         }
         
+        if(indexPath.section == 4){
+            
+            
+            //Button
+            
+            
+            
+            UIButton *goToTop = [UIButton buttonWithType:UIButtonTypeCustom];
+            goToTop.frame = CGRectMake(0, 0, self.view.frame.size.width, 50);
+            [goToTop setTitle:@"USE CURRENT LOCATION" forState:UIControlStateNormal];
+            
+            [goToTop setBackgroundColor:[UIColor colorWithRed:255.0/255.0 green:140/255.0 blue:0/255.0 alpha:1.0]];
+            
+            [goToTop addTarget:self action:@selector(addNewRow:) forControlEvents:UIControlEventTouchUpInside];
+            
+            
+            [goToTop setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            [goToTop.layer setBorderColor:[[UIColor whiteColor] CGColor]];
+            goToTop.titleLabel.font = [UIFont systemFontOfSize:18];
+            
+            [cell addSubview:goToTop];
+            
+            
+            
+            
+        }
+        
         
         if(isEdit ){
         
@@ -453,6 +511,7 @@
                 
                 
                 //Button
+                
                 
                 
                 
@@ -552,6 +611,8 @@
             
             
             //Add button here....
+            
+            
             
         }
         else if(indexPath.section == 5){
@@ -692,16 +753,22 @@
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
 {
-    MYLog(@"didUpdateToLocation: %@", newLocation);
+   
     CLLocation *currentLocation = newLocation;
     
     
     
     
     if (currentLocation != nil) {
-        //longitudeLabel.text = [NSString stringWithFormat:@"%.8f", currentLocation.coordinate.longitude];
-        //latitudeLabel.text = [NSString stringWithFormat:@"%.8f", currentLocation.coordinate.latitude];
+        
+        
+         MYLog(@"got current location: %@", newLocation);
+        
+        [addressDict setValue:[NSString stringWithFormat: @"%@", [NSString stringWithFormat:@"%.8f", currentLocation.coordinate.latitude]] forKey:@"latitude"];
+        [addressDict setValue:[NSString stringWithFormat: @"%@", [NSString stringWithFormat:@"%.8f", currentLocation.coordinate.longitude]] forKey:@"longitude"];
     }
+    
+    
     
     
     
@@ -794,6 +861,7 @@
 }
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+    
     return [zoneList count];
 }
 

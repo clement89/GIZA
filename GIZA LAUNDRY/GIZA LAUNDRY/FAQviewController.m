@@ -63,9 +63,9 @@
     //Create json array
     
     selectedRowIndex = -1;
-    FAQArray = [[NSMutableArray alloc]initWithCapacity:5];
+    FAQArray = [[NSMutableArray alloc]initWithCapacity:7];
     
-    for(int i = 0; i<5; i++){
+    for(int i = 0; i<8; i++){
     
         NSDictionary *itemDict;
         
@@ -82,15 +82,30 @@
         }else if(i == 2){
             
             
-            itemDict = [NSDictionary dictionaryWithObjectsAndKeys:@"CAN I CHANGE MY PICK UP/ DROP OFF TIME?",@"question",@"Yes, visit order history and make your necessary changes at the minimum of two hours prior to your pick up/ drop off time.",@"answer", nil];
-        }else if(i == 3){
+            itemDict = [NSDictionary dictionaryWithObjectsAndKeys:@"CAN I CHANGE MY PICK UP/ DROP OFF TIME ONCE THE ORDER HAS BEEN PLACED?",@"question",@"Yes, visit 'My Orders 'and make your necessary changes at the minimum of two hours prior to yours pick up/ drop off time.",@"answer", nil];
+        }
+        else if(i == 3){
             
             
-            itemDict = [NSDictionary dictionaryWithObjectsAndKeys:@"HOW IS THE PAYMENT DONE?",@"question",@"Its CASH ON DELIVERY. Just pay when you get your laundry cleaned!You can soon make your payments via Credit/ Debit cards.",@"answer", nil];
+            itemDict = [NSDictionary dictionaryWithObjectsAndKeys:@"IS THE PICK UP/ DROP OFF SERVICE AVAILABLE THOUGHOUT A DAY (24 HOURS)?",@"question",@"Our Pick Up/ Drop Off service timings are:\nSat-Sun: 8 am - 12 pm (Morning)\n3 pm - 10 pm (Evening)\nFriday: 4 pm - 10 pm (Evening)",@"answer", nil];
+            
         }else if(i == 4){
             
             
+            itemDict = [NSDictionary dictionaryWithObjectsAndKeys:@"HOW IS THE PAYMENT DONE?",@"question",@"Its CASH ON DELIVERY. Just pay when you get your laundry cleaned!You can soon make your payments via Credit/ Debit cards.",@"answer", nil];
+        }else if(i == 5){
+            
+            
             itemDict = [NSDictionary dictionaryWithObjectsAndKeys:@"WHAT IS THE MINIMUM ORDER AND HOW MUCH IS THE DELIVERY FEE?",@"question",@"The minimum order for request is as low as QAR 15.There is a delivery fee of QAR 5 for any orders under QAR 100",@"answer", nil];
+            
+        }else if(i == 6){
+            
+            
+            itemDict = [NSDictionary dictionaryWithObjectsAndKeys:@"WHOM DO I CONTACT FOR ANY QUERIES OR ISSUES?",@"question",@"Just visit the “Contact Us” tab and you have all sources of contact informations.",@"answer", nil];
+        }else if(i == 7){
+            
+            
+            itemDict = [NSDictionary dictionaryWithObjectsAndKeys:@"DO YOU HAVE ANY PROMOTIONS?",@"question",@"We always have promotions going on! Contact Us to know all promotions.",@"answer", nil];
         }
         
         
@@ -131,10 +146,10 @@
     
     if(isRowSelected){
     
-        return 6;
+        return 8;
 
     }else{
-        return 5;
+        return 7;
 
     
     }

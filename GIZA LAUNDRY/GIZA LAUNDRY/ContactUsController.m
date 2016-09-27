@@ -56,13 +56,15 @@
     
     //Add header....
     
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 50)];
-    headerView.backgroundColor = [UIColor grayColor];
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 150)];
+    headerView.backgroundColor = [UIColor yellowColor];
     
-    UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 10, self.tableView.frame.size.width, 30)];
-    titleLabel.text = @"CONTACT US";
+    UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 50)];
+    titleLabel.text = @"  CONTACT US";
     titleLabel.textAlignment = NSTextAlignmentLeft;
     titleLabel.textColor = [UIColor whiteColor];
+    titleLabel.backgroundColor = [UIColor grayColor];
+    
     [headerView addSubview:titleLabel];
     
     self.tableView.tableHeaderView = headerView;
@@ -71,9 +73,52 @@
     
 }
 
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    if (section == 0){
+        
+    }
+    return @"yoyo";
+}
+
+#pragma mark - Table view data source
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    
+    
+    return 3;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    
+    return 1;
+}
 
 
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"contact_us_cell" forIndexPath:indexPath];
+    
+    // Configure the cell...
+    
+
+    cell.accessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+    
+    // Set a target and selector for the accessoryView UIControlEventTouchUpInside
+    [(UIButton *)cell.accessoryView addTarget:self action:@selector(someAction:) forControlEvents:UIControlEventTouchUpInside];
+    
+    
+    return cell;
+    
+}
 
 
+-(void)someAction:(UIButton*)sender
+{
+    
+    
+}
 
 @end
