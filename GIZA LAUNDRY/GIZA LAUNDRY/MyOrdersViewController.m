@@ -9,11 +9,18 @@
 #import "MyOrdersViewController.h"
 #import "SWRevealViewController.h"
 #import "RequestPickUpController.h"
+#import "SVProgressHUD.h"
+
+
 @interface MyOrdersViewController ()
 
 @end
 
-@implementation MyOrdersViewController
+@implementation MyOrdersViewController{
+
+    APIHandler *handler;
+    NSArray *myOrdersArray;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -50,6 +57,12 @@
 
     
     
+    [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeGradient];
+    [SVProgressHUD showWithStatus:@"Loading my orders"];
+    
+    
+    [handler getMyOders];
+    
     
 }
 
@@ -62,7 +75,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 
-    return 3;
+    return [myOrdersArray count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -73,7 +86,21 @@
     
     
     
-    return 180;
+    NSDictionary *orderItemDict = [myOrdersArray objectAtIndex:indexPath.section];
+    BOOL canCancel = [[orderItemDict valueForKey:@"can_cancel"] isEqualToString:@"1"]? YES : FALSE;
+    BOOL canEdit = [[orderItemDict valueForKey:@"can_edit_delivery"] isEqualToString:@"1"]? YES : FALSE;
+    
+
+    
+    if(canEdit || canCancel){
+    
+        return 140;
+    }else{
+    
+        return 180;
+    }
+    
+    
     
     
     
@@ -87,8 +114,23 @@
     
     // Configure the cell...
     
+    if(cell == nil){
     
-    CGFloat width = (cell.contentView.frame.size.width/2)-30;
+        MYLog(@"nilll mann");
+    
+    }
+    
+    
+    
+    NSDictionary *orderItemDict = [myOrdersArray objectAtIndex:indexPath.section];
+    BOOL canCancel = [[orderItemDict valueForKey:@"can_cancel"] isEqualToString:@"1"]? YES : FALSE;
+    BOOL canEdit = [[orderItemDict valueForKey:@"can_edit_delivery"] isEqualToString:@"1"]? YES : FALSE;
+    
+    
+    CGFloat mainWidth = [UIScreen mainScreen].bounds.size.width;
+    
+    
+    CGFloat width = (mainWidth/2)-30;
     
     UITextField *timeField = [[UITextField alloc]initWithFrame:CGRectMake(20, 10, width, 40)];
     timeField.text = @"8AM-9AM";
@@ -193,28 +235,38 @@
     
     ///////////////
     
-    
-    UIButton *updateButton =  [UIButton buttonWithType:UIButtonTypeCustom];
-    [updateButton setFrame:CGRectMake(10.0, 130.0, width, 40)];
-    [updateButton setBackgroundColor:[UIColor orangeColor]];
-    [updateButton setTitle:@"UPDATE" forState:UIControlStateNormal];
-    [updateButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [updateButton addTarget:self action:@selector(updateAction:) forControlEvents:UIControlEventTouchUpInside];
+    if(canEdit){
+        
+        UIButton *updateButton =  [UIButton buttonWithType:UIButtonTypeCustom];
+        [updateButton setFrame:CGRectMake(10.0, 130.0, width, 40)];
+        [updateButton setBackgroundColor:[UIColor orangeColor]];
+        [updateButton setTitle:@"UPDATE" forState:UIControlStateNormal];
+        [updateButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [updateButton addTarget:self action:@selector(updateAction:) forControlEvents:UIControlEventTouchUpInside];
+        
+        [cell.contentView addSubview:updateButton];
 
-    [cell.contentView addSubview:updateButton];
+    
+    }
+    
     
     
     ///////////////
     
+    if(canCancel){
+        
+        UIButton *cancelButton =  [UIButton buttonWithType:UIButtonTypeCustom];
+        [cancelButton setFrame:CGRectMake(width+40, 130.0, width, 40)];
+        [cancelButton setBackgroundColor:[UIColor orangeColor]];
+        [cancelButton setTitle:@"CANCEL" forState:UIControlStateNormal];
+        [cancelButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [cancelButton addTarget:self action:@selector(cancelAction:) forControlEvents:UIControlEventTouchUpInside];
+        
+        [cell.contentView addSubview:cancelButton];
     
-    UIButton *cancelButton =  [UIButton buttonWithType:UIButtonTypeCustom];
-    [cancelButton setFrame:CGRectMake(width+40, 130.0, width, 40)];
-    [cancelButton setBackgroundColor:[UIColor orangeColor]];
-    [cancelButton setTitle:@"CANCEL" forState:UIControlStateNormal];
-    [cancelButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [cancelButton addTarget:self action:@selector(cancelAction:) forControlEvents:UIControlEventTouchUpInside];
     
-    [cell.contentView addSubview:cancelButton];
+    }
+    
     
     
     
@@ -248,48 +300,45 @@
 
 
 }
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
 
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
 
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
+#pragma mark APIHandler methods
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void) ProcessAPIData :(id)response APIName:(NSString *)APIname{
+    
+    
+    MYLog(@"respomse  ----- %@  ------ %@",APIname,response);
+    
+    [SVProgressHUD dismiss];
+    
+    
+    if([APIname isEqualToString:@"MY_ORDERS"]){
+        
+        
+        
+        myOrdersArray = response;
+        
+        [self.tableView reloadData];
+        
+        
+        
+        
+        
+        
+    }
+    
+    
+    
 }
-*/
+
+
+-(void)APIReponseWithError:(NSDictionary *)error{
+    
+    
+    [SVProgressHUD dismiss];
+    
+    MYLog(@" Error - %@",error);
+}
 
 @end

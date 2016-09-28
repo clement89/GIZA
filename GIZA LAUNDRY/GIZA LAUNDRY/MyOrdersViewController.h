@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "APIHandler.h"
 
-@interface MyOrdersViewController : UITableViewController
+@interface MyOrdersViewController : UITableViewController<APIHandlerDelegate>{
+
+
+}
 
 @end

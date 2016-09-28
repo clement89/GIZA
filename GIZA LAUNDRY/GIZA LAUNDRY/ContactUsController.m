@@ -56,16 +56,30 @@
     
     //Add header....
     
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 150)];
-    headerView.backgroundColor = [UIColor yellowColor];
     
-    UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 50)];
+    CGFloat width = [UIScreen mainScreen].bounds.size.width;
+
+    
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, 150)];
+    headerView.backgroundColor = [UIColor whiteColor];
+    
+    UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, width, 50)];
     titleLabel.text = @"  CONTACT US";
     titleLabel.textAlignment = NSTextAlignmentLeft;
     titleLabel.textColor = [UIColor whiteColor];
     titleLabel.backgroundColor = [UIColor grayColor];
     
     [headerView addSubview:titleLabel];
+    
+    
+    UILabel *detailLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 50, width-40, 100)];
+    detailLabel.text = @"Having an issue with the app or an order? Feel free to contact us !";
+    detailLabel.numberOfLines = 0;
+    detailLabel.textAlignment = NSTextAlignmentLeft;
+    detailLabel.textColor = [UIColor blackColor];
+    detailLabel.backgroundColor = [UIColor clearColor];
+    
+    [headerView addSubview:detailLabel];
     
     self.tableView.tableHeaderView = headerView;
     
@@ -77,8 +91,17 @@
 {
     if (section == 0){
         
+        return @"Call Us";
+        
+    }else if (section == 1){
+        
+        return @"Email Us";
+        
+    }else{
+        
+        return @"Visit Us";
     }
-    return @"yoyo";
+
 }
 
 #pragma mark - Table view data source
@@ -103,11 +126,46 @@
     
     // Configure the cell...
     
+    
+    UIButton *acceceryButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    acceceryButton.frame = CGRectMake(0, 0, 30, 30);
 
-    cell.accessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
     
     // Set a target and selector for the accessoryView UIControlEventTouchUpInside
-    [(UIButton *)cell.accessoryView addTarget:self action:@selector(someAction:) forControlEvents:UIControlEventTouchUpInside];
+    
+    
+    if(indexPath.section == 0){
+        
+        [acceceryButton setImage:[UIImage imageNamed:@"call_us.png"] forState:UIControlStateNormal];
+        [acceceryButton addTarget:self action:@selector(someAction:) forControlEvents:UIControlEventTouchUpInside];
+        
+        cell.textLabel.text = @"4444 8687, 3344 3323";
+        
+    
+    
+    }else if(indexPath.section == 1){
+    
+        [acceceryButton setImage:[UIImage imageNamed:@"mail_us.png"] forState:UIControlStateNormal];
+        [acceceryButton addTarget:self action:@selector(someAction:) forControlEvents:UIControlEventTouchUpInside];
+        
+        cell.textLabel.text = @"INFO@ALGIZAGROUP.COM";
+    
+    }else{
+    
+        [acceceryButton setImage:[UIImage imageNamed:@"visit_us.png"] forState:UIControlStateNormal];
+        [acceceryButton addTarget:self action:@selector(someAction:) forControlEvents:UIControlEventTouchUpInside];
+        
+        cell.textLabel.text = @"WWW.ALGIZAGROUP.COM";
+    
+    
+    }
+    
+    //cell.textLabel.textAlignment = NSTextAlignmentCenter;
+    cell.accessoryView = acceceryButton;
+    
+    
+    
+
     
     
     return cell;

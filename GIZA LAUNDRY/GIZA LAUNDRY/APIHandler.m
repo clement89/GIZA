@@ -46,6 +46,40 @@
 }
 
 
+-(void)sendOTP :(NSDictionary *)parametersDict{
+    
+    
+    
+    
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
+    
+    
+    NSURLRequest *request = [[AFJSONRequestSerializer serializer] requestWithMethod:@"POST" URLString:SEND_OTP_API parameters:parametersDict error:nil];
+    
+    
+    
+    NSURLSessionDataTask *dataTask = [manager dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+        
+        if (error) {
+            
+            [delegate APIReponseWithError:responseObject];
+            
+        } else {//Success
+            
+            [delegate ProcessAPIData:responseObject APIName:@"OTP"];
+        }
+        
+        
+        
+    }];
+    [dataTask resume];
+    
+    
+    
+}
+
+
 -(void)registeUser :(NSDictionary *)parametersDict{
     
     

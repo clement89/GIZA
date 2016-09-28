@@ -54,7 +54,6 @@
     _passwordText.delegate = self;
     
     
-    
 }
 
 
@@ -144,7 +143,7 @@
     
     if([response count]>0){
         
-        if([APIname isEqualToString:@"TEMP_REGISTRATION"]){
+        if([APIname isEqualToString:@"OTP"]){
             
             
             UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"OTP Send to this number"
@@ -172,6 +171,18 @@
             [alert addAction:defaultAction];
             [alert addAction:cancelAction];
             [self presentViewController:alert animated:YES completion:nil];
+
+            
+        }
+        else if([APIname isEqualToString:@"TEMP_REGISTRATION"]){
+            
+            
+            NSDictionary *paramsDict = [NSDictionary dictionaryWithObjectsAndKeys:_phoneNumberText.text,@"phone_no", nil];
+            
+            
+            [handler sendOTP:paramsDict];
+            
+            
             
             
             
