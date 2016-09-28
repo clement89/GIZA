@@ -57,6 +57,9 @@
 
     
     
+    handler = [[APIHandler alloc]init];
+    handler.delegate = self;
+    
     [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeGradient];
     [SVProgressHUD showWithStatus:@"Loading my orders"];
     
@@ -87,8 +90,8 @@
     
     
     NSDictionary *orderItemDict = [myOrdersArray objectAtIndex:indexPath.section];
-    BOOL canCancel = [[orderItemDict valueForKey:@"can_cancel"] isEqualToString:@"1"]? YES : FALSE;
-    BOOL canEdit = [[orderItemDict valueForKey:@"can_edit_delivery"] isEqualToString:@"1"]? YES : FALSE;
+    BOOL canCancel = [[[orderItemDict objectForKey:@"can_cancel"] stringValue] isEqualToString:@"1"]? YES : FALSE;
+    BOOL canEdit = [[[orderItemDict objectForKey:@"can_edit_delivery"] stringValue] isEqualToString:@"1"]? YES : FALSE;
     
 
     
@@ -123,8 +126,8 @@
     
     
     NSDictionary *orderItemDict = [myOrdersArray objectAtIndex:indexPath.section];
-    BOOL canCancel = [[orderItemDict valueForKey:@"can_cancel"] isEqualToString:@"1"]? YES : FALSE;
-    BOOL canEdit = [[orderItemDict valueForKey:@"can_edit_delivery"] isEqualToString:@"1"]? YES : FALSE;
+    BOOL canCancel = [[[orderItemDict objectForKey:@"can_cancel"] stringValue] isEqualToString:@"1"]? YES : FALSE;
+    BOOL canEdit = [[[orderItemDict objectForKey:@"can_edit_delivery"] stringValue] isEqualToString:@"1"]? YES : FALSE;
     
     
     CGFloat mainWidth = [UIScreen mainScreen].bounds.size.width;
