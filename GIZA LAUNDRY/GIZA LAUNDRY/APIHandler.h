@@ -67,8 +67,11 @@
 
 #define GET_ZONE_API @"http://algiza.codeaweb.net/api/v1/common/zone-list?country_id="
 
+
 #define GET_NOTIFICATIONS_API @"http://algiza.codeaweb.net/api/v1/user/my-notifications"
 
+
+#define CANCEL_ORDER @"http://algiza.codeaweb.net/api/v1/order/cancel-order/"
 
 @protocol APIHandlerDelegate <NSObject>
 
@@ -115,5 +118,5 @@
 -(void)updateProfile :(NSDictionary *)parametersDict;
 -(void)getZoneList:(NSDictionary *)parametersDict;
 -(void)getNotificationsList;
-
+-(void)cancelOrder:(NSString *)orderID;
 @end

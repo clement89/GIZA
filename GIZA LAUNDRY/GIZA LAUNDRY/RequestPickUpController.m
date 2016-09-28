@@ -35,6 +35,8 @@
     APIHandler *handler;
     
     NSMutableDictionary *paramsDict;
+    
+    BOOL isFriday;
 
 }
 
@@ -795,10 +797,6 @@
 {
     
     
-    
-    
-    
-    
     if(activeTextField.tag == 1){
 
         NSDate *chosenDate = [datePicker date];
@@ -1072,10 +1070,16 @@
 
     
     NSDateFormatter *df2 = [[NSDateFormatter alloc] init];
-    [df setDateFormat:@"EEEE"];
+    [df2 setDateFormat:@"EEEE"];
     NSString *dayStr =  [df2 stringFromDate:chosenDate];
-    
     MYLog(@"dayStr - %@",dayStr);
+    
+    if([dayStr isEqualToString:@"Friday"]){
+        isFriday = YES;
+        [pickrView reloadAllComponents];
+    }
+    
+    
     
     
 }
@@ -1112,11 +1116,19 @@
     activeTextField.text = formattedDate;
     
     
-    NSDateFormatter *df2 = [[NSDateFormatter alloc] init];
-    [df setDateFormat:@"EEEE"];
-    NSString *dayStr =  [df2 stringFromDate:chosenDate];
     
+    NSDateFormatter *df2 = [[NSDateFormatter alloc] init];
+    [df2 setDateFormat:@"EEEE"];
+    NSString *dayStr =  [df2 stringFromDate:chosenDate];
     MYLog(@"dayStr - %@",dayStr);
+    
+    if([dayStr isEqualToString:@"Friday"]){
+        isFriday = YES;
+        [pickrView reloadAllComponents];
+    }
+    
+    
+    
     
 }
 
@@ -1133,47 +1145,92 @@
 }
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
-    return 11;
+    
+    if(isFriday){
+        
+        return 6;
+        
+    }else{
+        return 11;
+    
+    }
+    
 }
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
     NSString * title = nil;
-    switch(row) {
-        case 0:
-            title = @"8am - 9am";
-            break;
-        case 1:
-            title = @"9am - 10am";
-            break;
-        case 2:
-            title = @"10am - 11am";
-            break;
-        case 3:
-            title = @"11am - 12pm";
-            break;
-        case 4:
-            title = @"3pm - 4pm";
-            break;
-        case 5:
-            title = @"4pm - 5pm";
-            break;
-        case 6:
-            title = @"5pm - 6pm";
-            break;
-        case 7:
-            title = @"6pm - 7pm";
-            break;
-        case 8:
-            title = @"7pm - 8pm";
-            break;
-        case 9:
-            title = @"8pm - 9pm";
-            break;
-        case 10:
-            title = @"9pm - 10pm";
-            break;
+    
+    
+    if(isFriday){
+        
+        switch(row) {
+            
+            case 0:
+                title = @"4pm - 5pm";
+                break;
+            case 1:
+                title = @"5pm - 6pm";
+                break;
+            case 2:
+                title = @"6pm - 7pm";
+                break;
+            case 3:
+                title = @"7pm - 8pm";
+                break;
+            case 4:
+                title = @"8pm - 9pm";
+                break;
+            case 5:
+                title = @"9pm - 10pm";
+                break;
+        }
+
+    
+    
+    
+    }else{
+    
+        switch(row) {
+            case 0:
+                title = @"8am - 9am";
+                break;
+            case 1:
+                title = @"9am - 10am";
+                break;
+            case 2:
+                title = @"10am - 11am";
+                break;
+            case 3:
+                title = @"11am - 12pm";
+                break;
+            case 4:
+                title = @"3pm - 4pm";
+                break;
+            case 5:
+                title = @"4pm - 5pm";
+                break;
+            case 6:
+                title = @"5pm - 6pm";
+                break;
+            case 7:
+                title = @"6pm - 7pm";
+                break;
+            case 8:
+                title = @"7pm - 8pm";
+                break;
+            case 9:
+                title = @"8pm - 9pm";
+                break;
+            case 10:
+                title = @"9pm - 10pm";
+                break;
+        }
+
+    
+    
+    
     }
-    activeTextField.text = title;
+        activeTextField.text = title;
     
     
     

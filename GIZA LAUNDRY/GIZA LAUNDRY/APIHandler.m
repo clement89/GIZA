@@ -641,9 +641,13 @@
     MYLog(@"savedImagePath -- %@",savedImagePath);
     
     
-    NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:UPDATE_PROFILE_API parameters:parametersDict constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-        [formData appendPartWithFileURL:[NSURL fileURLWithPath:savedImagePath] name:@"profile_image" fileName:@"profileImage.jpg" mimeType:@"image/jpeg" error:nil];
-    } error:nil];
+//    NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:UPDATE_PROFILE_API parameters:parametersDict constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+//        [formData appendPartWithFileURL:[NSURL fileURLWithPath:savedImagePath] name:@"profile_image" fileName:@"profileImage.jpg" mimeType:@"image/jpeg" error:nil];
+//    } error:nil];
+    
+    
+    
+    NSMutableURLRequest *request = [[AFJSONRequestSerializer serializer] requestWithMethod:@"POST" URLString:[NSString stringWithFormat:@"%@",UPDATE_PROFILE_API] parameters:nil error:nil];
     
     NSString *tocken = [NSString stringWithFormat:@"Bearer %@",[[NSUserDefaults standardUserDefaults]valueForKey:@"kaccess_tocken"]];
     
@@ -752,6 +756,48 @@
     
 }
 
+
+-(void)cancelOrder:(NSString *)orderID{
+    
+    
+    
+    MYLog(@"cancelOrder --");
+    
+    
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
+    
+    
+    
+    
+    NSMutableURLRequest *request = [[AFJSONRequestSerializer serializer] requestWithMethod:@"POST" URLString:[NSString stringWithFormat:@"%@%@",CANCEL_ORDER,orderID] parameters:nil error:nil];
+    
+    
+    
+    
+    
+    NSString *tocken = [NSString stringWithFormat:@"Bearer %@",[[NSUserDefaults standardUserDefaults]valueForKey:@"kaccess_tocken"]];
+    
+    [request setValue:tocken forHTTPHeaderField:@"Authorization"];
+    
+    
+    
+    NSURLSessionDataTask *dataTask = [manager dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+        if (error) {
+            
+            [delegate APIReponseWithErrorDetail:responseObject APIName:@"DELETE_ADDRESS"];
+            
+        } else {//Success
+            
+            [delegate ProcessAPIData:responseObject APIName:@"CANCEL_ORDER"];
+        }
+    }];
+    [dataTask resume];
+    
+    
+    
+    
+}
 
 
 

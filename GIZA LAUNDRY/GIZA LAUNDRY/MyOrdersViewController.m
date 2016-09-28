@@ -97,10 +97,10 @@
     
     if(canEdit || canCancel){
     
-        return 140;
+        return 180;
     }else{
     
-        return 180;
+        return 140;
     }
     
     
@@ -113,15 +113,15 @@
     
     
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"my_orders_cell" forIndexPath:indexPath];
+    //UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"my_orders_cell" forIndexPath:indexPath];
     
-    // Configure the cell...
     
-    if(cell == nil){
+
     
-        MYLog(@"nilll mann");
     
-    }
+    
+    static NSString *kCellId = @"my_orders_cell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellId];
     
     
     
@@ -130,13 +130,24 @@
     BOOL canEdit = [[[orderItemDict objectForKey:@"can_edit_delivery"] stringValue] isEqualToString:@"1"]? YES : FALSE;
     
     
+    NSString *picupDate = [orderItemDict valueForKey:@"pickup_date"];
+    NSString *picupTime = [orderItemDict valueForKey:@"pickup_slot"];
+    NSString *orderId = [[orderItemDict valueForKey:@"id"]stringValue];
+    NSString *orderStatus = [orderItemDict valueForKey:@"order_status"];
+    
+    
+    
+    
+    
+    
     CGFloat mainWidth = [UIScreen mainScreen].bounds.size.width;
     
     
     CGFloat width = (mainWidth/2)-30;
     
-    UITextField *timeField = [[UITextField alloc]initWithFrame:CGRectMake(20, 10, width, 40)];
-    timeField.text = @"8AM-9AM";
+    UITextField *timeField = (UITextField *)[cell viewWithTag:1];//[[UITextField alloc]initWithFrame:CGRectMake(20, 10, width, 40)];
+    timeField.frame = CGRectMake(20, 10, width, 40);
+    timeField.text = picupTime;
     timeField.textAlignment = NSTextAlignmentCenter; // Pre-iOS6 SDK: UITextAlignmentCenter
     
     
@@ -160,12 +171,13 @@
 
     
     
-    [cell.contentView addSubview: timeField];
+    //[cell.contentView addSubview: timeField];
     
     ///////////////////////
     
-    UITextField *dateField = [[UITextField alloc]initWithFrame:CGRectMake(width+40, 10, width, 40)];
-    dateField.text = @"2016-09-06";
+    UITextField *dateField = (UITextField *)[cell viewWithTag:2];
+    dateField.frame = CGRectMake(width+40, 10, width, 40);
+    dateField.text = picupDate;
     dateField.textAlignment = NSTextAlignmentCenter; // Pre-iOS6 SDK: UITextAlignmentCenter
     
     
@@ -189,13 +201,12 @@
     dateField.leftView = paddingView1;
     dateField.leftViewMode = UITextFieldViewModeAlways;
 
-    [cell.contentView addSubview: dateField];
     
     
     ///////////////
     
-    UILabel *idLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 60, cell.contentView.frame.size.width-40, 20)];
-    
+    UILabel *idLabel = (UILabel *)[cell viewWithTag:3];
+    idLabel.frame = CGRectMake(20, 60, cell.contentView.frame.size.width-40, 20);
     idLabel.text = @"ORDER ID";
     idLabel.font = [UIFont systemFontOfSize:16];
     
@@ -204,13 +215,13 @@
     idLabel.textAlignment = NSTextAlignmentCenter;
     
     
-    [cell.contentView addSubview: idLabel];
+   // [cell.contentView addSubview: idLabel];
     
     ///////////////
     
-    UILabel *numberLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 80, cell.contentView.frame.size.width-40, 20)];
-    
-    numberLabel.text = @"2529";
+    UILabel *numberLabel = (UILabel *)[cell viewWithTag:4];//[[UILabel alloc]initWithFrame:CGRectMake(20, 80, cell.contentView.frame.size.width-40, 20)];
+    numberLabel.frame = CGRectMake(20, 80, cell.contentView.frame.size.width-40, 20);
+    numberLabel.text =orderId;
     numberLabel.font = [UIFont boldSystemFontOfSize:17];
     
     numberLabel.backgroundColor = [UIColor clearColor];
@@ -218,14 +229,14 @@
     numberLabel.textAlignment = NSTextAlignmentCenter;
     
     
-    [cell.contentView addSubview: numberLabel];
+    //[cell.contentView addSubview: numberLabel];
     
     
     ///////////////
     
-    UILabel *statusLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 100, cell.contentView.frame.size.width-40, 20)];
-    
-    statusLabel.text = @"Ready to Deliver";
+    UILabel *statusLabel = (UILabel *)[cell viewWithTag:5];//[[UILabel alloc]initWithFrame:CGRectMake(20, 100, cell.contentView.frame.size.width-40, 20)];
+    statusLabel.frame = CGRectMake(20, 100, cell.contentView.frame.size.width-40, 20);
+    statusLabel.text = orderStatus;
     statusLabel.font = [UIFont systemFontOfSize:15];
     
     statusLabel.backgroundColor = [UIColor clearColor];
@@ -233,22 +244,26 @@
     statusLabel.textAlignment = NSTextAlignmentCenter;
     
     
-    [cell.contentView addSubview:statusLabel];
+    //[cell.contentView addSubview:statusLabel];
     
     
     ///////////////
     
     if(canEdit){
         
-        UIButton *updateButton =  [UIButton buttonWithType:UIButtonTypeCustom];
+        UIButton *updateButton =  (UIButton *)[cell viewWithTag:6];//[UIButton buttonWithType:UIButtonTypeCustom];
+        [updateButton setHidden:NO];
         [updateButton setFrame:CGRectMake(10.0, 130.0, width, 40)];
         [updateButton setBackgroundColor:[UIColor orangeColor]];
         [updateButton setTitle:@"UPDATE" forState:UIControlStateNormal];
         [updateButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [updateButton addTarget:self action:@selector(updateAction:) forControlEvents:UIControlEventTouchUpInside];
         
-        [cell.contentView addSubview:updateButton];
-
+    
+    }else{
+        
+        UIButton *updateButton =  (UIButton *)[cell viewWithTag:6];
+        [updateButton setHidden:YES];
     
     }
     
@@ -258,26 +273,32 @@
     
     if(canCancel){
         
-        UIButton *cancelButton =  [UIButton buttonWithType:UIButtonTypeCustom];
+        UIButton *cancelButton =  (UIButton *)[cell viewWithTag:7];//[UIButton buttonWithType:UIButtonTypeCustom];
+        
+        [cancelButton setHidden:NO];
+        
         [cancelButton setFrame:CGRectMake(width+40, 130.0, width, 40)];
         [cancelButton setBackgroundColor:[UIColor orangeColor]];
         [cancelButton setTitle:@"CANCEL" forState:UIControlStateNormal];
         [cancelButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [cancelButton addTarget:self action:@selector(cancelAction:) forControlEvents:UIControlEventTouchUpInside];
         
-        [cell.contentView addSubview:cancelButton];
+        //[cell.contentView addSubview:cancelButton];
+    
+    
+    }else{
+    
+        
+        UIButton *cancelButton =  (UIButton *)[cell viewWithTag:7];
+        
+        [cancelButton setHidden:YES];
+    
     
     
     }
     
     
-    
-    
-    
-    
-    
-    
-    
+
     
     
     return cell;
@@ -293,12 +314,35 @@
     
     RequestPickUpController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"RequestPickUpController"];
     [self.navigationController pushViewController:controller animated:YES];
+    
+    
+    
+    
+    
 }
 
 
 
 -(void)cancelAction:(id) sender
 {
+    
+    
+    CGPoint buttonPosition = [sender convertPoint:CGPointZero toView:self.tableView];
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:buttonPosition];
+    
+    NSDictionary *orderItemDict = [myOrdersArray objectAtIndex:indexPath.section];
+    
+    MYLog(@"orderItemDict - %@",orderItemDict);
+    
+    NSString *orderId = [[orderItemDict valueForKey:@"id"]stringValue];
+    
+    [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeGradient];
+    [SVProgressHUD showWithStatus:@"Loading"];
+    
+    
+    [handler cancelOrder:orderId];
+
+    
 
 
 
@@ -327,8 +371,10 @@
         
         
         
+    }else if([APIname isEqualToString:@"CANCEL_ORDER"]){
         
         
+     
     }
     
     

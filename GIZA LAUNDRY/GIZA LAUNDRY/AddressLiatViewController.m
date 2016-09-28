@@ -213,6 +213,8 @@
         
         NSString *str = [NSString stringWithFormat:@"%@\n%@ %@, %@ \nP.O Box %@\n%@ , %@",[addressDict valueForKey:@"full_name"],[addressDict valueForKey:@"address1"],[addressDict valueForKey:@"building_no"],[addressDict valueForKey:@"street"],[addressDict valueForKey:@"notes"],[addressDict valueForKey:@"zone"],[addressDict valueForKey:@"country"]];
         
+                                                                               
+        
         addressLabel.text = str;
         
         
