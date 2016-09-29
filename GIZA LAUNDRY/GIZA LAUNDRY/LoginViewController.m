@@ -202,9 +202,28 @@
     [SVProgressHUD dismiss];
     
     MYLog(@" Error - %@",error);
+    
+    
+    
+    
 }
 
-
+-(void)APIReponseWithErrorArray:(NSArray *)error{
+    
+    [SVProgressHUD dismiss];
+    
+    MYLog(@" Error - %@",error);
+    
+    if([error count]> 0){
+        
+        
+        UIAlertView *errorAlert = [[UIAlertView alloc]initWithTitle:@"Error" message:[[error objectAtIndex:0] valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [errorAlert show];
+        
+    }
+    
+    
+}
 
 
 

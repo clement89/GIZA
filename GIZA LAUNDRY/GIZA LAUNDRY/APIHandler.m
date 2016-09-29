@@ -136,7 +136,7 @@
     NSURLSessionDataTask *dataTask = [manager dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
         if (error) {
             
-            [delegate APIReponseWithError:responseObject];
+            [delegate APIReponseWithErrorArray:responseObject];
             
         } else {//Success
             
@@ -542,6 +542,53 @@
     
     
 }
+
+
+-(void)updateOrder :(NSDictionary *)parametersDict orderId:(NSString *)orderId{
+    
+    
+    
+    MYLog(@"parametersDict -- %@",parametersDict);
+    
+    
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
+    
+    
+    
+    
+    NSMutableURLRequest *request = [[AFJSONRequestSerializer serializer] requestWithMethod:@"POST" URLString:[NSString stringWithFormat:@"%@%@",UPDATE_ORDER_API,orderId] parameters:parametersDict error:nil];
+    
+    
+    //NSString *tocken = [NSString stringWithFormat:@""];
+    
+    
+    
+    NSString *tocken = [NSString stringWithFormat:@"Bearer %@",[[NSUserDefaults standardUserDefaults]valueForKey:@"kaccess_tocken"]];
+    
+    [request setValue:tocken forHTTPHeaderField:@"Authorization"];
+    
+    
+    
+    NSURLSessionDataTask *dataTask = [manager dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+        if (error) {
+            
+            [delegate APIReponseWithErrorArray:responseObject];
+            
+        } else {//Success
+            
+            [delegate ProcessAPIData:responseObject APIName:@"CONFORM_ORDER"];
+        }
+    }];
+    [dataTask resume];
+    
+    
+    
+    
+}
+
+
+
 
 
 -(void)setDefaultAddress :(NSDictionary *)parametersDict{

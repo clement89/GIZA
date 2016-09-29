@@ -56,6 +56,9 @@
 #define CONFORM_ORDER_API @"http://algiza.codeaweb.net/api/v1/order/request"
 
 
+#define UPDATE_ORDER_API @"http://algiza.codeaweb.net/api/v1/order/update-request/"
+
+
 #define SET_DEFAULT_ADDRESS_API @"http://algiza.codeaweb.net/api/v1/user/save-default-address"
 
 
@@ -119,4 +122,5 @@
 -(void)getZoneList:(NSDictionary *)parametersDict;
 -(void)getNotificationsList;
 -(void)cancelOrder:(NSString *)orderID;
+-(void)updateOrder :(NSDictionary *)parametersDict orderId:(NSString *)orderId;
 @end

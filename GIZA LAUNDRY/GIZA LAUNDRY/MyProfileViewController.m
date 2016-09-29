@@ -143,59 +143,82 @@
     _imageView.backgroundColor = [UIColor lightGrayColor];
     
     
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *getImagePath = [documentsDirectory stringByAppendingPathComponent:@"/profileImage.jpg"];
+    UIImage *img = [UIImage imageWithContentsOfFile:getImagePath];
+    
+    
+    MYLog(@"savedData -- %@",getImagePath);
+    
+    if(img){
+        
+        MYLog(@"savedData -- %@",getImagePath);
+        
+        _imageView.image = img;
+        
+        
+    }else{
+        
+        _imageView.image =[UIImage imageNamed:@"profile-placeholder.png"];
+        
+        
+    }
+    
 
     
     
    
-    if ([profileInfo valueForKey:@"profile_image"])
-    {
-        
-        
-            NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
-            NSString *documentsDirectory = [paths objectAtIndex:0];
-            NSString *getImagePath = [documentsDirectory stringByAppendingPathComponent:@"/dp.jpg"];
-            UIImage *img = [UIImage imageWithContentsOfFile:getImagePath];
-        
-        
-            MYLog(@"savedData -- %@",getImagePath);
-        
-            if(img){
-        
-                MYLog(@"savedData -- %@",getImagePath);
-        
-                _imageView.image = img;
-        
-        
-            }else{
-        
-                _imageView.image =[UIImage imageNamed:@"profile-placeholder.png"];
-                
-                dispatch_async(dispatch_get_global_queue(0,0), ^{
-                    
-                    
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        
-                        
-                        NSString *prof_img_url = [profileInfo valueForKey:@"profile_image"];
-                        
-                        MYLog(@" in flag url %@",prof_img_url);
-                        
-                        NSURL *url = [NSURL URLWithString:prof_img_url];
-                        NSData *data = [NSData dataWithContentsOfURL:url];
-                        UIImage *img = [[UIImage alloc] initWithData:data];
-                        
-                        _imageView.image = img;
-                        
-                        
-                        
-                        
-                    });
-                });
-            
-            
-            }
-        
-        
+//    if ([profileInfo valueForKey:@"profile_image"])
+//    {
+//
+//        
+//            NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
+//            NSString *documentsDirectory = [paths objectAtIndex:0];
+//            NSString *getImagePath = [documentsDirectory stringByAppendingPathComponent:@"/dp.jpg"];
+//            UIImage *img = [UIImage imageWithContentsOfFile:getImagePath];
+//        
+//        
+//            MYLog(@"savedData -- %@",getImagePath);
+//        
+//            if(img){
+//        
+//                MYLog(@"savedData -- %@",getImagePath);
+//        
+//                _imageView.image = img;
+//        
+//        
+//            }else{
+//        
+//                _imageView.image =[UIImage imageNamed:@"profile-placeholder.png"];
+//                
+//                dispatch_async(dispatch_get_global_queue(0,0), ^{
+//                    
+//                    
+//                    dispatch_async(dispatch_get_main_queue(), ^{
+//                        
+//                        
+//                        NSString *prof_img_url = [profileInfo valueForKey:@"profile_image"];
+//                        
+//                        MYLog(@" in flag url %@",prof_img_url);
+//                        
+//                        NSURL *url = [NSURL URLWithString:prof_img_url];
+//                        NSData *data = [NSData dataWithContentsOfURL:url];
+//                        UIImage *img = [[UIImage alloc] initWithData:data];
+//                        
+//                        _imageView.image = img;
+//                        
+//                        
+//                        
+//                        
+//                    });
+//                });
+//            
+//            
+//            }
+//        
+    
         
         
         
@@ -256,12 +279,12 @@
         
         
         
-    }else{
-        
-                _imageView.image =[UIImage imageNamed:@"profile-placeholder.png"];
-        
-            
-    }
+//    }else{
+//        
+//                _imageView.image =[UIImage imageNamed:@"profile-placeholder.png"];
+//        
+//            
+//    }
 
     
     

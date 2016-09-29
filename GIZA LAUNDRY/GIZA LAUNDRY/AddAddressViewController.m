@@ -50,34 +50,6 @@
     ///////////////////
     
     
-    locationManager = [[CLLocationManager alloc] init];
-    locationManager.delegate = self;
-    locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-    locationManager.distanceFilter = kCLLocationAccuracyKilometer;
-    
-    // showing user location with the blue dot
-    
-    
-    [locationManager requestWhenInUseAuthorization];
-    
-    myMapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width , 250)];
-    
-    
-    [myMapView setShowsUserLocation:YES];
-    
-    myMapView.delegate = self;
-    
-    // getting user coordinates
-    CLLocation *location = [locationManager location];
-    CLLocationCoordinate2D  coordinate = [location coordinate];
-    
-    
-    // showing them in the mapView
-    myMapView.region = MKCoordinateRegionMakeWithDistance(coordinate, 250, 250);
-    
-    [locationManager startUpdatingLocation];
-    
-    
     
 //    UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc]
 //                                          initWithTarget:self action:@selector(handleLongPress:)];
@@ -142,9 +114,8 @@
     
     
     
-    [addressDict setValue:[NSString stringWithFormat: @"%@", @"0.0"] forKey:@"latitude"];
-    [addressDict setValue:[NSString stringWithFormat: @"%@", @"0.0"] forKey:@"longitude"];
-    
+//    [addressDict setValue:[NSString stringWithFormat: @"%@", @"0.0"] forKey:@"latitude"];
+//    [addressDict setValue:[NSString stringWithFormat: @"%@", @"0.0"] forKey:@"longitude"];
     
     
     
@@ -234,7 +205,7 @@
     }else if(activeTextField.tag == 3){
         
         
-        [addressDict setValue:activeTextField.text forKey:@"zone_id"];
+        //[addressDict setValue:activeTextField.text forKey:@"zone_number"];
         
     }else if(activeTextField.tag == 4){
         
@@ -268,7 +239,7 @@
     
     
     
-    [addressDict setValue:@"173" forKey:@"country_id"];
+    //[addressDict setValue:@"173" forKey:@"country_id"];
     
 
     
@@ -296,7 +267,7 @@
         
         return;
         
-    }else if(![addressDict valueForKey:@"zone_id"]){
+    }else if(![addressDict valueForKey:@"zone_number"]){
         
         UIAlertView *errorAlert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Please Enter Zone Number."  delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [errorAlert show];
@@ -616,6 +587,37 @@
             
         }
         else if(indexPath.section == 5){
+            
+            
+            
+            locationManager = [[CLLocationManager alloc] init];
+            locationManager.delegate = self;
+            locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+            locationManager.distanceFilter = kCLLocationAccuracyKilometer;
+            
+            // showing user location with the blue dot
+            
+            
+            [locationManager requestWhenInUseAuthorization];
+            
+            myMapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width , 250)];
+            
+            
+            [myMapView setShowsUserLocation:YES];
+            
+            myMapView.delegate = self;
+            
+            // getting user coordinates
+            CLLocation *location = [locationManager location];
+            CLLocationCoordinate2D  coordinate = [location coordinate];
+            
+            
+            // showing them in the mapView
+            myMapView.region = MKCoordinateRegionMakeWithDistance(coordinate, 250, 250);
+            
+            [locationManager startUpdatingLocation];
+            
+
 
             
             [cell addSubview:myMapView];
@@ -876,7 +878,7 @@
     activeTextField.text = title;
     
     
-    [addressDict setValue:[zoneDict valueForKey:@"id"] forKey:@"zone_id"];
+    [addressDict setValue:[zoneDict valueForKey:@"id"] forKey:@"zone_number"];
     
     MYLog(@"addressDict %@",addressDict);
     
@@ -1084,13 +1086,13 @@
     MYLog(@" Error - %@",error);
     
     
-//    if([error count]> 0){
-//        
-//        
-//        UIAlertView *errorAlert = [[UIAlertView alloc]initWithTitle:@"Error" message:[[error objectAtIndex:0] valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-//        [errorAlert show];
-//        
-//    }
+    if([error count]> 0){
+        
+        
+        UIAlertView *errorAlert = [[UIAlertView alloc]initWithTitle:@"Error" message:[[error objectAtIndex:0] valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [errorAlert show];
+        
+    }
     
     
     

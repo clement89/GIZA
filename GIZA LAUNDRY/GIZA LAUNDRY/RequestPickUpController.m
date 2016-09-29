@@ -37,8 +37,12 @@
     NSMutableDictionary *paramsDict;
     
     BOOL isFriday;
+    
+    UITextField *pickUpSlot;
+    UITextField *deleverySlot;
 
 }
+@synthesize isUpdate,updateItem;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -100,16 +104,26 @@
     
     UIButton *goToTop = [UIButton buttonWithType:UIButtonTypeCustom];
     goToTop.frame = CGRectMake(0, self.view.frame.size.height-(44+targetHeight+20), self.view.frame.size.width, 44);
-    [goToTop setTitle:@"CONFIRM" forState:UIControlStateNormal];
-    
     [goToTop setBackgroundColor:[UIColor colorWithRed:255.0/255.0 green:140/255.0 blue:0/255.0 alpha:1.0]];
     
-    [goToTop addTarget:self action:@selector(conformOrder) forControlEvents:UIControlEventTouchUpInside];
+    
+    
+    if(isUpdate){
+        [goToTop setTitle:@"UPDATE" forState:UIControlStateNormal];
+        [goToTop addTarget:self action:@selector(updateOrder) forControlEvents:UIControlEventTouchUpInside];
+        
+    }else{
+    
+        [goToTop setTitle:@"CONFIRM" forState:UIControlStateNormal];
+        [goToTop addTarget:self action:@selector(conformOrder) forControlEvents:UIControlEventTouchUpInside];
+    
+    }
+    
     
     
     [goToTop setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [goToTop.layer setBorderColor:[[UIColor whiteColor] CGColor]];
-    goToTop.titleLabel.font = [UIFont systemFontOfSize:18];//[UIFont fontWithName:@"Helvetica-Bold" size:20];
+    goToTop.titleLabel.font = [UIFont boldSystemFontOfSize:20];//[UIFont fontWithName:@"Helvetica-Bold" size:20];
     [self.view addSubview:goToTop];
     
     
@@ -223,6 +237,13 @@
 {
     
     
+//address_id : 4
+//pickup_date : 2016-06-03
+//time_slot_id : 1
+//delivery_date: 2016-06-05
+//delivery_time_slot_id:4
+    
+    
     MYLog(@"paramsDict - %@",paramsDict);
     
     if(![paramsDict valueForKey:@"address_id"]){
@@ -238,9 +259,21 @@
         
         
         
-    }else if(![paramsDict valueForKey:@"pickup_slot"]){
+    }else if(![paramsDict valueForKey:@"time_slot_id"]){
         
         UIAlertView *errorAlert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Please select Pick up time."  delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [errorAlert show];
+        
+    }else if(![paramsDict valueForKey:@"delivery_date"]){
+        
+        UIAlertView *errorAlert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Please select delivery date."  delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [errorAlert show];
+        
+        
+        
+    }else if(![paramsDict valueForKey:@"delivery_time_slot_id"]){
+        
+        UIAlertView *errorAlert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Please select delivery time."  delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [errorAlert show];
         
     }else{
@@ -259,6 +292,66 @@
     
     
 }
+
+-(void)updateOrder
+{
+//    address_id : 4
+//    pickup_date : 2016-06-03
+//    time_slot_id : 1
+//delivery_date: 2016-06-05
+//delivery_time_slot_id:4
+    
+    MYLog(@"paramsDict - %@",paramsDict);
+    
+    if(![paramsDict valueForKey:@"address_id"]){
+        
+        UIAlertView *errorAlert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Please select an address."  delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [errorAlert show];
+        
+        
+    }else if(![paramsDict valueForKey:@"pickup_date"]){
+        
+        UIAlertView *errorAlert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Please select Pick up date."  delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [errorAlert show];
+        
+        
+        
+    }else if(![paramsDict valueForKey:@"time_slot_id"]){
+        
+        UIAlertView *errorAlert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Please select Pick up time."  delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [errorAlert show];
+        
+    }else if(![paramsDict valueForKey:@"delivery_date"]){
+        
+        UIAlertView *errorAlert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Please select delivery date."  delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [errorAlert show];
+        
+        
+        
+    }else if(![paramsDict valueForKey:@"delivery_time_slot_id"]){
+        
+        UIAlertView *errorAlert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Please select delivery time."  delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [errorAlert show];
+        
+    }else{
+        
+        [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeGradient];
+        [SVProgressHUD showWithStatus:@"Updating order"];
+        
+        [handler updateOrder:paramsDict orderId:@""];
+        
+        
+    }
+    
+    
+    
+    
+    
+    
+}
+
+
+
 
 - (void)reloadTable {
     
@@ -451,7 +544,10 @@
                 timeField.rightViewMode = UITextFieldViewModeAlways;
                 
                 
-                [cell.contentView addSubview: timeField];
+                pickUpSlot = timeField;
+                
+                
+                [cell.contentView addSubview: pickUpSlot];
                 
                 
                 
@@ -543,8 +639,10 @@
                 timeField.rightView = paddingView2;
                 timeField.rightViewMode = UITextFieldViewModeAlways;
                 
+                deleverySlot = timeField;
                 
-                [cell.contentView addSubview: timeField];
+                
+                [cell.contentView addSubview: deleverySlot];
                 
                 
                 
@@ -631,7 +729,7 @@
                         defaultAddresDict = tempDict;
                         
                         
-                        NSString *str = [NSString stringWithFormat:@"%@\n%@ %@, %@ \nP.O Box %@\n%@ , %@",[tempDict valueForKey:@"full_name"],[tempDict valueForKey:@"address1"],[tempDict valueForKey:@"building_no"],[tempDict valueForKey:@"street"],[tempDict valueForKey:@"notes"],[tempDict valueForKey:@"zone"],[tempDict valueForKey:@"country"]];
+                        NSString *str = [NSString stringWithFormat:@"%@\n%@\n%@\n%@",[tempDict valueForKey:@"building_no"],[tempDict valueForKey:@"street"],[tempDict valueForKey:@"zone"],[tempDict valueForKey:@"notes"]];
                         
                         [addressLabel setText:str];
                         
@@ -1075,8 +1173,13 @@
     MYLog(@"dayStr - %@",dayStr);
     
     if([dayStr isEqualToString:@"Friday"]){
+        pickUpSlot.text = @"";
+        [paramsDict removeObjectForKey:@"pickup_slot"];
         isFriday = YES;
         [pickrView reloadAllComponents];
+    }else{
+    
+        isFriday = NO;
     }
     
     
@@ -1123,8 +1226,13 @@
     MYLog(@"dayStr - %@",dayStr);
     
     if([dayStr isEqualToString:@"Friday"]){
+        deleverySlot.text = @"";
+        [paramsDict removeObjectForKey:@"delivery_slot"];
         isFriday = YES;
         [pickrView reloadAllComponents];
+    }else{
+    
+        isFriday = NO;
     }
     
     
@@ -1158,8 +1266,9 @@
 }
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
-    NSString * title = nil;
     
+    NSString * title = nil;
+    NSString *timeSlot;
     
     if(isFriday){
         
@@ -1167,21 +1276,27 @@
             
             case 0:
                 title = @"4pm - 5pm";
+                timeSlot = @"6";
                 break;
             case 1:
                 title = @"5pm - 6pm";
+                timeSlot = @"7";
                 break;
             case 2:
                 title = @"6pm - 7pm";
+                timeSlot = @"8";
                 break;
             case 3:
                 title = @"7pm - 8pm";
+                timeSlot = @"9";
                 break;
             case 4:
                 title = @"8pm - 9pm";
+                timeSlot = @"10";
                 break;
             case 5:
                 title = @"9pm - 10pm";
+                timeSlot = @"11";
                 break;
         }
 
@@ -1193,36 +1308,47 @@
         switch(row) {
             case 0:
                 title = @"8am - 9am";
+                timeSlot = @"1";
                 break;
             case 1:
                 title = @"9am - 10am";
+                timeSlot = @"2";
                 break;
             case 2:
                 title = @"10am - 11am";
+                timeSlot = @"3";
                 break;
             case 3:
                 title = @"11am - 12pm";
+                timeSlot = @"4";
                 break;
             case 4:
                 title = @"3pm - 4pm";
+                timeSlot = @"5";
                 break;
             case 5:
                 title = @"4pm - 5pm";
+                timeSlot = @"6";
                 break;
             case 6:
                 title = @"5pm - 6pm";
+                timeSlot = @"7";
                 break;
             case 7:
                 title = @"6pm - 7pm";
+                timeSlot = @"8";
                 break;
             case 8:
                 title = @"7pm - 8pm";
+                timeSlot = @"9";
                 break;
             case 9:
                 title = @"8pm - 9pm";
+                timeSlot = @"10";
                 break;
             case 10:
                 title = @"9pm - 10pm";
+                timeSlot = @"11";
                 break;
         }
 
@@ -1236,11 +1362,11 @@
     
     if(activeTextField.tag == 11){
         
-        [paramsDict setValue:title forKey:@"pickup_slot"];
+        [paramsDict setValue:timeSlot forKey:@"time_slot_id"];
         
     }else if(activeTextField.tag == 12){
         
-        [paramsDict setValue:title forKey:@"delivery_slot"];
+        [paramsDict setValue:timeSlot forKey:@"delivery_time_slot_id"];
         
         
     }

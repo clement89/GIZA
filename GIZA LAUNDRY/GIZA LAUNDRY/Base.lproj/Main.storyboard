@@ -21,18 +21,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="main" translatesAutoresizingMaskIntoConstraints="NO" id="gcI-sg-9Nu">
-                                <frame key="frameInset" width="414" height="736"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="gcI-sg-9Nu" secondAttribute="height" multiplier="2:3" id="Bm3-vA-y6w"/>
-                                </constraints>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="main" translatesAutoresizingMaskIntoConstraints="NO" id="gcI-sg-9Nu">
+                                <frame key="frameInset" width="375" height="667"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jS1-An-ihb">
-                                <frame key="frameInset" minX="23" minY="337" width="367" height="66"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jS1-An-ihb">
+                                <frame key="frameInset" minX="23" minY="337" width="327" height="66"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.80680199898580207" green="0.73744405351209863" blue="0.87249447601010099" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="jS1-An-ihb" secondAttribute="height" multiplier="39:7" constant="-5.5714285714285552" id="zHE-TJ-VTA"/>
-                                </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
                                 <state key="normal" title="LOGIN"/>
                                 <userDefinedRuntimeAttributes>
@@ -45,12 +41,10 @@
                                     <segue destination="LEr-xN-zN6" kind="presentation" id="Mic-3N-v6h"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tzJ-4O-qJz">
-                                <frame key="frameInset" minX="24" minY="232" width="367" height="66"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tzJ-4O-qJz">
+                                <frame key="frameInset" minX="24" minY="232" width="326" height="66"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.83566571040000004" green="0.72825297720000004" blue="0.1534430762" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="tzJ-4O-qJz" secondAttribute="height" multiplier="39:7" constant="-5.5714285714285552" id="7bJ-Zz-JBU"/>
-                                </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
                                 <state key="normal" title="REGISTER"/>
                                 <userDefinedRuntimeAttributes>
@@ -65,26 +59,12 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstAttribute="trailing" secondItem="jS1-An-ihb" secondAttribute="trailing" constant="24" id="8kl-CW-3FR"/>
-                            <constraint firstAttribute="trailing" secondItem="tzJ-4O-qJz" secondAttribute="trailing" constant="23" id="De7-i4-a7J"/>
-                            <constraint firstItem="gcI-sg-9Nu" firstAttribute="top" secondItem="mlj-yh-iMe" secondAttribute="top" id="Dto-ld-XXF"/>
-                            <constraint firstItem="hDu-14-max" firstAttribute="top" secondItem="gcI-sg-9Nu" secondAttribute="bottom" id="FBK-e1-qg3"/>
-                            <constraint firstAttribute="trailing" secondItem="gcI-sg-9Nu" secondAttribute="trailing" id="Hhg-cj-Zw9"/>
-                            <constraint firstItem="jS1-An-ihb" firstAttribute="centerY" secondItem="mlj-yh-iMe" secondAttribute="centerY" constant="2" id="Oid-Dt-Uu6"/>
-                            <constraint firstItem="jS1-An-ihb" firstAttribute="centerX" secondItem="mlj-yh-iMe" secondAttribute="centerX" id="YOj-wV-RgF"/>
-                            <constraint firstItem="jS1-An-ihb" firstAttribute="leading" secondItem="mlj-yh-iMe" secondAttribute="leading" constant="23" id="b77-ep-q8b"/>
-                            <constraint firstItem="tzJ-4O-qJz" firstAttribute="leading" secondItem="mlj-yh-iMe" secondAttribute="leading" constant="24" id="dTB-ZO-HBp"/>
-                            <constraint firstItem="gcI-sg-9Nu" firstAttribute="leading" secondItem="mlj-yh-iMe" secondAttribute="leading" id="fcg-oD-3ZG"/>
-                            <constraint firstItem="tzJ-4O-qJz" firstAttribute="centerY" secondItem="mlj-yh-iMe" secondAttribute="centerY" constant="-103" id="iYU-tP-J4L"/>
-                            <constraint firstItem="tzJ-4O-qJz" firstAttribute="centerX" secondItem="mlj-yh-iMe" secondAttribute="centerX" id="jgn-RG-1zz"/>
-                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Ks3-Rv-RcB"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="V0A-Og-IAL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2858" y="-342"/>
+            <point key="canvasLocation" x="2856.8000000000002" y="-342.27886056971516"/>
         </scene>
         <!--Register View Controller-->
         <scene sceneID="oxe-aD-2WE">

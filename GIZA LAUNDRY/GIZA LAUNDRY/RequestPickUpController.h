@@ -10,8 +10,15 @@
 #import "APIHandler.h"
 
 @interface RequestPickUpController : UITableViewController <UIPickerViewDelegate,UIPickerViewDataSource,UITextFieldDelegate,UIAlertViewDelegate, APIHandlerDelegate>{
+    
+    
+    
+    BOOL isUpdate;
+    NSDictionary * updateItem;
 
 
 }
+@property(nonatomic,retain)NSDictionary * updateItem;
+@property(nonatomic,assign)BOOL isUpdate;
 
 @end

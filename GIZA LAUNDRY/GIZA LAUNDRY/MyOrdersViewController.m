@@ -20,6 +20,7 @@
 
     APIHandler *handler;
     NSArray *myOrdersArray;
+    NSDictionary *cancelItem;
 }
 
 - (void)viewDidLoad {
@@ -98,6 +99,7 @@
     if(canEdit || canCancel){
     
         return 180;
+        
     }else{
     
         return 140;
@@ -136,7 +138,7 @@
     NSString *orderStatus = [orderItemDict valueForKey:@"order_status"];
     
     
-    
+    MYLog(@"orderItemDict - %@",orderItemDict);
     
     
     
@@ -169,7 +171,7 @@
     timeField.leftView = paddingView;
     timeField.leftViewMode = UITextFieldViewModeAlways;
 
-    
+    timeField.enabled = NO;
     
     //[cell.contentView addSubview: timeField];
     
@@ -201,7 +203,7 @@
     dateField.leftView = paddingView1;
     dateField.leftViewMode = UITextFieldViewModeAlways;
 
-    
+    dateField.enabled = NO;
     
     ///////////////
     
@@ -251,6 +253,8 @@
     
     if(canEdit){
         
+        MYLog(@"canEdit---");
+        
         UIButton *updateButton =  (UIButton *)[cell viewWithTag:6];//[UIButton buttonWithType:UIButtonTypeCustom];
         [updateButton setHidden:NO];
         [updateButton setFrame:CGRectMake(10.0, 130.0, width, 40)];
@@ -272,6 +276,8 @@
     ///////////////
     
     if(canCancel){
+        
+        MYLog(@"canCancel----");
         
         UIButton *cancelButton =  (UIButton *)[cell viewWithTag:7];//[UIButton buttonWithType:UIButtonTypeCustom];
         
@@ -298,7 +304,7 @@
     }
     
     
-
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     
     return cell;
@@ -312,7 +318,19 @@
     
     MYLog(@"updateAction");
     
+    
+    CGPoint buttonPosition = [sender convertPoint:CGPointZero toView:self.tableView];
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:buttonPosition];
+    
+    NSDictionary *orderItemDict = [myOrdersArray objectAtIndex:indexPath.section];
+    
+
+    
     RequestPickUpController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"RequestPickUpController"];
+    
+    controller.isUpdate = YES;
+    controller.updateItem = orderItemDict;
+    
     [self.navigationController pushViewController:controller animated:YES];
     
     
@@ -334,13 +352,24 @@
     
     MYLog(@"orderItemDict - %@",orderItemDict);
     
-    NSString *orderId = [[orderItemDict valueForKey:@"id"]stringValue];
-    
-    [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeGradient];
-    [SVProgressHUD showWithStatus:@"Loading"];
+    cancelItem = orderItemDict;
     
     
-    [handler cancelOrder:orderId];
+    UIAlertView *alert = [[UIAlertView alloc]
+                          initWithTitle:@""
+                          message:@"Are you sure want to cancel this order"
+                          delegate:self
+                          cancelButtonTitle:@"Cancel"
+                          otherButtonTitles:@"Ok",nil];
+    alert.tag = 25;
+    [alert show];
+    alert=nil;
+    return;
+    
+    
+    
+    
+    
 
     
 
@@ -348,7 +377,29 @@
 
 }
 
+- (void)alertView:(UIAlertView *)alertLogOut clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+    if (alertLogOut.tag == 25)
+    {
+        if (buttonIndex==1)
+        {
 
+            
+            
+            
+            NSString *orderId = [[cancelItem valueForKey:@"id"]stringValue];
+            
+            [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeGradient];
+            [SVProgressHUD showWithStatus:@"Loading"];
+            
+            
+            [handler cancelOrder:orderId];
+            
+        }
+        
+    }
+    
+}
 
 #pragma mark APIHandler methods
 
