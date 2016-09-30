@@ -98,12 +98,20 @@
 //    [self.navigationController.view addSubview:self.view];
 
     
-    float targetHeight = self.navigationController.navigationBar.frame.size.height;
+    //float targetHeight = self.navigationController.navigationBar.frame.size.height;
     
+    
+    CGFloat height = [UIScreen mainScreen].bounds.size.height;
+    CGFloat width = [UIScreen mainScreen].bounds.size.width;
     
     
     UIButton *goToTop = [UIButton buttonWithType:UIButtonTypeCustom];
-    goToTop.frame = CGRectMake(0, self.view.frame.size.height-(44+targetHeight+20), self.view.frame.size.width, 44);
+    //goToTop.frame = CGRectMake(0, self.view.frame.size.height-(44+targetHeight+20), self.view.frame.size.width, 44);
+    
+    goToTop.frame = CGRectMake(0, height-(44+34+30), width, 44);
+    
+    
+    
     [goToTop setBackgroundColor:[UIColor colorWithRed:255.0/255.0 green:140/255.0 blue:0/255.0 alpha:1.0]];
     
     
@@ -338,7 +346,7 @@
         [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeGradient];
         [SVProgressHUD showWithStatus:@"Updating order"];
         
-        [handler updateOrder:paramsDict orderId:@""];
+        [handler updateOrder:paramsDict orderId:[updateItem valueForKey:@"id"]];
         
         
     }
@@ -490,7 +498,21 @@
                 
                 
                 UITextField *dateField = [[UITextField alloc]initWithFrame:CGRectMake(self.view.frame.size.width/3-10, 0, self.view.frame.size.width/3+5, 30)];
-                dateField.placeholder = @"date";
+                
+                if(isUpdate){
+                
+                    dateField.text = [updateItem valueForKey:@"pickup_date"];
+                
+                    [paramsDict setValue:[updateItem valueForKey:@"pickup_date"] forKey:@"pickup_date"];
+                    
+                    
+                    
+                }else{
+                    
+                    dateField.placeholder = @"date";
+                
+                }
+                
                 dateField.inputView = datePicker;
                 dateField.delegate = self;
                 dateField.textAlignment = NSTextAlignmentCenter; // Pre-iOS6 SDK: UITextAlignmentCenter
@@ -527,6 +549,19 @@
                 timeField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
                 
                 timeField.tag = 11;
+                
+                
+                if(isUpdate){
+                    
+                    timeField.text = [updateItem valueForKey:@"pickup_slot"];
+                    
+                    [paramsDict setValue:[updateItem valueForKey:@"time_slot_id"] forKey:@"time_slot_id"];
+                    
+                }else{
+                
+                    timeField.text = @"";
+                
+                }
                 
                 
                 timeField.inputAccessoryView = myToolbar;
@@ -585,7 +620,21 @@
                 
                 
                 UITextField *dateField = [[UITextField alloc]initWithFrame:CGRectMake(self.view.frame.size.width/3-10, 0, self.view.frame.size.width/3+5, 30)];
-                dateField.placeholder = @"date";
+                
+                if(isUpdate){
+                    
+                    dateField.text = [updateItem valueForKey:@"delivery_date"];
+                    
+                    [paramsDict setValue:[updateItem valueForKey:@"delivery_date"] forKey:@"delivery_date"];
+                    
+                    
+                    
+                }else{
+                
+                    dateField.placeholder = @"date";
+                }
+                
+                
                 dateField.inputView = dateDelivery;
                 dateField.delegate = self;
                 dateField.textAlignment = NSTextAlignmentCenter; // Pre-iOS6 SDK: UITextAlignmentCenter
@@ -615,7 +664,22 @@
                 
                 
                 UITextField *timeField = [[UITextField alloc]initWithFrame:CGRectMake(self.view.frame.size.width/3*2, 0, self.view.frame.size.width/3-4, 30)];
-                timeField.placeholder = @"time";
+                
+                
+                if(isUpdate){
+                    
+                    timeField.text = [updateItem valueForKey:@"delivery_slot"];
+                    
+                    [paramsDict setValue:[updateItem valueForKey:@"delivery_time_slot_id"] forKey:@"delivery_time_slot_id"];
+                    
+                }else{
+                    
+                    timeField.placeholder = @"time";
+                    
+                }
+                
+                
+                
                 timeField.inputView = pickrView;
                 timeField.delegate = self;
                 timeField.textAlignment = NSTextAlignmentCenter; // Pre-iOS6 SDK: UITextAlignmentCenter
@@ -652,7 +716,8 @@
             }
             
             
-        }else{
+        }
+        else{
             
             
             if(indexPath.row == 0){
@@ -714,51 +779,96 @@
                 
                 addressLabel.tag = 2;
                 
-                for(int i = 0; i<[addressList count]; i ++){
+                
+                if(isUpdate){
+                
                     
                     
-                    NSDictionary *tempDict = [addressList objectAtIndex:i];
+                    NSDictionary* tempDict = [updateItem valueForKey:@"address"];
                     
                     
-                    int isDefault = [[tempDict valueForKey:@"is_default"]intValue];
+                    NSString *str = [NSString stringWithFormat:@"%@\n%@\n%@\n%@",[tempDict valueForKey:@"building_no"],[tempDict valueForKey:@"street"],[tempDict valueForKey:@"zone"],[tempDict valueForKey:@"notes"]];
                     
-                    if(isDefault == 1){
+                    [addressLabel setText:str];
+                    
+                    MYLog(@"str - %@",str);
+                    
+                    
+                    //
+                    
+                    [paramsDict setValue:[tempDict valueForKey:@"id"] forKey:@"address_id"];
+                    
+                    
+                    
+                    UIButton *button=[UIButton buttonWithType:UIButtonTypeCustom];
+                    
+                    [button setBackgroundImage:[UIImage imageNamed:@"EditAddress.png"] forState:UIControlStateNormal];
+                    
+                    [button addTarget:self action:@selector(editAddressButtonClicked:) forControlEvents:UIControlEventTouchDown];
+                    
+                    button.frame = CGRectMake(self.tableView.frame.size.width - 70, 50, 27, 27);
+                    
+                    
+                    
+                    [cell.contentView addSubview:button];
+                    
+                    
+                    isUpdate = NO;
+                    
+                
+                
+                }else{
+                
+                    for(int i = 0; i<[addressList count]; i ++){
                         
                         
-                        
-                        defaultAddresDict = tempDict;
-                        
-                        
-                        NSString *str = [NSString stringWithFormat:@"%@\n%@\n%@\n%@",[tempDict valueForKey:@"building_no"],[tempDict valueForKey:@"street"],[tempDict valueForKey:@"zone"],[tempDict valueForKey:@"notes"]];
-                        
-                        [addressLabel setText:str];
-                        
-                        MYLog(@"str - %@",str);
+                        NSDictionary *tempDict = [addressList objectAtIndex:i];
                         
                         
-                        //
+                        int isDefault = [[tempDict valueForKey:@"is_default"]intValue];
                         
-                        [paramsDict setValue:[defaultAddresDict valueForKey:@"id"] forKey:@"address_id"];
-                        
-                        
-                        
-                        UIButton *button=[UIButton buttonWithType:UIButtonTypeCustom];
-                        
-                        [button setBackgroundImage:[UIImage imageNamed:@"EditAddress.png"] forState:UIControlStateNormal];
-                        
-                        [button addTarget:self action:@selector(editAddressButtonClicked:) forControlEvents:UIControlEventTouchDown];
-                        
-                        button.frame = CGRectMake(self.tableView.frame.size.width - 70, 50, 27, 27);
-                        
-                        
-                        
-                        [cell.contentView addSubview:button];
+                        if(isDefault == 1){
+                            
+                            
+                            
+                            defaultAddresDict = tempDict;
+                            
+                            
+                            NSString *str = [NSString stringWithFormat:@"%@\n%@\n%@\n%@",[tempDict valueForKey:@"building_no"],[tempDict valueForKey:@"street"],[tempDict valueForKey:@"zone"],[tempDict valueForKey:@"notes"]];
+                            
+                            [addressLabel setText:str];
+                            
+                            MYLog(@"str - %@",str);
+                            
+                            
+                            //
+                            
+                            [paramsDict setValue:[defaultAddresDict valueForKey:@"id"] forKey:@"address_id"];
+                            
+                            
+                            
+                            UIButton *button=[UIButton buttonWithType:UIButtonTypeCustom];
+                            
+                            [button setBackgroundImage:[UIImage imageNamed:@"EditAddress.png"] forState:UIControlStateNormal];
+                            
+                            [button addTarget:self action:@selector(editAddressButtonClicked:) forControlEvents:UIControlEventTouchDown];
+                            
+                            button.frame = CGRectMake(self.tableView.frame.size.width - 70, 50, 27, 27);
+                            
+                            
+                            
+                            [cell.contentView addSubview:button];
+                            
+                            
+                        }
                         
                         
                     }
-                    
-                    
+                
+                
                 }
+                
+                
                 
                 
                 [cell addSubview:addressLabel];
@@ -829,7 +939,7 @@
                         defaultAddresDict = tempDict;
                         
                         
-                        NSString *str = [NSString stringWithFormat:@"%@\n%@ %@, %@ \nP.O Box %@\n%@ , %@",[tempDict valueForKey:@"full_name"],[tempDict valueForKey:@"address1"],[tempDict valueForKey:@"building_no"],[tempDict valueForKey:@"street"],[tempDict valueForKey:@"notes"],[tempDict valueForKey:@"zone"],[tempDict valueForKey:@"country"]];
+                        NSString *str = [NSString stringWithFormat:@"%@\n%@, %@\n%@, %@\n%@",[tempDict valueForKey:@"full_name"],[tempDict valueForKey:@"building_no"],[tempDict valueForKey:@"street"],[tempDict valueForKey:@"zone"],[tempDict valueForKey:@"notes"],[tempDict valueForKey:@"address1"]];
                         
                         
                         

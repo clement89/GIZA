@@ -577,7 +577,7 @@
             
         } else {//Success
             
-            [delegate ProcessAPIData:responseObject APIName:@"CONFORM_ORDER"];
+            [delegate ProcessAPIData:responseObject APIName:@"UPDATE_ORDER"];
         }
     }];
     [dataTask resume];

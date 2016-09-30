@@ -1,4 +1,4 @@
-//
+    //
 //  SignUpViewController.h
 //  GIZA LAUNDRY
 //
@@ -8,6 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SignUpViewController : UIViewController
+@interface SignUpViewController : UIViewController{
+
+
+
+}
+
+
+@property (strong, nonatomic) IBOutlet UIButton *registerButten;
+
+@property (strong, nonatomic) IBOutlet UIButton *loginButton;
 
 @end

@@ -90,7 +90,7 @@
     self.navigationController.navigationBar.tintColor = [UIColor blackColor];
     
     
-    [handler getZoneList:[NSDictionary dictionaryWithObject:[NSNumber numberWithInt:173] forKey:@"country_id"]];
+    //[handler getZoneList:[NSDictionary dictionaryWithObject:[NSNumber numberWithInt:173] forKey:@"country_id"]];
     
     
     
@@ -165,6 +165,9 @@
     
     if(numberOFSections == 5){
         
+        
+        isAddresFromMap = YES;
+        
         numberOFSections = 6;
         
         [self.tableView beginUpdates];
@@ -173,6 +176,8 @@
         [self.tableView endUpdates];
     
     }else{
+        
+        isAddresFromMap = NO;
         
         numberOFSections = 5;
         
@@ -191,36 +196,43 @@
 {
     
     MYLog(@"activeTextField.tag - %ld",(long)activeTextField.tag);
+    
+    
+    if(!isAddresFromMap){
+    
+        if(activeTextField.tag == 1){
+            
+            [addressDict setValue:activeTextField.text forKey:@"building_no"];
+            
+        }else if(activeTextField.tag == 2){
+            
+            [addressDict setValue:activeTextField.text forKey:@"street"];
+            
+            
+        }else if(activeTextField.tag == 3){
+            
+            
+            [addressDict setValue:activeTextField.text forKey:@"zone_number"];
+            
+        }else if(activeTextField.tag == 4){
+            
+            [addressDict setValue:activeTextField.text forKey:@"notes"];
+            
+            
+        }
+    
+    }
 
     
-    if(activeTextField.tag == 1){
-        
-        [addressDict setValue:activeTextField.text forKey:@"building_no"];
-        
-    }else if(activeTextField.tag == 2){
-        
-        [addressDict setValue:activeTextField.text forKey:@"street"];
-        
-        
-    }else if(activeTextField.tag == 3){
-        
-        
-        //[addressDict setValue:activeTextField.text forKey:@"zone_number"];
-        
-    }else if(activeTextField.tag == 4){
-        
-        [addressDict setValue:activeTextField.text forKey:@"notes"];
-        
-        
-    }
     
     
     
-    MKCoordinateRegion region = myMapView.region;
-    CGFloat lattitude = region.center.latitude;
-    CGFloat longitude = region.center.longitude;
     
-    MYLog(@"lalalala %f  lololo %f",lattitude,longitude);
+//    MKCoordinateRegion region = myMapView.region;
+//    CGFloat lattitude = region.center.latitude;
+//    CGFloat longitude = region.center.longitude;
+//    
+//    MYLog(@"lalalala %f  lololo %f",lattitude,longitude);
     
     // Center of the screen as lat/long
     // region.center.latitude
@@ -249,39 +261,44 @@
     
     
     
-    
-    
-    
-    if(![addressDict valueForKey:@"building_no"]){
+    if(!isAddresFromMap){
         
-        UIAlertView *errorAlert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Please Building Number."  delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [errorAlert show];
-        
-        return;
-        
-        
-    }else if(![addressDict valueForKey:@"street"]){
-        
-        UIAlertView *errorAlert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Please Enter Street."  delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [errorAlert show];
-        
-        return;
-        
-    }else if(![addressDict valueForKey:@"zone_number"]){
-        
-        UIAlertView *errorAlert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Please Enter Zone Number."  delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [errorAlert show];
-        
-        return;
-        
-    }else if(![addressDict valueForKey:@"notes"]){
-        
-        UIAlertView *errorAlert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Please enter note."  delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [errorAlert show];
-        
-        return;
+        if(![addressDict valueForKey:@"building_no"]){
+            
+            UIAlertView *errorAlert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Please Building Number."  delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [errorAlert show];
+            
+            return;
+            
+            
+        }else if(![addressDict valueForKey:@"street"]){
+            
+            UIAlertView *errorAlert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Please Enter Street."  delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [errorAlert show];
+            
+            return;
+            
+        }else if(![addressDict valueForKey:@"zone_number"]){
+            
+            UIAlertView *errorAlert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Please Enter Zone Number."  delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [errorAlert show];
+            
+            return;
+            
+        }else if(![addressDict valueForKey:@"notes"]){
+            
+            UIAlertView *errorAlert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Please enter note."  delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [errorAlert show];
+            
+            return;
+            
+        }
+
+
         
     }
+    
+    
     
     
     
@@ -384,21 +401,21 @@
         
         /////////////////////////
         
-        UIToolbar *myToolbar = [[UIToolbar alloc] initWithFrame:
-                                CGRectMake(0,0, self.tableView.frame.size.width, 44)]; //should code with variables to support view resizing
-        
-        UIBarButtonItem *doneButton =[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(doneButtonClicked)];
-        
-        UIBarButtonItem *flexibleItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
-        
-        
-        UIBarButtonItem *cancelButton =[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelButtonClicked)];
-        
-        //using default text field delegate method here, here you could call
-        //myTextField.resignFirstResponder to dismiss the views
-        
-        [myToolbar setItems:[NSArray arrayWithObjects:doneButton,flexibleItem,cancelButton, nil] animated:NO];
-        
+//        UIToolbar *myToolbar = [[UIToolbar alloc] initWithFrame:
+//                                CGRectMake(0,0, self.tableView.frame.size.width, 44)]; //should code with variables to support view resizing
+//        
+//        UIBarButtonItem *doneButton =[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(doneButtonClicked)];
+//        
+//        UIBarButtonItem *flexibleItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+//        
+//        
+//        UIBarButtonItem *cancelButton =[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelButtonClicked)];
+//        
+//        //using default text field delegate method here, here you could call
+//        //myTextField.resignFirstResponder to dismiss the views
+//        
+//        [myToolbar setItems:[NSArray arrayWithObjects:doneButton,flexibleItem,cancelButton, nil] animated:NO];
+//        
         
         
         
@@ -407,11 +424,11 @@
             
             
             
-            addresFieldText.inputView = pickrView;
+            //addresFieldText.inputView = pickrView;
             addresFieldText.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
             
             
-            addresFieldText.inputAccessoryView = myToolbar;
+            //addresFieldText.inputAccessoryView = myToolbar;
             
         
         }
@@ -467,6 +484,8 @@
                 
                 
                //picker view
+                
+                addresFieldText.text = [oldAddressDict valueForKey:@"zone_number"];
                 
                 
                 
@@ -618,6 +637,9 @@
             [locationManager startUpdatingLocation];
             
 
+            
+            
+           
 
             
             [cell addSubview:myMapView];
@@ -718,7 +740,7 @@
         
         
 
-        
+        [addressDict setValue:textField.text forKey:@"zone_number"];
         
         
     }else if(textField.tag == 4){
@@ -768,6 +790,9 @@
         
         [addressDict setValue:[NSString stringWithFormat: @"%@", [NSString stringWithFormat:@"%.8f", currentLocation.coordinate.latitude]] forKey:@"latitude"];
         [addressDict setValue:[NSString stringWithFormat: @"%@", [NSString stringWithFormat:@"%.8f", currentLocation.coordinate.longitude]] forKey:@"longitude"];
+        
+        
+         [self getAddressFromLatLon:newLocation];
     }
     
     
@@ -791,30 +816,35 @@
 }
 
 
-//- (void) getAddressFromLatLon:(CLLocation *)bestLocation
-//{
-//
-//    
-//    NSMutableDictionary *returnDict = [[NSMutableDictionary alloc]initWithCapacity:5];
-//    
-//    CLGeocoder *geocoder = [[CLGeocoder alloc] init] ;
-//    [geocoder reverseGeocodeLocation:bestLocation
-//                   completionHandler:^(NSArray *placemarks, NSError *error)
-//     {
-//         if (error){
-//             MYLog(@"Geocode failed with error: %@", error);
-//             return;
-//         }
-//         CLPlacemark *placemark = [placemarks objectAtIndex:0];
-//         
-//         MYLog(@"Name %@",placemark.name);
-//         MYLog(@"Street %@",placemark.thoroughfare);
-//         MYLog(@"locality %@",placemark.locality);
-//         MYLog(@"postalCode %@",placemark.postalCode);
-//         MYLog(@"subLocality %@",placemark.subLocality);
-//         
-//         MYLog(@"subThoroughfare %@",placemark.subThoroughfare);
-//         
+- (void) getAddressFromLatLon:(CLLocation *)bestLocation
+{
+
+    
+    //NSMutableDictionary *returnDict = [[NSMutableDictionary alloc]initWithCapacity:5];
+    
+    CLGeocoder *geocoder = [[CLGeocoder alloc] init] ;
+    [geocoder reverseGeocodeLocation:bestLocation
+                   completionHandler:^(NSArray *placemarks, NSError *error)
+     {
+         if (error){
+             MYLog(@"Geocode failed with error: %@", error);
+             return;
+         }
+         CLPlacemark *placemark = [placemarks objectAtIndex:0];
+         
+         MYLog(@"Name %@",placemark.name);
+         MYLog(@"Street %@",placemark.thoroughfare);
+         MYLog(@"locality %@",placemark.locality);
+         MYLog(@"postalCode %@",placemark.postalCode);
+         MYLog(@"subLocality %@",placemark.subLocality);
+         
+         MYLog(@"subThoroughfare %@",placemark.subThoroughfare);
+         
+         
+         [addressDict setValue:[NSString stringWithFormat:@"%@, %@",placemark.name,placemark.subLocality] forKey:@"address1"];
+         
+         
+         
 //         isAddresFromMap = YES;
 //         
 //         [returnDict setValue:placemark.name forKey:@"full_name"];
@@ -844,14 +874,14 @@
 //         
 //         [self.tableView reloadRowsAtIndexPaths:rowsToReload withRowAnimation:UITableViewRowAnimationNone];
 //         
-//         
-//         
-//     }];
-//    
-//    
-//
-//    
-//}
+         
+         
+     }];
+    
+    
+
+    
+}
 
 #pragma mark pickerView deligats
 
@@ -936,7 +966,7 @@
         
         NSMutableArray  *savedData =  [[NSMutableArray alloc]initWithContentsOfFile:filePath];//[[NSDictionary alloc]initWithContentsOfFile:filePath];
         
-        MYLog(@"savedData -- %@",savedData);
+        
         
         if(savedData.count == 0){
             
@@ -945,12 +975,12 @@
             
             if([addressArray writeToFile:filePath atomically:YES]){
                 
-                MYLog(@"write to file success")
+                MYLog(@"write to file success");
                 
                 
             }else{
                 
-                MYLog(@"write to file failed...")
+                MYLog(@"write to file failed...");
             }
             
             
@@ -959,19 +989,31 @@
         
             [savedData addObject:response];
             
+            
+            MYLog(@"savedData -- %@",savedData);
+            
             if([savedData writeToFile:filePath atomically:YES]){
                 
-                MYLog(@"write to file success")
+                MYLog(@"write to file success");
                 
                 
             }else{
                 
-                MYLog(@"write to file failed...")
+                
+                MYLog(@"write to file failed...");
+                
+                
             }
 
         
         
         }
+        
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"kReloadRow" object:self];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"kReloadAddressList" object:self];
+        
         
         
                 UIAlertView *alert = [[UIAlertView alloc]
@@ -988,9 +1030,7 @@
         
         
         
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"kReloadRow" object:self];
         
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"kReloadAddressList" object:self];
         
         
         

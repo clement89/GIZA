@@ -44,7 +44,9 @@
     self.tableView.frame = tableViewFrame;
     self.tableView.scrollIndicatorInsets = self.tableView.contentInset;
     
-    self.tableView.backgroundView=[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"main.png"]];
+    //self.tableView.backgroundView=[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"main.png"]];
+    
+    self.tableView.backgroundView=[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"reg.png"]];
     
     
     handler = [[APIHandler alloc]init];
