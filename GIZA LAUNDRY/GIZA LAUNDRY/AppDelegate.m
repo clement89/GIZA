@@ -18,7 +18,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
-    //[self isUserLoggedIn];
+    [self isUserLoggedIn];
     
     
     UIUserNotificationType types = (UIUserNotificationType) (UIUserNotificationTypeBadge |
@@ -83,9 +83,9 @@
     MYLog(@"cjc ~ %@",userInfo);
     
     
-    NSDictionary *apsDict = [userInfo valueForKey:@"aps"];
-    
-    MYLog(@"aps - -- %@",apsDict);
+//    NSDictionary *apsDict = [userInfo valueForKey:@"aps"];
+//    
+//    MYLog(@"aps - -- %@",apsDict);
     
     
 //    [[[UIAlertView alloc] initWithTitle:@"Alert" message:[apsDict valueForKey:@"alert"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];

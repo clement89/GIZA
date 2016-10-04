@@ -54,8 +54,9 @@
     
     
     
-    UIImageView *titleImageView = [[UIImageView alloc]initWithFrame:CGRectMake(130, 5, 200 , 34)];
-    [titleImageView setImage:[UIImage imageNamed:@"logo.png"]];
+
+    CGFloat xValue = (([UIScreen mainScreen].bounds.size.width)/2)-75;
+    UIImageView *titleImageView = [[UIImageView alloc]initWithFrame:CGRectMake(xValue, 5, 150 , 45)];[titleImageView setImage:[UIImage imageNamed:@"logo.png"]];
     self.navigationItem.titleView = titleImageView;
 
     
@@ -108,11 +109,11 @@
     if(savedData.count == 0){
         
         
-        [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeGradient];
-        [SVProgressHUD showWithStatus:@"Loading my profile"];
-        
-        
-        [handler getMyProfile];
+//        [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeGradient];
+//        [SVProgressHUD showWithStatus:@"Loading my profile"];
+//        
+//        
+//        [handler getMyProfile];
     
         
         
@@ -120,10 +121,16 @@
     }else{
     
         
-        profileInfo = savedData;
+        //profileInfo = savedData;
     
     }
 
+    
+    [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeGradient];
+    [SVProgressHUD showWithStatus:@"Loading my profile"];
+    
+    
+    [handler getMyProfile];
     
     
     

@@ -51,8 +51,9 @@
     [self.navigationController.navigationBar setTranslucent:NO];
     [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:255.0/255.0 green:140/255.0 blue:0/255.0 alpha:1.0]];
     
-    UIImageView *titleImageView = [[UIImageView alloc]initWithFrame:CGRectMake(130, 5, 200 , 34)];
-    [titleImageView setImage:[UIImage imageNamed:@"logo.png"]];
+
+    CGFloat xValue = (([UIScreen mainScreen].bounds.size.width)/2)-75;
+    UIImageView *titleImageView = [[UIImageView alloc]initWithFrame:CGRectMake(xValue, 5, 150 , 45)];[titleImageView setImage:[UIImage imageNamed:@"logo.png"]];
     self.navigationItem.titleView = titleImageView;
     
     
@@ -146,10 +147,10 @@
     
     if(isRowSelected){
     
-        return 8;
+        return 9;
 
     }else{
-        return 7;
+        return 8;
 
     
     }

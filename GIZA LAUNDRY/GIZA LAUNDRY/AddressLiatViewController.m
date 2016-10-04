@@ -214,8 +214,20 @@
 //        NSString *str = [NSString stringWithFormat:@"%@\n%@\n%@\n%@",[addressDict valueForKey:@"building_no"],[addressDict valueForKey:@"street"],[addressDict valueForKey:@"zone_number"],[addressDict valueForKey:@"notes"]];
         
         
-        NSString *str = [NSString stringWithFormat:@"%@\n%@, %@\n%@, %@\n%@",[addressDict valueForKey:@"full_name"],[addressDict valueForKey:@"building_no"],[addressDict valueForKey:@"street"],[addressDict valueForKey:@"zone"],[addressDict valueForKey:@"notes"],[addressDict valueForKey:@"address1"]];
+        NSString *str = [NSString stringWithFormat:@"%@\n%@\n%@\n%@\n%@",[addressDict valueForKey:@"full_name"],[addressDict valueForKey:@"building_no"],[addressDict valueForKey:@"street"],[addressDict valueForKey:@"zone_number"],[addressDict valueForKey:@"notes"]];
                                                                                
+        
+        
+        
+        NSString *strLatitude = [addressDict valueForKey:@"latitude"];
+        NSString *strLongitude = [addressDict valueForKey:@"longitude"];
+        
+        if([strLatitude length]> 5 || [strLongitude length] > 5)
+        {
+            str = [NSString stringWithFormat:@"%@",[addressDict valueForKey:@"address1"]];
+        
+        
+        }
         
         addressLabel.text = str;
         
@@ -249,8 +261,8 @@
 - (void) flip: (id) sender {
     
     
-    UISwitch *onoff = (UISwitch *) sender;
-    MYLog(@"%@", onoff.on ? @"On" : @"Off");
+//    UISwitch *onoff = (UISwitch *) sender;
+//    MYLog(@"%@", onoff.on ? @"On" : @"Off");
     
     
     

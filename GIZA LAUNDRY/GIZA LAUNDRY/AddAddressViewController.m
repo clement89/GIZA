@@ -442,7 +442,7 @@
             
             UIButton *goToTop = [UIButton buttonWithType:UIButtonTypeCustom];
             goToTop.frame = CGRectMake(0, 0, self.view.frame.size.width, 50);
-            [goToTop setTitle:@"USE CURRENT LOCATION" forState:UIControlStateNormal];
+            [goToTop setTitle:@"OR GET CURRENT LOCATION" forState:UIControlStateNormal];
             
             [goToTop setBackgroundColor:[UIColor colorWithRed:255.0/255.0 green:140/255.0 blue:0/255.0 alpha:1.0]];
             

@@ -680,12 +680,12 @@
     
     
     
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *savedImagePath = [documentsDirectory stringByAppendingPathComponent:@"profileImage.jpg"];
-    
-    
-    MYLog(@"savedImagePath -- %@",savedImagePath);
+//    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+//    NSString *documentsDirectory = [paths objectAtIndex:0];
+//    NSString *savedImagePath = [documentsDirectory stringByAppendingPathComponent:@"profileImage.jpg"];
+//    
+//    
+//    MYLog(@"savedImagePath -- %@",savedImagePath);
     
     
 //    NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:UPDATE_PROFILE_API parameters:parametersDict constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
@@ -694,38 +694,83 @@
     
     
     
-    NSMutableURLRequest *request = [[AFJSONRequestSerializer serializer] requestWithMethod:@"POST" URLString:[NSString stringWithFormat:@"%@",UPDATE_PROFILE_API] parameters:nil error:nil];
+//    NSMutableURLRequest *request = [[AFJSONRequestSerializer serializer] requestWithMethod:@"POST" URLString:[NSString stringWithFormat:@"%@",UPDATE_PROFILE_API] parameters:nil error:nil];
+//    
+//    NSString *tocken = [NSString stringWithFormat:@"Bearer %@",[[NSUserDefaults standardUserDefaults]valueForKey:@"kaccess_tocken"]];
+//    
+//    [request setValue:tocken forHTTPHeaderField:@"Authorization"];
+//    
+//    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+//    
+//    NSURLSessionUploadTask *uploadTask;
+//    uploadTask = [manager
+//                  uploadTaskWithStreamedRequest:request
+//                  progress:^(NSProgress * _Nonnull uploadProgress) {
+//                      // This is not called back on the main queue.
+//                      // You are responsible for dispatching to the main queue for UI updates
+//                      dispatch_async(dispatch_get_main_queue(), ^{
+//                          //Update the progress view
+//                          //[progressView setProgress:uploadProgress.fractionCompleted];
+//                      });
+//                  }
+//                  completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
+//                      if (error) {
+//
+//                          [delegate APIReponseWithError:responseObject];
+//                          
+//                      } else {
+//                          
+//                          [delegate ProcessAPIData:responseObject APIName:@"UPDATE_PROFILE"];
+//                          
+//                      }
+//                  }];
+//    
+//    [uploadTask resume];
+    
+    
+    
+    
+    
+    
+    
+    
+    MYLog(@"parametersDict -- %@",parametersDict);
+    
+    
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
+    
+    
+    
+    
+    NSMutableURLRequest *request = [[AFJSONRequestSerializer serializer] requestWithMethod:@"POST" URLString:UPDATE_PROFILE_API parameters:parametersDict error:nil];
+    
+    
+    //NSString *tocken = [NSString stringWithFormat:@""];
+    
+    
     
     NSString *tocken = [NSString stringWithFormat:@"Bearer %@",[[NSUserDefaults standardUserDefaults]valueForKey:@"kaccess_tocken"]];
     
     [request setValue:tocken forHTTPHeaderField:@"Authorization"];
     
-    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
-    NSURLSessionUploadTask *uploadTask;
-    uploadTask = [manager
-                  uploadTaskWithStreamedRequest:request
-                  progress:^(NSProgress * _Nonnull uploadProgress) {
-                      // This is not called back on the main queue.
-                      // You are responsible for dispatching to the main queue for UI updates
-                      dispatch_async(dispatch_get_main_queue(), ^{
-                          //Update the progress view
-                          //[progressView setProgress:uploadProgress.fractionCompleted];
-                      });
-                  }
-                  completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
-                      if (error) {
+    
+    NSURLSessionDataTask *dataTask = [manager dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+        if (error) {
+            
+            [delegate APIReponseWithErrorArray:responseObject];
+            
+        } else {//Success
+            
+            [delegate ProcessAPIData:responseObject APIName:@"UPDATE_PROFILE"];
+        }
+    }];
+    [dataTask resume];
+    
+    
+    
 
-                          [delegate APIReponseWithError:responseObject];
-                          
-                      } else {
-                          
-                          [delegate ProcessAPIData:responseObject APIName:@"UPDATE_PROFILE"];
-                          
-                      }
-                  }];
-    
-    [uploadTask resume];
         
     
 }

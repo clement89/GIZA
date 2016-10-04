@@ -46,7 +46,7 @@
     
     //self.tableView.backgroundView=[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"main.png"]];
     
-    self.tableView.backgroundView=[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"reg.png"]];
+    self.tableView.backgroundView=[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"registerBackground.png"]];
     
     
     handler = [[APIHandler alloc]init];

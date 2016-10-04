@@ -75,8 +75,9 @@
     
     
     
-    UIImageView *titleImageView = [[UIImageView alloc]initWithFrame:CGRectMake(130, 5, 200 , 34)];
-    [titleImageView setImage:[UIImage imageNamed:@"logo.png"]];
+
+    CGFloat xValue = (([UIScreen mainScreen].bounds.size.width)/2)-75;
+    UIImageView *titleImageView = [[UIImageView alloc]initWithFrame:CGRectMake(xValue, 5, 150 , 45)];[titleImageView setImage:[UIImage imageNamed:@"logo.png"]];
     self.navigationItem.titleView = titleImageView;
     
     
@@ -787,11 +788,32 @@
                     NSDictionary* tempDict = [updateItem valueForKey:@"address"];
                     
                     
-                    NSString *str = [NSString stringWithFormat:@"%@\n%@\n%@\n%@",[tempDict valueForKey:@"building_no"],[tempDict valueForKey:@"street"],[tempDict valueForKey:@"zone"],[tempDict valueForKey:@"notes"]];
+                   
                     
-                    [addressLabel setText:str];
+                    
+                    
+                    
+                    NSString *str = [NSString stringWithFormat:@"%@\n%@\n%@\n%@\n%@",[tempDict valueForKey:@"full_name"],[tempDict valueForKey:@"building_no"],[tempDict valueForKey:@"street"],[tempDict valueForKey:@"zone_number"],[tempDict valueForKey:@"notes"]];
+                    
+                    
+                    
+                    
+                    NSString *strLatitude = [tempDict valueForKey:@"latitude"];
+                    NSString *strLongitude = [tempDict valueForKey:@"longitude"];
+                    
+                    if([strLatitude length]> 5 || [strLongitude length] > 5)
+                    {
+                        
+                        str = [NSString stringWithFormat:@"%@",[tempDict valueForKey:@"address1"]];
+                        
+                        
+                    }
+                    
                     
                     MYLog(@"str - %@",str);
+                    
+                    
+                    [addressLabel setText:str];
                     
                     
                     //
@@ -834,11 +856,23 @@
                             defaultAddresDict = tempDict;
                             
                             
-                            NSString *str = [NSString stringWithFormat:@"%@\n%@\n%@\n%@",[tempDict valueForKey:@"building_no"],[tempDict valueForKey:@"street"],[tempDict valueForKey:@"zone"],[tempDict valueForKey:@"notes"]];
+                            NSString *str = [NSString stringWithFormat:@"%@\n%@\n%@\n%@\n%@",[tempDict valueForKey:@"full_name"],[tempDict valueForKey:@"building_no"],[tempDict valueForKey:@"street"],[tempDict valueForKey:@"zone_number"],[tempDict valueForKey:@"notes"]];
                             
-                            [addressLabel setText:str];
+                            
+                            NSString *strLatitude = [tempDict valueForKey:@"latitude"];
+                            NSString *strLongitude = [tempDict valueForKey:@"longitude"];
+                            
+                            if([strLatitude length]> 5 || [strLongitude length] > 5)
+                            {
+                                
+                                str = [NSString stringWithFormat:@"%@",[tempDict valueForKey:@"address1"]];
+                                
+                                
+                            }
+                            
                             
                             MYLog(@"str - %@",str);
+
                             
                             
                             //
@@ -939,7 +973,26 @@
                         defaultAddresDict = tempDict;
                         
                         
-                        NSString *str = [NSString stringWithFormat:@"%@\n%@, %@\n%@, %@\n%@",[tempDict valueForKey:@"full_name"],[tempDict valueForKey:@"building_no"],[tempDict valueForKey:@"street"],[tempDict valueForKey:@"zone"],[tempDict valueForKey:@"notes"],[tempDict valueForKey:@"address1"]];
+                        
+                        NSString *str = [NSString stringWithFormat:@"%@\n%@\n%@\n%@\n%@",[tempDict valueForKey:@"full_name"],[tempDict valueForKey:@"building_no"],[tempDict valueForKey:@"street"],[tempDict valueForKey:@"zone_number"],[tempDict valueForKey:@"notes"]];
+                        
+                        
+                        
+                        
+                        NSString *strLatitude = [tempDict valueForKey:@"latitude"];
+                        NSString *strLongitude = [tempDict valueForKey:@"longitude"];
+                        
+                        if([strLatitude length]> 5 || [strLongitude length] > 5)
+                        {
+                            
+                            str = [NSString stringWithFormat:@"%@",[tempDict valueForKey:@"address1"]];
+                            
+                            
+                        }
+                        
+                        
+                        MYLog(@"str - %@",str);
+
                         
                         
                         

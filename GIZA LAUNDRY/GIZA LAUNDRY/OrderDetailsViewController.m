@@ -22,8 +22,9 @@
     [super viewDidLoad];
     
    
-    UIImageView *titleImageView = [[UIImageView alloc]initWithFrame:CGRectMake(130, 5, 200 , 34)];
-    [titleImageView setImage:[UIImage imageNamed:@"logo.png"]];
+
+    CGFloat xValue = (([UIScreen mainScreen].bounds.size.width)/2)-75;
+    UIImageView *titleImageView = [[UIImageView alloc]initWithFrame:CGRectMake(xValue, 5, 150 , 45)];[titleImageView setImage:[UIImage imageNamed:@"logo.png"]];
     self.navigationItem.titleView = titleImageView;
 
     self.navigationController.navigationBar.tintColor = [UIColor blackColor];
