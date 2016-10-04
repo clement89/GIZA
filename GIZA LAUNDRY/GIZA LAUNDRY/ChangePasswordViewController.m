@@ -44,7 +44,7 @@
     
     self.tableView.scrollIndicatorInsets = self.tableView.contentInset;
     
-    self.tableView.backgroundView=[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"main.png"]];
+    self.tableView.backgroundView=[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"regBackground.png"]];
     
     
     handler = [[APIHandler alloc]init];
@@ -69,15 +69,34 @@
 - (IBAction)submitButtonClicked:(id)sender {
     
     
+    if([_currentPassText.text isEqualToString:_passwordNewText.text]){
     
-    NSDictionary *paramDict = [NSDictionary dictionaryWithObjectsAndKeys:_currentPassText.text,@"currentpassword",_passwordNewText.text,@"newpassword", nil];
+                UIAlertView *alert = [[UIAlertView alloc]
+                                     initWithTitle:@"Error"
+                                      message:@"Old password and new password won't be the same."
+                                      delegate:nil
+                                      cancelButtonTitle:@"Ok"
+                                      otherButtonTitles:nil];
+                [alert show];
+                alert=nil;
+                return;
     
-    MYLog(@"paramDict - %@",paramDict);
+    }else{
     
-    [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeGradient];
-    [SVProgressHUD showWithStatus:@"Updating password"];
+        NSDictionary *paramDict = [NSDictionary dictionaryWithObjectsAndKeys:_currentPassText.text,@"currentpassword",_passwordNewText.text,@"newpassword", nil];
+        
+        MYLog(@"paramDict - %@",paramDict);
+        
+        [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeGradient];
+        [SVProgressHUD showWithStatus:@"Updating password"];
+        
+        [handler updatePassword:paramDict];
     
-    [handler updatePassword:paramDict];
+    }
+    
+    
+    
+   
     
     
 }
