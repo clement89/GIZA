@@ -75,7 +75,7 @@
                                      initWithTitle:@"Error"
                                       message:@"Old password and new password won't be the same."
                                       delegate:nil
-                                      cancelButtonTitle:@"Ok"
+                                      cancelButtonTitle:@"OK"
                                       otherButtonTitles:nil];
                 [alert show];
                 alert=nil;
