@@ -811,7 +811,7 @@
                     
                     
                     
-                    NSString *str = [NSString stringWithFormat:@"%@\n%@\n%@\n%@\n%@",[tempDict valueForKey:@"full_name"],[tempDict valueForKey:@"building_no"],[tempDict valueForKey:@"street"],[tempDict valueForKey:@"zone_number"],[tempDict valueForKey:@"notes"]];
+                    NSString *str = [NSString stringWithFormat:@"%@\n%@\n%@\n%@ %@",[tempDict valueForKey:@"full_name"],[tempDict valueForKey:@"building_no"],[tempDict valueForKey:@"street"],[tempDict valueForKey:@"zone_number"],[tempDict valueForKey:@"notes"]];
                     
                     
                     
@@ -876,7 +876,7 @@
                             defaultAddresDict = tempDict;
                             
                             
-                            NSString *str = [NSString stringWithFormat:@"%@\n%@\n%@\n%@\n%@",[tempDict valueForKey:@"full_name"],[tempDict valueForKey:@"building_no"],[tempDict valueForKey:@"street"],[tempDict valueForKey:@"zone_number"],[tempDict valueForKey:@"notes"]];
+                            NSString *str = [NSString stringWithFormat:@"%@\n%@\n%@\n%@ %@",[tempDict valueForKey:@"full_name"],[tempDict valueForKey:@"building_no"],[tempDict valueForKey:@"street"],[tempDict valueForKey:@"zone_number"],[tempDict valueForKey:@"notes"]];
                             
                             
                             NSString *strLatitude = [tempDict valueForKey:@"latitude"];
@@ -996,7 +996,7 @@
                         
                         
                         
-                        NSString *str = [NSString stringWithFormat:@"%@\n%@\n%@\n%@\n%@",[tempDict valueForKey:@"full_name"],[tempDict valueForKey:@"building_no"],[tempDict valueForKey:@"street"],[tempDict valueForKey:@"zone_number"],[tempDict valueForKey:@"notes"]];
+                        NSString *str = [NSString stringWithFormat:@"%@\n%@\n%@\n%@ %@",[tempDict valueForKey:@"full_name"],[tempDict valueForKey:@"building_no"],[tempDict valueForKey:@"street"],[tempDict valueForKey:@"zone_number"],[tempDict valueForKey:@"notes"]];
                         
                         
                         
