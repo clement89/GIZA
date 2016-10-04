@@ -214,7 +214,7 @@
 //        NSString *str = [NSString stringWithFormat:@"%@\n%@\n%@\n%@",[addressDict valueForKey:@"building_no"],[addressDict valueForKey:@"street"],[addressDict valueForKey:@"zone_number"],[addressDict valueForKey:@"notes"]];
         
         
-        NSString *str = [NSString stringWithFormat:@"%@\n%@\n%@\n%@\n%@",[addressDict valueForKey:@"full_name"],[addressDict valueForKey:@"building_no"],[addressDict valueForKey:@"street"],[addressDict valueForKey:@"zone_number"],[addressDict valueForKey:@"notes"]];
+        NSString *str = [NSString stringWithFormat:@"%@\n%@\n%@\n%@ %@",[addressDict valueForKey:@"full_name"],[addressDict valueForKey:@"building_no"],[addressDict valueForKey:@"street"],[addressDict valueForKey:@"zone_number"],[addressDict valueForKey:@"notes"]];
                                                                                
         
         

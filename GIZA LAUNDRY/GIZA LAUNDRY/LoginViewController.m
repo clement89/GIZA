@@ -76,6 +76,10 @@
     
     
 }
+- (IBAction)homebuttonClicked:(id)sender {
+    
+    [((AppDelegate*) [[UIApplication sharedApplication] delegate]) byPassLogin];
+}
 
 
 - (IBAction)LoginButtonClicked:(id)sender {

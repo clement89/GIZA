@@ -510,7 +510,12 @@
                     
                 }else{
                     
-                    dateField.placeholder = @"date";
+                    
+                    NSDateFormatter *df2 = [[NSDateFormatter alloc] init];
+                    [df2 setDateFormat:@"dd LLLL"];
+                    NSString *dayStr =  [df2 stringFromDate:[NSDate date]];
+                    
+                    dateField.text = dayStr;
                 
                 }
                 
@@ -522,6 +527,7 @@
                 
                 dateField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
                 
+                dateField.font = [UIFont systemFontOfSize:15];
                 
                 dateField.inputAccessoryView = myToolbar;
                 UIImageView *paddingView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"calendericon.png"]];
@@ -631,8 +637,17 @@
                     
                     
                 }else{
+                    
+                    
+                    NSDate *now = [NSDate date];
+                    int daysToAdd = 2;
+                    NSDate *newDate1 = [now dateByAddingTimeInterval:60*60*24*daysToAdd];
                 
-                    dateField.placeholder = @"date";
+                    NSDateFormatter *df2 = [[NSDateFormatter alloc] init];
+                    [df2 setDateFormat:@"dd LLLL"];
+                    NSString *dayStr =  [df2 stringFromDate:newDate1];
+                    
+                    dateField.text = dayStr;
                 }
                 
                 
@@ -643,6 +658,9 @@
                 dateField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
                 
                 dateField.tag = 2;
+                
+                
+                dateField.font = [UIFont systemFontOfSize:15];
                 
                 dateField.inputAccessoryView = myToolbar;
                 UIImageView *paddingView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"calendericon.png"]];
@@ -820,7 +838,7 @@
                     
                     [paramsDict setValue:[tempDict valueForKey:@"id"] forKey:@"address_id"];
                     
-                    
+                    /*
                     
                     UIButton *button=[UIButton buttonWithType:UIButtonTypeCustom];
                     
@@ -833,6 +851,8 @@
                     
                     
                     [cell.contentView addSubview:button];
+                    
+                     */
                     
                     
                     isUpdate = NO;
@@ -873,14 +893,14 @@
                             
                             MYLog(@"str - %@",str);
 
-                            
+                            [addressLabel setText:str];
                             
                             //
                             
                             [paramsDict setValue:[defaultAddresDict valueForKey:@"id"] forKey:@"address_id"];
                             
                             
-                            
+                            /*
                             UIButton *button=[UIButton buttonWithType:UIButtonTypeCustom];
                             
                             [button setBackgroundImage:[UIImage imageNamed:@"EditAddress.png"] forState:UIControlStateNormal];
@@ -892,6 +912,8 @@
                             
                             
                             [cell.contentView addSubview:button];
+                             */
+                            
                             
                             
                         }

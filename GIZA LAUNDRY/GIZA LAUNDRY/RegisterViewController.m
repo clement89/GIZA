@@ -42,7 +42,7 @@
     self.tableView.frame = tableViewFrame;
     self.tableView.scrollIndicatorInsets = self.tableView.contentInset;
 
-    self.tableView.backgroundView=[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"registerBackground.png"]];
+    self.tableView.backgroundView=[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"regBackground.png"]];//registerBackground.png
     
     handler = [[APIHandler alloc]init];
     handler.delegate = self;
@@ -75,7 +75,10 @@
     [self dismissViewControllerAnimated:YES completion:nil];
     
 }
-
+- (IBAction)homebuttonClicked:(id)sender {
+    
+    [((AppDelegate*) [[UIApplication sharedApplication] delegate]) byPassLogin];
+}
 - (IBAction)registerButtonClicked:(id)sender {
     
     

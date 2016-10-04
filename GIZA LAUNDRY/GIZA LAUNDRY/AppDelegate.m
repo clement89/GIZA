@@ -189,7 +189,18 @@
     
     
 }
-
+-(void)byPassLogin{
+    
+    
+    
+    self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    
+    self.window.rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"SWRevealViewController"];
+    [self.window makeKeyAndVisible];
+    
+    
+}
 
 
 

@@ -117,6 +117,27 @@
 //    [addressDict setValue:[NSString stringWithFormat: @"%@", @"0.0"] forKey:@"latitude"];
 //    [addressDict setValue:[NSString stringWithFormat: @"%@", @"0.0"] forKey:@"longitude"];
     
+    CGFloat width = [UIScreen mainScreen].bounds.size.width;
+    
+    
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, 50)];
+    headerView.backgroundColor = [UIColor whiteColor];
+    
+    UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, width, 50)];
+    titleLabel.text = @"  ADD ADDRESS";
+    titleLabel.textAlignment = NSTextAlignmentLeft;
+    titleLabel.textColor = [UIColor whiteColor];
+    titleLabel.backgroundColor = [UIColor grayColor];
+    
+    [headerView addSubview:titleLabel];
+    
+    
+  
+    
+    self.tableView.tableHeaderView = headerView;
+    
+    
+    
     
     
 }
@@ -968,6 +989,19 @@
         
         
         
+        if(!isAddresFromMap)
+        {
+        
+            NSMutableDictionary *dictAddress = [NSMutableDictionary dictionaryWithDictionary:response];
+            [dictAddress setValue:@"" forKey:@"address1"];
+            [dictAddress setValue:@"" forKey:@"latitude"];
+            [dictAddress setValue:@"" forKey:@"longitude"];
+        
+            response = dictAddress;
+        }
+        
+        
+        
         if(savedData.count == 0){
             
             
@@ -990,9 +1024,11 @@
             [savedData addObject:response];
             
             
-            MYLog(@"savedData -- %@",savedData);
+            NSArray *addressArray = [[NSArray alloc]initWithArray:savedData];
             
-            if([savedData writeToFile:filePath atomically:YES]){
+            MYLog(@"savedData -- %@",addressArray);
+            
+            if([addressArray writeToFile:filePath atomically:YES]){
                 
                 MYLog(@"write to file success");
                 
