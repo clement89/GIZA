@@ -36,15 +36,20 @@
     
     NSMutableDictionary *paramsDict;
     
-    BOOL isFriday;
+    BOOL isPickUpFriday;
+    BOOL isDeliveryFriday;
     
     UITextField *pickUpSlot;
     UITextField *deleverySlot;
+    
+    UITextField *deleveryDate;
 
 }
 @synthesize isUpdate,updateItem;
 
 - (void)viewDidLoad {
+    
+    
     [super viewDidLoad];
     
     
@@ -516,6 +521,20 @@
                     NSString *dayStr =  [df2 stringFromDate:[NSDate date]];
                     
                     dateField.text = dayStr;
+                    
+                    
+                    df2 = [[NSDateFormatter alloc] init];
+                    [df2 setDateFormat:@"EEEE"];
+                    dayStr =  [df2 stringFromDate:[NSDate date]];
+                    MYLog(@"dayStr - %@",dayStr);
+                    
+                    if([dayStr isEqualToString:@"Friday"]){
+                        
+                        isPickUpFriday = YES;
+                    }else{
+                        
+                        isPickUpFriday = NO;
+                    }
                 
                 }
                 
@@ -648,6 +667,20 @@
                     NSString *dayStr =  [df2 stringFromDate:newDate1];
                     
                     dateField.text = dayStr;
+                    
+                    
+                    df2 = [[NSDateFormatter alloc] init];
+                    [df2 setDateFormat:@"EEEE"];
+                    dayStr =  [df2 stringFromDate:newDate1];
+                    MYLog(@"dayStr - %@",dayStr);
+                    
+                    if([dayStr isEqualToString:@"Friday"]){
+                        
+                        isDeliveryFriday = YES;
+                    }else{
+                        
+                        isDeliveryFriday = NO;
+                    }
                 }
                 
                 
@@ -674,7 +707,10 @@
                 dateField.leftViewMode = UITextFieldViewModeAlways;
                 [[dateField valueForKey:@"textInputTraits"] setValue:[UIColor clearColor] forKey:@"insertionPointColor"];
                 
-                [cell.contentView addSubview: dateField];
+                
+                deleveryDate = dateField;
+                
+                [cell.contentView addSubview: deleveryDate];
                 
                 
                 
@@ -1232,6 +1268,7 @@
     [textField setFont:[UIFont boldSystemFontOfSize:15]];
 
     activeTextField = textField;
+    [pickrView reloadAllComponents];
     return YES;
 }
 
@@ -1360,15 +1397,70 @@
     if([dayStr isEqualToString:@"Friday"]){
         pickUpSlot.text = @"";
         [paramsDict removeObjectForKey:@"pickup_slot"];
-        isFriday = YES;
+        isPickUpFriday = YES;
         [pickrView reloadAllComponents];
     }else{
     
-        isFriday = NO;
+        isPickUpFriday = NO;
     }
     
     
     
+    ////////
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    NSDate *deliDate = [df dateFromString:deleveryDate.text];
+    NSDate *datePick = [df dateFromString:formattedDate];
+   
+    
+    
+//    NSComparisonResult result = [datePick compare:deliDate];//[Date2 compare:Date1];
+//    
+//    if(result==NSOrderedAscending)
+//        NSLog(@"Date1 is in the future");
+//    else if(result==NSOrderedDescending)
+//        NSLog(@"Date1 is in the past");
+//        else
+//            NSLog(@"Both dates are the same");
+//    
+    
+    
+    if([datePick compare:deliDate] == NSOrderedDescending)
+    {
+        
+        int daysToAdd = 2;
+        NSDate * newDate1 = [chosenDate dateByAddingTimeInterval:60*60*24*daysToAdd];
+        
+        [dateDelivery setMinimumDate:[chosenDate dateByAddingTimeInterval:43200*4]];//min time +12:00 for the current date
+
+        
+        
+        NSDateFormatter *df3 = [[NSDateFormatter alloc] init];
+        [df3 setDateFormat:@"dd LLLL"];
+        NSString *dayStr1 =  [df3 stringFromDate:newDate1];
+        
+        deleveryDate.text = dayStr1;
+        
+        
+        
+        
+        formattedDate = [df1 stringFromDate:newDate1];
+        
+        [paramsDict setValue:formattedDate1 forKey:@"delivery_date"];
+        
+
+        
+    }
+    
+    
+
     
 }
 
@@ -1413,11 +1505,11 @@
     if([dayStr isEqualToString:@"Friday"]){
         deleverySlot.text = @"";
         [paramsDict removeObjectForKey:@"delivery_slot"];
-        isFriday = YES;
+        isDeliveryFriday = YES;
         [pickrView reloadAllComponents];
     }else{
     
-        isFriday = NO;
+        isDeliveryFriday = NO;
     }
     
     
@@ -1439,6 +1531,19 @@
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
     
+    BOOL isFriday;
+    if(activeTextField.tag == 11){
+        
+        isFriday = isPickUpFriday;
+        
+    }else if(activeTextField.tag == 12){
+        
+        isFriday = isDeliveryFriday;
+        
+    }
+
+    
+    
     if(isFriday){
         
         return 6;
@@ -1451,6 +1556,20 @@
 }
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+    
+    
+    BOOL isFriday;
+    if(activeTextField.tag == 11){
+        
+        isFriday = isPickUpFriday;
+        
+    }else if(activeTextField.tag == 12){
+        
+        isFriday = isDeliveryFriday;
+        
+    }
+    
+    
     
     NSString * title = nil;
     NSString *timeSlot;

@@ -54,8 +54,22 @@
     _passwordText.delegate = self;
     
     
+    [_phoneNumberText addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
+    
 }
 
+
+-(void)textFieldDidChange:(id)sender {
+    UITextField* myTextField = (UITextField*)sender;
+    //do something with myTextField.text
+    if(myTextField.text.length >8){
+    
+        UIAlertView *errorAlert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Phone number should not exceed eight digits!"  delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [errorAlert show];
+        return;
+    
+    }
+}
 
 // This method enables or disables the processing of return key
 -(BOOL) textFieldShouldReturn:(UITextField *)textField{
@@ -100,9 +114,9 @@
         [errorAlert show];
         return;
         
-    }else if([_phoneNumberText.text length] == 0){
+    }else if([_phoneNumberText.text length] < 8){
         
-        UIAlertView *errorAlert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Please Enter Mobile Number!"  delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        UIAlertView *errorAlert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Please Enter a valid Mobile Number!"  delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [errorAlert show];
         return;
         
