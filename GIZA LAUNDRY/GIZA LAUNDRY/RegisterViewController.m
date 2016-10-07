@@ -64,6 +64,8 @@
     //do something with myTextField.text
     if(myTextField.text.length >8){
     
+        _phoneNumberText.text = @"";
+        
         UIAlertView *errorAlert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Phone number should not exceed eight digits!"  delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [errorAlert show];
         return;

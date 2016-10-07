@@ -1435,28 +1435,46 @@
     if([datePick compare:deliDate] == NSOrderedDescending)
     {
         
-        int daysToAdd = 2;
-        NSDate * newDate1 = [chosenDate dateByAddingTimeInterval:60*60*24*daysToAdd];
         
-        [dateDelivery setMinimumDate:[chosenDate dateByAddingTimeInterval:43200*4]];//min time +12:00 for the current date
+        MYLog(@"jjjjjjj");
 
         
+    }
+    
+    
+    int daysToAdd = 2;
+    NSDate * newDate1 = [chosenDate dateByAddingTimeInterval:60*60*24*daysToAdd];
+    
+    [dateDelivery setMinimumDate:[chosenDate dateByAddingTimeInterval:43200*4]];//min time +12:00 for the current date
+    
+    
+    
+    NSDateFormatter *df3 = [[NSDateFormatter alloc] init];
+    [df3 setDateFormat:@"dd LLLL"];
+    NSString *dayStr1 =  [df3 stringFromDate:newDate1];
+    
+    deleveryDate.text = dayStr1;
+    
+    
+    
+    
+    formattedDate = [df1 stringFromDate:newDate1];
+    
+    [paramsDict setValue:formattedDate1 forKey:@"delivery_date"];
+    
+    ////////
+    
+    
+    dayStr =  [df2 stringFromDate:newDate1];
+    MYLog(@"dayStr - %@",dayStr);
+    
+    if([dayStr isEqualToString:@"Friday"]){
+        deleverySlot.text = @"";
+        [paramsDict removeObjectForKey:@"delivery_slot"];
+        isDeliveryFriday = YES;
+    }else{
         
-        NSDateFormatter *df3 = [[NSDateFormatter alloc] init];
-        [df3 setDateFormat:@"dd LLLL"];
-        NSString *dayStr1 =  [df3 stringFromDate:newDate1];
-        
-        deleveryDate.text = dayStr1;
-        
-        
-        
-        
-        formattedDate = [df1 stringFromDate:newDate1];
-        
-        [paramsDict setValue:formattedDate1 forKey:@"delivery_date"];
-        
-
-        
+        isDeliveryFriday = NO;
     }
     
     
