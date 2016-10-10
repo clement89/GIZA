@@ -179,7 +179,7 @@
     [datePicker setDatePickerMode:UIDatePickerModeDate];
     [datePicker addTarget:self action:@selector(onDatePickerValueChanged) forControlEvents:UIControlEventValueChanged];
     NSDate* currentTime = [NSDate date];
-    [datePicker setMinimumDate:[currentTime dateByAddingTimeInterval:43200]];//min time +12:00 for the current date
+    [datePicker setMinimumDate:[currentTime dateByAddingTimeInterval:0]];//min time +12:00 for the current date
     [datePicker setMaximumDate:[currentTime dateByAddingTimeInterval:2592000]]; // max day (+ 30 )
     
     dateDelivery = [[UIDatePicker alloc] initWithFrame:CGRectZero];
@@ -258,6 +258,11 @@
 //delivery_time_slot_id:4
     
     
+    
+    
+    
+    
+    
     MYLog(@"paramsDict - %@",paramsDict);
     
     if(![paramsDict valueForKey:@"address_id"]){
@@ -291,6 +296,100 @@
         [errorAlert show];
         
     }else{
+        
+        
+        
+        
+        
+        //48 hour validation
+        
+        NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+        [dateFormat setDateFormat:@"YYYY-MM-dd"];
+        
+        NSDate *pickUpDAte = [dateFormat dateFromString:[paramsDict valueForKey:@"pickup_date"]];
+        NSDate *deliveryDAte = [dateFormat dateFromString:[paramsDict valueForKey:@"delivery_date"]];
+        
+        
+        
+        NSDateComponents *components;
+        NSInteger days;
+        
+        components = [[NSCalendar currentCalendar] components: NSCalendarUnitDay
+                                                     fromDate: pickUpDAte toDate: deliveryDAte options: 0];
+        days = [components day];
+        
+        
+        MYLog(@"------ %ld",(long)days);
+        
+        
+        if(days == 2){
+            
+            NSUInteger picupTime = [[paramsDict valueForKey:@"time_slot_id"]integerValue];
+            NSUInteger deleveryTime = [[paramsDict valueForKey:@"delivery_time_slot_id"]integerValue];
+            
+            
+            MYLog(@"pick up ----- %lu delevery slot = %lu",(unsigned long)picupTime,(unsigned long)deleveryTime);
+            
+            
+            if(picupTime > deleveryTime){
+                
+                
+                UIAlertView *errorAlert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"There should be 48 hours difference between pick up and delivery.Kindly set the date and time accordingly."  delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                [errorAlert show];
+                
+                return;
+                
+            }
+            
+            
+        }
+        
+        
+       //time validation...
+        
+        
+        NSString *dateNow = [dateFormat stringFromDate:[NSDate date]];
+        
+        if([[paramsDict valueForKey:@"pickup_date"] isEqualToString: dateNow])
+        {
+            
+            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+            
+            [formatter setDateFormat:@"HH"];
+            
+//          [formatter setLocale:[NSLocale currentLocale]];
+            
+            
+            NSString *strTimeNow = [formatter stringFromDate:[NSDate date]];
+            
+            MYLog(@"now -- %@",strTimeNow);
+            
+            NSUInteger picupTime = [[paramsDict valueForKey:@"time_slot_id"]integerValue];
+            
+            
+            NSUInteger timeNow = [strTimeNow integerValue];
+            picupTime +=7;
+
+            MYLog(@"picupTime -- %d",picupTime);
+            MYLog(@"timeNow -- %d",timeNow);
+            
+            if(picupTime > timeNow){
+            
+            
+            
+            
+            }
+            
+        }
+        
+        
+
+        
+        
+        
+        
+        
+        
     
         [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeGradient];
         [SVProgressHUD showWithStatus:@"Confirming order"];
@@ -348,6 +447,52 @@
         [errorAlert show];
         
     }else{
+        
+        
+        NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+        [dateFormat setDateFormat:@"YYYY-MM-dd"];
+        
+        NSDate *pickUpDAte = [dateFormat dateFromString:[paramsDict valueForKey:@"pickup_date"]];
+        NSDate *deliveryDAte = [dateFormat dateFromString:[paramsDict valueForKey:@"delivery_date"]];
+        
+        
+        
+        NSDateComponents *components;
+        NSInteger days;
+        
+        components = [[NSCalendar currentCalendar] components: NSCalendarUnitDay
+                                                     fromDate: pickUpDAte toDate: deliveryDAte options: 0];
+        days = [components day];
+        
+        
+        MYLog(@"------ %ld",(long)days);
+        
+        
+        if(days == 2){
+            
+            NSUInteger picupTime = [[paramsDict valueForKey:@"time_slot_id"]integerValue];
+            NSUInteger deleveryTime = [[paramsDict valueForKey:@"delivery_time_slot_id"]integerValue];
+            
+            
+            MYLog(@"pick up ----- %lu delevery slot = %lu",(unsigned long)picupTime,(unsigned long)deleveryTime);
+            
+            
+            if(picupTime > deleveryTime){
+                
+                
+                UIAlertView *errorAlert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"There should be 48 hours difference between pick up and delivery.Kindly set the date and time accordingly."  delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                [errorAlert show];
+                
+                return;
+                
+            }
+            
+            
+        }
+        
+
+        
+        
         
         [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeGradient];
         [SVProgressHUD showWithStatus:@"Updating order"];
@@ -1678,7 +1823,9 @@
     
     
     }
-        activeTextField.text = title;
+    
+    
+    
     
     
     
@@ -1693,7 +1840,17 @@
         
     }
 
+    //activeTextField.text = title;
+    
     return title;
+    
+    
+}
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
+
+
+    activeTextField.text = [self pickerView:pickerView titleForRow:row forComponent:component];
+    
 }
 #pragma mark - UIAlertView delegate
 
@@ -1762,7 +1919,16 @@
         
         
     }
-    
+    if([APIname isEqualToString:@"UPDATE_ORDER"]){
+        
+        
+        UIAlertView *errorAlert = [[UIAlertView alloc]initWithTitle:@"Success" message:@"Order updated successfully!"  delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        //errorAlert.tag = 29;
+        [errorAlert show];
+        
+        
+        
+    }
     
     
 }
