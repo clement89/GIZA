@@ -357,8 +357,6 @@
             
             [formatter setDateFormat:@"HH"];
             
-//          [formatter setLocale:[NSLocale currentLocale]];
-            
             
             NSString *strTimeNow = [formatter stringFromDate:[NSDate date]];
             
@@ -376,7 +374,10 @@
             if(picupTime > timeNow){
             
             
-            
+                UIAlertView *errorAlert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Pick Up time must be grater than current time."  delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                [errorAlert show];
+                
+                return;
             
             }
             
@@ -489,6 +490,47 @@
             
             
         }
+        
+
+        //time validation...
+        
+        
+        NSString *dateNow = [dateFormat stringFromDate:[NSDate date]];
+        
+        if([[paramsDict valueForKey:@"pickup_date"] isEqualToString: dateNow])
+        {
+            
+            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+            
+            [formatter setDateFormat:@"HH"];
+            
+            
+            NSString *strTimeNow = [formatter stringFromDate:[NSDate date]];
+            
+            MYLog(@"now -- %@",strTimeNow);
+            
+            NSUInteger picupTime = [[paramsDict valueForKey:@"time_slot_id"]integerValue];
+            
+            
+            NSUInteger timeNow = [strTimeNow integerValue];
+            picupTime +=7;
+            
+            MYLog(@"picupTime -- %d",picupTime);
+            MYLog(@"timeNow -- %d",timeNow);
+            
+            if(picupTime > timeNow){
+                
+                
+                UIAlertView *errorAlert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Pick Up time must be grater than current time."  delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                [errorAlert show];
+                
+                return;
+                
+            }
+            
+        }
+        
+        
         
 
         
