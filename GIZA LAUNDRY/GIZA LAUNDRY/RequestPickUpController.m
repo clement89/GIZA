@@ -371,7 +371,7 @@
             MYLog(@"picupTime -- %d",picupTime);
             MYLog(@"timeNow -- %d",timeNow);
             
-            if(picupTime > timeNow){
+            if(picupTime < timeNow){
             
             
                 UIAlertView *errorAlert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Pick Up time must be grater than current time."  delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
@@ -450,6 +450,8 @@
     }else{
         
         
+        //48 hour validation
+        
         NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
         [dateFormat setDateFormat:@"YYYY-MM-dd"];
         
@@ -491,7 +493,7 @@
             
         }
         
-
+        
         //time validation...
         
         
@@ -518,7 +520,7 @@
             MYLog(@"picupTime -- %d",picupTime);
             MYLog(@"timeNow -- %d",timeNow);
             
-            if(picupTime > timeNow){
+            if(picupTime < timeNow){
                 
                 
                 UIAlertView *errorAlert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Pick Up time must be grater than current time."  delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
@@ -529,7 +531,6 @@
             }
             
         }
-        
         
         
 

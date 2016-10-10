@@ -392,6 +392,7 @@
             [self.tableView addSubview:hairline];
             
             
+            /*
             
             UIButton *addButton = [[UIButton alloc] initWithFrame:CGRectMake(self.tableView.frame.size.width-cell.frame.size.height*2,rectOfCellInSuperview.origin.y-cell.frame.size.height/2*1.4-5,cell.frame.size.height*1.4,cell.frame.size.height*1.4)];
             
@@ -411,7 +412,7 @@
             
             addButton.contentMode = UIViewContentModeScaleAspectFit;
             
-            
+            */
             
             UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 200, 30)];
             
