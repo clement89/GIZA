@@ -366,10 +366,16 @@
             
             
             NSUInteger timeNow = [strTimeNow integerValue];
+            
+            if(picupTime >=5){
+            
+                picupTime +=2;
+            }
+            
             picupTime +=7;
 
-            MYLog(@"picupTime -- %d",picupTime);
-            MYLog(@"timeNow -- %d",timeNow);
+            MYLog(@"picupTime -- %lu",(unsigned long)picupTime);
+            MYLog(@"timeNow -- %lu",(unsigned long)timeNow);
             
             if(picupTime < timeNow){
             
@@ -389,13 +395,25 @@
         
         
         
+        if(days < 2){
+            
+            UIAlertView *errorAlert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"There should be 48 hours difference between pick up and delivery.Kindly set the date and time accordingly."  delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [errorAlert show];
+            
+            return;
         
+        
+        }else{
+        
+            [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeGradient];
+            [SVProgressHUD showWithStatus:@"Confirming order"];
+            
+            [handler conformOrder:paramsDict];
+        
+        }
         
     
-        [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeGradient];
-        [SVProgressHUD showWithStatus:@"Confirming order"];
         
-        [handler conformOrder:paramsDict];
     
     
     }
@@ -515,10 +533,20 @@
             
             
             NSUInteger timeNow = [strTimeNow integerValue];
+            
+            if(picupTime >=5){
+                
+                picupTime +=2;
+            }
+            
+            
+            
             picupTime +=7;
             
-            MYLog(@"picupTime -- %d",picupTime);
-            MYLog(@"timeNow -- %d",timeNow);
+            
+            
+            MYLog(@"picupTime -- %lu",(unsigned long)picupTime);
+            MYLog(@"timeNow -- %lu",(unsigned long)timeNow);
             
             if(picupTime < timeNow){
                 
@@ -535,12 +563,26 @@
         
 
         
+        if(days < 2){
+            
+            UIAlertView *errorAlert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"There should be 48 hours difference between pick up and delivery.Kindly set the date and time accordingly."  delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [errorAlert show];
+            
+            return;
+            
+            
+        }else{
+            
+            
+            [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeGradient];
+            [SVProgressHUD showWithStatus:@"Updating order"];
+            
+            [handler updateOrder:paramsDict orderId:[updateItem valueForKey:@"id"]];
+            
+            
+        }
         
         
-        [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeGradient];
-        [SVProgressHUD showWithStatus:@"Updating order"];
-        
-        [handler updateOrder:paramsDict orderId:[updateItem valueForKey:@"id"]];
         
         
     }
