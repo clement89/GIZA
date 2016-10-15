@@ -17,6 +17,7 @@
 @implementation RegisterViewController{
 
     APIHandler *handler;
+    NSDictionary *userDict;
 }
 
 - (void)viewDidLoad {
@@ -141,13 +142,13 @@
     MYLog(@"registerInfoDict - %@",registerInfoDict);
     
     
+    userDict = registerInfoDict;
     
     
-    [handler tempRegisteUser:registerInfoDict];
     [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeGradient];
     [SVProgressHUD showWithStatus:@"Loading"];
     
-    
+    [handler tempRegisteUser:registerInfoDict];
     
     
     
@@ -172,6 +173,17 @@
             UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"Confirm OTP" style:UIAlertActionStyleDefault
                                                                   handler:^(UIAlertAction * action) {
                                                                       //use alert.textFields[0].text
+                                                                      
+                                                                      
+                                                                      NSDictionary *tempDict = [NSDictionary dictionaryWithObjectsAndKeys:@"otp",alert.textFields[0].text,@"phone_no",_phoneNumberText.text, nil];
+                                                                      
+                                                                      
+                                                                      [handler checkOTP:tempDict];
+                                                                      [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeGradient];
+                                                                      [SVProgressHUD showWithStatus:@"Loading"];
+                                                                      
+                                                                      
+                                                                      
                                                                   }];
             UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault
                                                                  handler:^(UIAlertAction * action) {
@@ -192,6 +204,31 @@
             [self presentViewController:alert animated:YES completion:nil];
 
             
+        }else if([APIname isEqualToString:@"CHECK_OTP"]){
+            
+            
+            if([response valueForKey:@"success"]){
+                
+                
+                
+                if([[response valueForKey:@"success"] isEqualToString:@"true"]){
+                    
+                    [handler registeUser:userDict];
+                
+                
+                
+                }else{
+                
+                    [[[UIAlertView alloc] initWithTitle:@"Error" message:@"OTP is incorrect!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+                
+                
+                }
+            
+            
+            }
+            
+        
+        
         }
         else if([APIname isEqualToString:@"TEMP_REGISTRATION"]){
             

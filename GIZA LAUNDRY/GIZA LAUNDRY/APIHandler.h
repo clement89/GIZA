@@ -21,6 +21,10 @@
 #define SEND_OTP_API @"http://algiza.codeaweb.net/api/v1/user/send-otp"
 
 
+#define CHECK_OTP_API @"http://algiza.codeaweb.net/api/v1/user/check-otp"
+
+
+
 #define REGISTER_API @"http://algiza.codeaweb.net/api/v1/user/register"
 
 
@@ -104,6 +108,7 @@
 
 -(void)tempRegisteUser :(NSDictionary *)parametersDict;
 -(void)sendOTP :(NSDictionary *)parametersDict;
+-(void)checkOTP :(NSDictionary *)parametersDict;
 -(void)registeUser :(NSDictionary *)parametersDict;
 -(void)loginUser :(NSDictionary *)parametersDict;
 -(void)registerMobile :(NSDictionary *)parametersDict;
