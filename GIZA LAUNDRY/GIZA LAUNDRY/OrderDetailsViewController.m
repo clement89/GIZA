@@ -33,7 +33,7 @@
     //Add header....
     
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 50)];
-    headerView.backgroundColor = [UIColor grayColor];
+    headerView.backgroundColor = [UIColor blackColor];
     
     UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 10, self.tableView.frame.size.width, 30)];
     titleLabel.text = @"STATUS";

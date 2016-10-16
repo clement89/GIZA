@@ -122,7 +122,7 @@
     
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 50)];
     
-    view.backgroundColor = [UIColor grayColor];
+    view.backgroundColor = [UIColor blackColor];
     
     
     NSArray *itemArray = [NSArray arrayWithObjects: @"DRY CLEANING", @"IRONING", @"WASHING", nil];

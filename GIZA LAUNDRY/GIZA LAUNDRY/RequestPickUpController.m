@@ -149,7 +149,7 @@
     //Add header ....
     
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 50)];
-    headerView.backgroundColor = [UIColor grayColor];
+    headerView.backgroundColor = [UIColor blackColor];
     
     UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 10, self.tableView.frame.size.width, 30)];
     titleLabel.text = @"REQUEST A PICK UP";
@@ -177,6 +177,10 @@
     
     datePicker = [[UIDatePicker alloc] initWithFrame:CGRectZero];
     [datePicker setDatePickerMode:UIDatePickerModeDate];
+    
+    
+    
+    
     [datePicker addTarget:self action:@selector(onDatePickerValueChanged) forControlEvents:UIControlEventValueChanged];
     NSDate* currentTime = [NSDate date];
     [datePicker setMinimumDate:[currentTime dateByAddingTimeInterval:0]];//min time +12:00 for the current date
@@ -747,7 +751,7 @@
                     
                     
                     NSDateFormatter *df2 = [[NSDateFormatter alloc] init];
-                    [df2 setDateFormat:@"dd LLLL"];
+                    [df2 setDateFormat:@"EEEE LLL"];
                     NSString *dayStr =  [df2 stringFromDate:[NSDate date]];
                     
                     dateField.text = dayStr;
@@ -893,7 +897,7 @@
                     NSDate *newDate1 = [now dateByAddingTimeInterval:60*60*24*daysToAdd];
                 
                     NSDateFormatter *df2 = [[NSDateFormatter alloc] init];
-                    [df2 setDateFormat:@"dd LLLL"];
+                    [df2 setDateFormat:@"EEEE LLL"];
                     NSString *dayStr =  [df2 stringFromDate:newDate1];
                     
                     dateField.text = dayStr;
@@ -1364,7 +1368,7 @@
         
         
         NSDateFormatter *df = [[NSDateFormatter alloc] init];
-        [df setDateFormat:@"dd LLLL"];
+        [df setDateFormat:@"EEEE LLL"];
         
         
         
@@ -1395,7 +1399,7 @@
         
         
         NSDateFormatter *df = [[NSDateFormatter alloc] init];
-        [df setDateFormat:@"dd LLLL"];
+        [df setDateFormat:@"EEEE LLL"];
         
         
         
@@ -1525,7 +1529,7 @@
         
         
         NSDateFormatter *df = [[NSDateFormatter alloc] init];
-        [df setDateFormat:@"dd LLLL"];
+        [df setDateFormat:@"EEEE LLL"];
         
         
         
@@ -1561,7 +1565,7 @@
         
         
         NSDateFormatter *df = [[NSDateFormatter alloc] init];
-        [df setDateFormat:@"dd LLLL"];
+        [df setDateFormat:@"EEEE LLL"];
         
         
         
@@ -1606,9 +1610,11 @@
     
     
     NSDateFormatter *df = [[NSDateFormatter alloc] init];
-    [df setDateFormat:@"dd LLLL"];
+    //[df setDateFormat:@"dd LLLL"];
     
-
+    [df setDateFormat:@"EEEE LLL"];
+    
+    
     
     NSString *formattedDate = [df stringFromDate:chosenDate];
     
@@ -1680,7 +1686,9 @@
     
     
     NSDateFormatter *df3 = [[NSDateFormatter alloc] init];
-    [df3 setDateFormat:@"dd LLLL"];
+    //[df3 setDateFormat:@"dd LLLL"];
+    [df setDateFormat:@"EEEE LLL"];
+    
     NSString *dayStr1 =  [df3 stringFromDate:newDate1];
     
     deleveryDate.text = dayStr1;
@@ -1733,7 +1741,7 @@
     
     
     NSDateFormatter *df = [[NSDateFormatter alloc] init];
-    [df setDateFormat:@"dd LLLL"];
+    [df setDateFormat:@"EEEE LLL"];
     
     
     

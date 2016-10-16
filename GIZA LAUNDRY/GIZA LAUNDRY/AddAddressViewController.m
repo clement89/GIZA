@@ -127,7 +127,7 @@
     titleLabel.text = @"  ADD ADDRESS";
     titleLabel.textAlignment = NSTextAlignmentLeft;
     titleLabel.textColor = [UIColor whiteColor];
-    titleLabel.backgroundColor = [UIColor grayColor];
+    titleLabel.backgroundColor = [UIColor blackColor];
     
     [headerView addSubview:titleLabel];
     
@@ -630,6 +630,7 @@
             
             
             
+            
             locationManager = [[CLLocationManager alloc] init];
             locationManager.delegate = self;
             locationManager.desiredAccuracy = kCLLocationAccuracyBest;
@@ -641,6 +642,9 @@
             [locationManager requestWhenInUseAuthorization];
             
             myMapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width , 250)];
+            
+            [cell addSubview:myMapView];
+            
             
             
             [myMapView setShowsUserLocation:YES];
@@ -663,7 +667,7 @@
            
 
             
-            [cell addSubview:myMapView];
+            
             
             
         }else{
@@ -802,6 +806,9 @@
     CLLocation *currentLocation = newLocation;
     
     
+    CLLocationCoordinate2D  coordinate = [newLocation coordinate];
+    myMapView.region = MKCoordinateRegionMakeWithDistance(coordinate, 250, 250);
+    
     
     
     if (currentLocation != nil) {
@@ -834,6 +841,7 @@
     mapRegion.span.longitudeDelta = 0.2;
     
     [myMapView setRegion:mapRegion animated: YES];
+    
 }
 
 

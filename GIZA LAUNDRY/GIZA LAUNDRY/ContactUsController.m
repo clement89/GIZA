@@ -68,7 +68,7 @@
     titleLabel.text = @"  CONTACT US";
     titleLabel.textAlignment = NSTextAlignmentLeft;
     titleLabel.textColor = [UIColor whiteColor];
-    titleLabel.backgroundColor = [UIColor grayColor];
+    titleLabel.backgroundColor = [UIColor blackColor];
     
     [headerView addSubview:titleLabel];
     

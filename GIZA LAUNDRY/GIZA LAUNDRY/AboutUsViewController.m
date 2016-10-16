@@ -57,7 +57,7 @@
     titleLabel.textAlignment = NSTextAlignmentLeft;
     titleLabel.font = [UIFont systemFontOfSize:18];
     titleLabel.textColor = [UIColor whiteColor];
-    titleLabel.backgroundColor = [UIColor grayColor];
+    titleLabel.backgroundColor = [UIColor blackColor];
     
     [self.view addSubview:titleLabel];
     
@@ -125,7 +125,9 @@
     
     
     
-    NSRange range = [text rangeOfString:@"GIZA LAUNDRY"];
+    NSRange range = [text rangeOfString:@"GIZA"];
+    
+    NSRange range0 = [text rangeOfString:@"LAUNDRY"];
     
     
     NSRange range1 = [text rangeOfString:@"dry cleaning, washing, and steam pressing"];
@@ -163,6 +165,12 @@
                                 };
         
         
+        NSDictionary *attrs0 = @{
+                                NSFontAttributeName:[UIFont fontWithName:@"Arial-BoldMT" size:16],
+                                NSForegroundColorAttributeName:[UIColor redColor]
+                                };
+        
+        
         NSDictionary *attrs1 = @{
                                 NSFontAttributeName:[UIFont fontWithName:@"Arial-BoldItalicMT" size:fontSize],
                                 NSForegroundColorAttributeName:[UIColor blackColor]
@@ -174,8 +182,8 @@
                                  };
         
         NSDictionary *attrs3 = @{
-                                 NSFontAttributeName:[UIFont fontWithName:@"Arial-BoldMT" size:18],
-                                 NSForegroundColorAttributeName:[UIColor brownColor]
+                                 NSFontAttributeName:[UIFont fontWithName:@"Arial-BoldItalicMT" size:18],
+                                 NSForegroundColorAttributeName:[UIColor orangeColor]
                                  };
         
         
@@ -194,6 +202,10 @@
         // Create the attributed string (text + attributes)
         NSMutableAttributedString *attributedText = [[NSMutableAttributedString alloc] initWithString:text attributes:subAttrs];
         [attributedText setAttributes:attrs range:range];
+        
+        [attributedText setAttributes:attrs0 range:range0];
+        
+        
         [attributedText setAttributes:attrs1 range:range1];
         [attributedText setAttributes:attrs1 range:range2];
         [attributedText setAttributes:attrs2 range:range3];
