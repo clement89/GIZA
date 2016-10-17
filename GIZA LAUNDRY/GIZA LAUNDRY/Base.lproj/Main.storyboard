@@ -21,7 +21,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" id="jS1-An-ihb">
                                 <frame key="frameInset" minX="23" minY="56.07%" height="66" maxX="25"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.80680199898580207" green="0.73744405351209863" blue="0.87249447601010099" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.75092032068062831" green="0.74048072369620177" blue="0.53037254842282666" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
                                 <state key="normal" title="LOGIN">
                                     <color key="titleShadowColor" red="0.52497632579999998" green="0.52497632579999998" blue="0.52497632579999998" alpha="1" colorSpace="calibratedRGB"/>
@@ -36,10 +36,10 @@
                                     <segue destination="LEr-xN-zN6" kind="modal" id="Mic-3N-v6h"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="tzJ-4O-qJz">
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="tzJ-4O-qJz">
                                 <frame key="frameInset" minX="24" minY="38.60%" height="66" maxX="25"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.83566571040000004" green="0.72825297720000004" blue="0.1534430762" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.96605787102464602" green="0.66747759378689109" blue="0.19547413068013408" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
                                 <state key="normal" title="REGISTER"/>
                                 <state key="selected">
