@@ -49,6 +49,8 @@
 -(void)sendOTP :(NSDictionary *)parametersDict{
     
     
+    MYLog(@"dictt - %@",parametersDict);
+    
     
     
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
@@ -63,7 +65,7 @@
         
         if (error) {
             
-            [delegate APIReponseWithError:responseObject];
+            [delegate APIReponseWithErrorArray:responseObject];
             
         } else {//Success
             

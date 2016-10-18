@@ -634,22 +634,43 @@
             locationManager = [[CLLocationManager alloc] init];
             locationManager.delegate = self;
             locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-            locationManager.distanceFilter = kCLLocationAccuracyKilometer;
+            locationManager.distanceFilter = kCLDistanceFilterNone;
+            
+            [locationManager startUpdatingLocation];
             
             // showing user location with the blue dot
             
             
-            [locationManager requestWhenInUseAuthorization];
+            if ([locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)])
+            {
+                [locationManager requestWhenInUseAuthorization];
+            }
             
             myMapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width , 250)];
             
             [cell addSubview:myMapView];
             
-            
+            myMapView.delegate = self;
             
             [myMapView setShowsUserLocation:YES];
             
-            myMapView.delegate = self;
+            
+//            if ([CLLocationManager locationServicesEnabled]){
+//                
+//                NSLog(@"Location Services Enabled");
+//                
+//                if ([CLLocationManager authorizationStatus]==kCLAuthorizationStatusDenied){
+//                    
+//                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"App Permission Denied"
+//                                                       message:@"To re-enable, please go to Settings and turn on Location Service for this app."
+//                                                      delegate:nil
+//                                             cancelButtonTitle:@"OK"
+//                                             otherButtonTitles:nil];
+//                    [alert show];
+//                }
+//            }
+            
+            
             
             // getting user coordinates
             CLLocation *location = [locationManager location];
@@ -657,9 +678,9 @@
             
             
             // showing them in the mapView
-            myMapView.region = MKCoordinateRegionMakeWithDistance(coordinate, 250, 250);
+            myMapView.region = MKCoordinateRegionMakeWithDistance(coordinate, 50, 100);
             
-            [locationManager startUpdatingLocation];
+            
             
 
             
@@ -792,9 +813,15 @@
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
     MYLog(@"didFailWithError: %@", error);
-    UIAlertView *errorAlert = [[UIAlertView alloc]
-                               initWithTitle:@"Error" message:@"Failed to Get Your Location" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-    [errorAlert show];
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"App Permission Denied"
+                                                    message:@"To re-enable, please go to Settings and turn on Location Service for this app."
+                                                   delegate:nil
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles:nil];
+    [alert show];
+    
+    
 }
 
 
@@ -807,7 +834,7 @@
     
     
     CLLocationCoordinate2D  coordinate = [newLocation coordinate];
-    myMapView.region = MKCoordinateRegionMakeWithDistance(coordinate, 250, 250);
+    myMapView.region = MKCoordinateRegionMakeWithDistance(coordinate, 50, 50);
     
     
     
@@ -835,12 +862,12 @@
 
 -(void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
 {
-    MKCoordinateRegion mapRegion;
-    mapRegion.center = mapView.userLocation.coordinate;
-    mapRegion.span.latitudeDelta = 0.2;
-    mapRegion.span.longitudeDelta = 0.2;
-    
-    [myMapView setRegion:mapRegion animated: YES];
+//    MKCoordinateRegion mapRegion;
+//    mapRegion.center = mapView.userLocation.coordinate;
+//    mapRegion.span.latitudeDelta = 0.2;
+//    mapRegion.span.longitudeDelta = 0.2;
+//    
+//    [myMapView setRegion:mapRegion animated: YES];
     
 }
 

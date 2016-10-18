@@ -751,7 +751,7 @@
                     
                     
                     NSDateFormatter *df2 = [[NSDateFormatter alloc] init];
-                    [df2 setDateFormat:@"EEEE LLL"];
+                    [df2 setDateFormat:@"EEE LLL"];
                     NSString *dayStr =  [df2 stringFromDate:[NSDate date]];
                     
                     dateField.text = dayStr;
@@ -897,7 +897,7 @@
                     NSDate *newDate1 = [now dateByAddingTimeInterval:60*60*24*daysToAdd];
                 
                     NSDateFormatter *df2 = [[NSDateFormatter alloc] init];
-                    [df2 setDateFormat:@"EEEE LLL"];
+                    [df2 setDateFormat:@"EEE LLL"];
                     NSString *dayStr =  [df2 stringFromDate:newDate1];
                     
                     dateField.text = dayStr;
@@ -1368,7 +1368,7 @@
         
         
         NSDateFormatter *df = [[NSDateFormatter alloc] init];
-        [df setDateFormat:@"EEEE LLL"];
+        [df setDateFormat:@"EEE LLL"];
         
         
         
@@ -1399,7 +1399,7 @@
         
         
         NSDateFormatter *df = [[NSDateFormatter alloc] init];
-        [df setDateFormat:@"EEEE LLL"];
+        [df setDateFormat:@"EEE LLL"];
         
         
         
@@ -1529,7 +1529,7 @@
         
         
         NSDateFormatter *df = [[NSDateFormatter alloc] init];
-        [df setDateFormat:@"EEEE LLL"];
+        [df setDateFormat:@"EEE LLL"];
         
         
         
@@ -1565,7 +1565,7 @@
         
         
         NSDateFormatter *df = [[NSDateFormatter alloc] init];
-        [df setDateFormat:@"EEEE LLL"];
+        [df setDateFormat:@"EEE LLL"];
         
         
         
@@ -1612,7 +1612,7 @@
     NSDateFormatter *df = [[NSDateFormatter alloc] init];
     //[df setDateFormat:@"dd LLLL"];
     
-    [df setDateFormat:@"EEEE LLL"];
+    [df setDateFormat:@"EEE LLL"];
     
     
     
@@ -1687,7 +1687,7 @@
     
     NSDateFormatter *df3 = [[NSDateFormatter alloc] init];
     //[df3 setDateFormat:@"dd LLLL"];
-    [df setDateFormat:@"EEEE LLL"];
+    [df setDateFormat:@"EEE LLL"];
     
     NSString *dayStr1 =  [df3 stringFromDate:newDate1];
     
@@ -1741,7 +1741,7 @@
     
     
     NSDateFormatter *df = [[NSDateFormatter alloc] init];
-    [df setDateFormat:@"EEEE LLL"];
+    [df setDateFormat:@"EEE LLL"];
     
     
     
