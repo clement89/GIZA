@@ -141,7 +141,15 @@
     
     
 }
+- (void)viewWillDisappear:(BOOL)animated{
 
+
+    [super viewWillDisappear:YES];
+    
+    [locationManager stopUpdatingLocation];
+    locationManager = nil;
+
+}
 
 
 //- (void)handleLongPress:(UIGestureRecognizer *)gestureRecognizer
@@ -306,14 +314,15 @@
             
             return;
             
-        }else if(![addressDict valueForKey:@"notes"]){
-            
-            UIAlertView *errorAlert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Please enter note."  delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-            [errorAlert show];
-            
-            return;
-            
-        }
+       }
+ //           else if(![addressDict valueForKey:@"notes"]){
+//            
+//            UIAlertView *errorAlert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Please enter note."  delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+//            [errorAlert show];
+//            
+//            return;
+//            
+//        }
 
 
         
@@ -1035,6 +1044,25 @@
             response = dictAddress;
         }
         
+        
+        //null checking
+        NSArray *allKeyArray = [response allKeys];
+        NSMutableDictionary *dictAddress = [NSMutableDictionary dictionaryWithDictionary:response];
+        
+        
+        for (NSString *keyStr in allKeyArray){
+        
+            if([response valueForKey:keyStr] == (id)[NSNull null]){
+                
+                [dictAddress setValue:@"" forKey:keyStr];
+                
+                
+            }
+        
+        }
+        response = dictAddress;
+        
+        /*******/
         
         
         if(savedData.count == 0){

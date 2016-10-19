@@ -221,6 +221,7 @@
 		EBDA356C1D2D762700F2BC59 /* NotificationsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationsViewController.m; sourceTree = "<group>"; };
 		EBDA356F1D2D774B00F2BC59 /* AboutUsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutUsViewController.h; sourceTree = "<group>"; };
 		EBDA35701D2D774B00F2BC59 /* AboutUsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutUsViewController.m; sourceTree = "<group>"; };
+		EBF82D611DB70CC30051D33A /* GIZA LAUNDRY.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "GIZA LAUNDRY.entitlements"; sourceTree = "<group>"; };
 		EBFAF83A1D95124C00FA69D9 /* date.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = date.png; path = images/date.png; sourceTree = "<group>"; };
 		EBFAF83B1D95124C00FA69D9 /* time.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = time.png; path = images/time.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -393,6 +394,7 @@
 		2073E4FB1D05A85D00B82CCA /* GIZA LAUNDRY */ = {
 			isa = PBXGroup;
 			children = (
+				EBF82D611DB70CC30051D33A /* GIZA LAUNDRY.entitlements */,
 				204CCA4A1D0AD20200840FAF /* SVProgressHUD */,
 				204CCA171D0AD1F300840FAF /* AFNetworking */,
 				2073E5131D05A8D000B82CCA /* SWRevealViewController */,
@@ -599,7 +601,8 @@
 				TargetAttributes = {
 					2073E4F81D05A85D00B82CCA = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = 94T9D2RW44;
+						DevelopmentTeam = FQJE2STC8C;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Push = {
 								enabled = 1;
@@ -835,17 +838,19 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "GIZA LAUNDRY/GIZA LAUNDRY.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 94T9D2RW44;
+				DEVELOPMENT_TEAM = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GIZA LAUNDRY/GizaLaundry-PrefixHeader.pch";
 				INFOPLIST_FILE = "GIZA LAUNDRY/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.Codea.GizaLaundry;
+				PRODUCT_BUNDLE_IDENTIFIER = com.giza.GizaLaundry;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -854,17 +859,19 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "GIZA LAUNDRY/GIZA LAUNDRY.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 94T9D2RW44;
+				DEVELOPMENT_TEAM = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GIZA LAUNDRY/GizaLaundry-PrefixHeader.pch";
 				INFOPLIST_FILE = "GIZA LAUNDRY/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.Codea.GizaLaundry;
+				PRODUCT_BUNDLE_IDENTIFIER = com.giza.GizaLaundry;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

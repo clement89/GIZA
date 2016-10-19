@@ -391,6 +391,21 @@
             
             }
             
+            
+            
+            
+            if(picupTime <= timeNow+1){
+                
+                
+                UIAlertView *errorAlert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"There should be 2 hours difference between pick up and current time.Kindly set pick up time accordingly."  delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                [errorAlert show];
+                
+                return;
+                
+            }
+            
+            
+            
         }
         
         
@@ -401,7 +416,7 @@
         
         if(days < 2){
             
-            UIAlertView *errorAlert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"There should be 48 hours difference between pick up and delivery.Kindly set the date and time accordingly."  delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            UIAlertView *errorAlert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"There should be 48 hours difference between pick up time and delivery.Kindly set the date and time accordingly."  delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
             [errorAlert show];
             
             return;
@@ -556,6 +571,16 @@
                 
                 
                 UIAlertView *errorAlert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Pick Up time must be grater than current time."  delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                [errorAlert show];
+                
+                return;
+                
+            }
+            
+            if(picupTime <= timeNow+1){
+                
+                
+                UIAlertView *errorAlert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"There should be 2 hours difference between pick time up and current time.Kindly set pick up time accordingly."  delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
                 [errorAlert show];
                 
                 return;
