@@ -166,7 +166,7 @@
         if([APIname isEqualToString:@"OTP"]){
             
             
-            UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"OTP Send to this number"
+            UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"OTP sent to this number"
                                                                            message:_phoneNumberText.text
                                                                     preferredStyle:UIAlertControllerStyleAlert];
             
@@ -175,7 +175,7 @@
                                                                       //use alert.textFields[0].text
                                                                       
                                                                       
-                                                                      NSDictionary *tempDict = [NSDictionary dictionaryWithObjectsAndKeys:@"otp",alert.textFields[0].text,@"phone_no",_phoneNumberText.text, nil];
+                                                                      NSDictionary *tempDict = [NSDictionary dictionaryWithObjectsAndKeys:alert.textFields[0].text,@"otp",_phoneNumberText.text,@"phone_no", nil];
                                                                       
                                                                       
                                                                       [handler checkOTP:tempDict];
@@ -188,12 +188,14 @@
             UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault
                                                                  handler:^(UIAlertAction * action) {
                                                                      //cancel action
+                                                                     [SVProgressHUD dismiss];
                                                                  }];
             [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
                 // A block for configuring the text field prior to displaying the alert
                 textField.placeholder = @"Enter OTP";
                 textField.textColor = [UIColor blueColor];
                 textField.clearButtonMode = UITextFieldViewModeWhileEditing;
+                [textField setKeyboardType:UIKeyboardTypePhonePad];
                 //        textField.borderStyle = UITextBorderStyleRoundedRect;
                 //        textField.secureTextEntry = YES;
                 

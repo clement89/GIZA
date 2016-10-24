@@ -11,74 +11,74 @@
 
 
 
-#define COUNTRYCODE_API @"/RechargeAplication/rest/rechargeservice/getCountryCodeOnIPAddress"
-
-//http://algiza.codeaweb.net/api/
-
-#define TEMP_REGISTER_API @"http://algiza.codeaweb.net/api/v1/user/temp-register"
 
 
-#define SEND_OTP_API @"http://algiza.codeaweb.net/api/v1/user/send-otp"
+//http://gizalaundry.com/api/
+
+#define TEMP_REGISTER_API @"http://gizalaundry.com/api/v1/user/temp-register"
 
 
-#define CHECK_OTP_API @"http://algiza.codeaweb.net/api/v1/user/check-otp"
+#define SEND_OTP_API @"http://gizalaundry.com/api/v1/user/send-otp"
+
+
+#define CHECK_OTP_API @"http://gizalaundry.com/api/v1/user/check-otp"
 
 
 
-#define REGISTER_API @"http://algiza.codeaweb.net/api/v1/user/register"
+#define REGISTER_API @"http://gizalaundry.com/api/v1/user/register"
 
 
-#define REGISTER_MOBILE__API @"http://algiza.codeaweb.net/api/v1/user/register-device"
+#define REGISTER_MOBILE__API @"http://gizalaundry.com/api/v1/user/register-device"
 
 
-#define LOGIN_API @"http://algiza.codeaweb.net/api/v1/user/login"
+#define LOGIN_API @"http://gizalaundry.com/api/v1/user/login"
 
 
-#define FORGOT_PASS_API @"http://algiza.codeaweb.net/api/v1/user/forgot-password"
+#define FORGOT_PASS_API @"http://gizalaundry.com/api/v1/user/forgot-password"
 
-#define RATE_CARD_API @"http://algiza.codeaweb.net/api/v1/order/rate-cards"
-
-
-#define GET_ADDRESS_API @"http://algiza.codeaweb.net/api/v1/user/my-address"
+#define RATE_CARD_API @"http://gizalaundry.com/api/v1/order/rate-cards"
 
 
-#define MY_ORDER_API @"http://algiza.codeaweb.net/api/v1/order/my-orders"
+#define GET_ADDRESS_API @"http://gizalaundry.com/api/v1/user/my-address"
 
 
-#define ADD_ADDRESS_API @"http://algiza.codeaweb.net/api/v1/user/add-address"
+#define MY_ORDER_API @"http://gizalaundry.com/api/v1/order/my-orders"
 
 
-#define UPDATE_ADDRESS_API @"http://algiza.codeaweb.net/api/v1/user/update-address/"
+#define ADD_ADDRESS_API @"http://gizalaundry.com/api/v1/user/add-address"
 
 
-#define GET_PROFILE_API @"http://algiza.codeaweb.net/api/v1/user/my-profile"
+#define UPDATE_ADDRESS_API @"http://gizalaundry.com/api/v1/user/update-address/"
 
 
-#define UPDATE_PASSWORD_API @"http://algiza.codeaweb.net/api/v1/user/change-password"
+#define GET_PROFILE_API @"http://gizalaundry.com/api/v1/user/my-profile"
 
 
-#define CONFORM_ORDER_API @"http://algiza.codeaweb.net/api/v1/order/request"
+#define UPDATE_PASSWORD_API @"http://gizalaundry.com/api/v1/user/change-password"
 
 
-#define UPDATE_ORDER_API @"http://algiza.codeaweb.net/api/v1/order/update-request/"
+#define CONFORM_ORDER_API @"http://gizalaundry.com/api/v1/order/request"
 
 
-#define SET_DEFAULT_ADDRESS_API @"http://algiza.codeaweb.net/api/v1/user/save-default-address"
+#define UPDATE_ORDER_API @"http://gizalaundry.com/api/v1/order/update-request/"
 
 
-#define DELETE_ADDRESS_API @"http://algiza.codeaweb.net/api/v1/user/delete-address/"
+#define SET_DEFAULT_ADDRESS_API @"http://gizalaundry.com/api/v1/user/save-default-address"
 
 
-#define UPDATE_PROFILE_API @"http://algiza.codeaweb.net/api/v1/user/update-profile"
+#define DELETE_ADDRESS_API @"http://gizalaundry.com/api/v1/user/delete-address/"
 
 
-#define GET_ZONE_API @"http://algiza.codeaweb.net/api/v1/common/zone-list?country_id="
+#define UPDATE_PROFILE_API @"http://gizalaundry.com/api/v1/user/update-profile"
 
 
-#define GET_NOTIFICATIONS_API @"http://algiza.codeaweb.net/api/v1/user/my-notifications"
+#define GET_ZONE_API @"http://gizalaundry.com/api/v1/common/zone-list?country_id="
 
 
-#define CANCEL_ORDER @"http://algiza.codeaweb.net/api/v1/order/cancel-order/"
+#define GET_NOTIFICATIONS_API @"http://gizalaundry.com/api/v1/user/my-notifications"
+
+
+#define CANCEL_ORDER @"http://gizalaundry.com/api/v1/order/cancel-order/"
 
 @protocol APIHandlerDelegate <NSObject>
 
